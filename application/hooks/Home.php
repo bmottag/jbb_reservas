@@ -15,7 +15,7 @@ class Home {
     public function check_login() {
         $error = FALSE;
 		$flag = TRUE;
-        $arrModules = array("login", "ieredirect", "external");
+        $arrModules = array("login", "ieredirect", "calendario");
         if (!in_array($this->ci->uri->segment(1), $arrModules)) {
             if ($this->ci->uri->segment(1) == "menu") {
                 if(($this->ci->uri->segment(2) . '/' . $this->ci->uri->segment(3)) != 'menu/salir') {

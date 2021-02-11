@@ -21,7 +21,7 @@ class Menu extends MX_Controller {
     public function salir() {
         $this->session->unset_userdata("auth");
         $this->session->sess_destroy();
-        redirect(base_url('login'));
+        redirect(base_url('calendario'));
     }
 
 
