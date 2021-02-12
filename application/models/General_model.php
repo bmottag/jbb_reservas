@@ -256,277 +256,30 @@ class General_model extends CI_Model {
 			return false;
 		}
 	}
-	
+
 		/**
-		 * Consulta lista de equipos
-		 * @since 19/11/2020
+		 * Consulta lista de horarios
+		 * @since 12/2/2021
 		 */
-		public function get_equipos_info($arrData) 
-		{		
+		public function get_horario_info($arrData)
+		{
 				$this->db->select();
-				$this->db->join('param_dependencias D', 'D.id_dependencia = A.fk_id_dependencia', 'INNER');
-				$this->db->join('param_tipo_equipos T', 'T.id_tipo_equipo = A.fk_id_tipo_equipo', 'INNER');
-
-				if (array_key_exists("idEquipo", $arrData)) {
-					$this->db->where('A.id_equipo', $arrData["idEquipo"]);
-				}
-				if (array_key_exists("estadoEquipo", $arrData)) {
-					$this->db->where('A.estado_equipo', $arrData["estadoEquipo"]);
-				}
-				if (array_key_exists("encryption", $arrData)) {
-					$this->db->where('A.qr_code_encryption ', $arrData["encryption"]);
-				}
-				if (array_key_exists("idTipoEquipo", $arrData) && $arrData["idTipoEquipo"] != '') {
-					$this->db->like('A.fk_id_tipo_equipo', $arrData["idTipoEquipo"]); 
-				}
-				if (array_key_exists("numero_inventario", $arrData) && $arrData["numero_inventario"] != '') {
-					$this->db->like('A.numero_inventario', $arrData["numero_inventario"]); 
-				}
-				if (array_key_exists("marca", $arrData) && $arrData["marca"] != '') {
-					$this->db->like('A.marca', $arrData["marca"]); 
-				}
-				if (array_key_exists("modelo", $arrData) && $arrData["modelo"] != '') {
-					$this->db->like('A.modelo', $arrData["modelo"]); 
-				}
-				if (array_key_exists("numero_serial", $arrData) && $arrData["numero_serial"] != '') {
-					$this->db->like('A.numero_serial', $arrData["numero_serial"]); 
-				}
-
-				$this->db->order_by('id_equipo', 'desc');
-				
-				if (array_key_exists("limit", $arrData)) {
-					$query = $this->db->get('equipos A', $arrData["limit"]);
-				}else{
-					$query = $this->db->get('equipos A');
-				}
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-		
-		/**
-		 * Consulta detalles de quipos tipo vehiculos
-		 * @since 3/12/2020
-		 */
-		public function equipos_detalle_vehiculo($arrData) 
-		{		
-				$this->db->select();				
-				$this->db->join('param_clase_vehiculo C', 'C.id_clase_vechiculo = A.fk_id_clase_vechiculo', 'LEFT');
-				$this->db->join('param_tipo_carroceria T', 'T.id_tipo_carroceria = A.fk_id_tipo_carroceria', 'LEFT');
-
-				if (array_key_exists("idEquipo", $arrData)) {
-					$this->db->where('A.fk_id_equipo', $arrData["idEquipo"]);
-				}
-				
-				$query = $this->db->get('equipos_detalle_vehiculo A');
-
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-		
-		/**
-		 * Consulta detalles de quipos tipo bombas
-		 * @since 9/12/2020
-		 */
-		public function equipos_detalle_bomba($arrData) 
-		{		
-				$this->db->select();				
-
-				if (array_key_exists("idEquipo", $arrData)) {
-					$this->db->where('A.fk_id_equipo_bomba', $arrData["idEquipo"]);
-				}
-				
-				$query = $this->db->get('equipos_detalle_bomba A');
-
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-		
-		/**
-		 * Lista de polizas
-		 * Modules: Dashboard 
-		 * @since 6/1/2021
-		 */
-		public function get_polizas($arrData) 
-		{		
-				$this->db->select();
-				$this->db->join('equipos E', 'E.id_equipo = P.fk_id_equipo_poliza ', 'INNER');
-				
-				if (array_key_exists("from", $arrData) && $arrData["from"] != '') {
-					$this->db->where('P.fecha_vencimiento >=', $arrData["from"]);
-				}				
-				if (array_key_exists("to", $arrData) && $arrData["to"] != '' && $arrData["from"] != '') {
-					$this->db->where('P.fecha_vencimiento <', $arrData["to"]);
-				}
-				
-				$this->db->order_by('P.id_equipo_poliza', 'desc');
-				$query = $this->db->get('equipos_poliza P');
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}			
-		}
-
-		/**
-		 * Lista de fotos por equipo
-		 * @since 14/12/2020
-		 */
-		public function get_fotos_equipos($arrData) 
-		{		
-				$this->db->select("A.*, CONCAT(first_name, ' ', last_name) name");
-				$this->db->join('usuarios U', 'U.id_user = A.fk_id_user_ef', 'INNER');
-
-				if (array_key_exists("idEquipo", $arrData)) {
-					$this->db->where('A.fk_id_equipo_foto', $arrData["idEquipo"]);
-				}
-				if (array_key_exists("idEquipoFoto", $arrData)) {
-					$this->db->where('A.id_equipo_foto', $arrData["idEquipoFoto"]);
-				}
-				
-				$this->db->order_by('A.id_equipo_foto', 'asc');
-				$query = $this->db->get('equipos_fotos A');
-
-
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-		
-		/**
-		 * Consulta lista de mantenimientos correctivo por equipo
-		 * @since 26/1/2021
-		 */
-		public function get_mantenimiento_correctivo($arrData)
-		{
-				$this->db->select("C.*, CONCAT(U.first_name, ' ', U.last_name) name");
-				$this->db->join('usuarios U', 'C.fk_id_user_correctivo = U.id_user', 'INNER');
-				if (array_key_exists("idEquipo", $arrData)) {
-					$this->db->where('C.fk_id_equipo_correctivo', $arrData["idEquipo"]);
-				}
-				if (array_key_exists("idMantenimiento", $arrData)) {
-					$this->db->where('C.id_correctivo', $arrData["idMantenimiento"]);
-				}
-				if (array_key_exists("filtroFecha", $arrData)) {
-					$this->db->where('C.fecha >=', $arrData["filtroFecha"]);
-				}
-				if (array_key_exists("estadoMantenimiento", $arrData)) {
-					$this->db->where('C.estado', $arrData["estadoMantenimiento"]);
-				}
-				$this->db->order_by('C.id_correctivo', 'desc');
-				$query = $this->db->get('mantenimiento_correctivo C');
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consulta orden de trabajo
-		 * @since 27/1/2021
-		 */
-		public function get_orden_trabajo($arrData)
-		{
-				$this->db->select("C.*, CONCAT(U.first_name, ' ', U.last_name) name, CONCAT(X.first_name, ' ', X.last_name) encargado");
-				$this->db->join('usuarios U', 'U.id_user = C.fk_id_user_orden', 'INNER');
-				$this->db->join('usuarios X', 'X.id_user = C.fk_id_user_encargado', 'INNER');
-				if (array_key_exists("idOrdenTrabajo", $arrData)) {
-					$this->db->where('C.id_orden_trabajo ', $arrData["idOrdenTrabajo"]);
-				}
-				if (array_key_exists("idMantenimiento", $arrData) && array_key_exists("tipoMantenimiento", $arrData)) {
-					$this->db->where('C.fk_id_mantenimiento', $arrData["idMantenimiento"]);
-				}
-				if (array_key_exists("tipoMantenimiento", $arrData)) {
-					$this->db->where('C.tipo_mantenimiento ', $arrData["tipoMantenimiento"]);
-				}
-				if (array_key_exists("idEquipo", $arrData)) {
-					$this->db->where('C.fk_id_equipo_ot', $arrData["idEquipo"]);
-				}
-				if (array_key_exists("estado", $arrData)) {
-					$this->db->where('C.estado_actual', $arrData["estado"]);
-				}
-				if (array_key_exists("from", $arrData) && $arrData["from"] != '') {
-					$this->db->where('C.fecha_asignacion >=', $arrData["from"]);
-				}				
-				if (array_key_exists("to", $arrData) && $arrData["to"] != '' && $arrData["from"] != '') {
-					$this->db->where('C.fecha_asignacion <=', $arrData["to"]);
-				}
-
-				$this->db->order_by('C.id_orden_trabajo', 'desc');
-				$query = $this->db->get('orden_trabajo C');
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consulta estado orden de trabajo
-		 * @since 29/1/2021
-		 */
-		public function get_estado_orden_trabajo($arrData)
-		{
-				$this->db->select("C.*, CONCAT(U.first_name, ' ', U.last_name) name");
-				$this->db->join('usuarios U', 'U.id_user = C.fk_id_user_ote', 'INNER');
-				if (array_key_exists("idOrdenTrabajoEstado", $arrData)) {
-					$this->db->where('C.id_orden_trabajo_estado', $arrData["idOrdenTrabajoEstado"]);
-				}
-				if (array_key_exists("idOrdenTrabajo", $arrData)) {
-					$this->db->where('C.fk_id_orden_trabajo_estado', $arrData["idOrdenTrabajo"]);
-				}
-
-				$this->db->order_by('C.id_orden_trabajo_estado', 'desc');
-				$query = $this->db->get('orden_trabajo_estado C');
-				if ($query->num_rows() > 0) {
-					return $query->result_array();
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Consulta lista de mantenimientos preventivos
-		 * @since 1/2/2021
-		 */
-		public function get_mantenimiento_preventivo($arrData)
-		{
-				$this->db->select("P.*, T.tipo_equipo, CONCAT(U.first_name, ' ', U.last_name) name");
-				$this->db->join('usuarios U', 'P.fk_id_user_preventivo = U.id_user', 'INNER');
-				$this->db->join('param_tipo_equipos T', 'T.id_tipo_equipo = P.fk_id_tipo_equipo_preventivo', 'INNER');
-				if (array_key_exists("idMantenimiento", $arrData)) {
-					$this->db->where('P.id_preventivo', $arrData["idMantenimiento"]);
+				if (array_key_exists("idHorario", $arrData)) {
+					$this->db->where('P.id_horario', $arrData["idHorario"]);
 				}
 				if (array_key_exists("estado", $arrData)) {
 					$this->db->where('P.estado', $arrData["estado"]);
 				}
-				if (array_key_exists("tipoEquipo", $arrData) && $arrData["tipoEquipo"] != '') {
-					$this->db->like('P.fk_id_tipo_equipo_preventivo', $arrData["tipoEquipo"]); 
+				if (array_key_exists("from", $arrData) && $arrData["from"] != '') {
+					$this->db->where('H.hora_inicial >=', $arrData["from"]);
+				}				
+				if (array_key_exists("to", $arrData) && $arrData["to"] != '' && $arrData["from"] != '') {
+					$this->db->where('H.hora_inicial <', $arrData["to"]);
 				}
-				if (array_key_exists("frecuencia", $arrData) && $arrData["frecuencia"] != '') {
-					$this->db->like('P.fk_id_frecuencia', $arrData["frecuencia"]); 
-				}
-				$this->db->order_by('P.id_preventivo', 'desc');
-				if (array_key_exists("limit", $arrData)) {
-					$query = $this->db->get('mantenimiento_preventivo P', $arrData["limit"]);
-				}else{
-					$query = $this->db->get('mantenimiento_preventivo P');
-				}
+				$this->db->order_by('H.id_horario', 'desc');
+
+				$query = $this->db->get('horarios H');
+
 				if ($query->num_rows() > 0) {
 					return $query->result_array();
 				} else {

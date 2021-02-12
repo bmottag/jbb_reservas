@@ -22,6 +22,7 @@
 			},
 
 			buttonText: { today:    'Hoy' },
+			noEventsText: 'No hay registros',
 			firstDay: 1, //para iniciar en lunes
 			 
 			initialView: 'listWeek',
@@ -29,7 +30,7 @@
 			editable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
 			events: {
-				url: 'dashboard/consulta',
+				url: 'calendario/consulta',
 				method: 'POST',
 				extraParams: {
 					custom_param1: 'something',
