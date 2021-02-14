@@ -3,9 +3,16 @@
 <script>
 $(document).ready(function(){
 	var i=1;
-	$('#add').click(function(){
+	$('#add').click(function()
+	{
 		i++;
-		$('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" placeholder="Nombre Completo" class="form-control name_list" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times"></i></button></td></tr>');
+		var CuposRestantes = $('#hddNumeroCuposRestantes').val();
+		if(i<=CuposRestantes){
+			$('#dynamic_field').append('<tr id="row'+i+'"><td><small>'+i+'</small></td><td><input type="text" name="name[]" placeholder="Nombre Completo" class="form-control name_list" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times"></i></button></td></tr>');
+		}else{
+			alert('Sse completo el limite de cupos permidos');
+		}
+
 	});
 
 	$(document).on('click', '.btn_remove', function(){
@@ -57,6 +64,7 @@ $(document).ready(function(){
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dynamic_field" border="0">
 				<tr>
+					<td><small>1</small></td>
 					<td>
 						<input type="text" name="name[]" placeholder="Nombre Completo" class="form-control name_list" required/>
 					</td>
