@@ -49,8 +49,18 @@ class Calendario extends CI_Controller {
 				$longitud = count($horarioInfo);
 				$i=1;
 				foreach ($horarioInfo as $data):
-					if($data['numero_cupos'] > 20){
-						$color = 'green';
+					
+					//revisar disponibilidad y estado
+					if($data['disponible'] == 1)
+					{
+						switch ($data['estado']) {
+							case 1:
+								$color = 'success';
+								break;
+							case 2:
+								$color = 'yellow';
+								break;
+						}
 					}else{
 						$color = 'red';
 					}
@@ -118,18 +128,29 @@ class Calendario extends CI_Controller {
 					{
 						$numeroCupos = $this->calendario_model->guardarUsuarios($idReserva);//guardo usuarios
 
+						//guardo numero de cupos
 						$arrParam = array(
 							'idReserva' => $idReserva,
 							'numeroCupos' => $numeroCupos
 						);
-						$this->calendario_model->actualizarReserva($arrParam);//guardo numero de cupos
+						$this->calendario_model->actualizarReserva($arrParam);
 
+						//actualizar el numero de cupos restantes en la tabla horarios
+						//si cumplio el numero maximo de cupos cambiar estado a cerrado
 						$NumeroCuposRestantes = $NumeroCuposRestantes - $numeroCupos;
+						$estado = '2'; //En processo
+						$disponibilidad = 1;
+						if($NumeroCuposRestantes == 0){
+							$estado = '3'; //cerrado
+							$disponibilidad = 2;
+						}
 						$arrParam = array(
 							'idHorario' => $idHorario,
-							'NumeroCuposRestantes' => $NumeroCuposRestantes
+							'NumeroCuposRestantes' => $NumeroCuposRestantes,
+							'estado' => $estado,
+							'disponibilidad' => $disponibilidad
 						);
-						$this->calendario_model->actualizarHorarios($arrParam);//actualizar el numero de cupos restantes en la tabla horarios
+						$this->calendario_model->actualizarHorarios($arrParam);
 
 						$data["result"] = true;					
 						$this->session->set_flashdata('retornoExito', 'Se guardó la información');

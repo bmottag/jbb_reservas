@@ -82,7 +82,9 @@
 		public function actualizarHorarios($arrData) 
 		{				
 				$data = array(
-					'numero_cupos_restantes' => $arrData['NumeroCuposRestantes']
+					'numero_cupos_restantes' => $arrData['NumeroCuposRestantes'],
+					'estado' => $arrData['estado'],
+					'disponible' => $arrData['disponibilidad']
 				);
 				
 				$this->db->where('id_horario',  $arrData['idHorario']);
