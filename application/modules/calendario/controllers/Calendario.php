@@ -51,23 +51,23 @@ class Calendario extends CI_Controller {
 				foreach ($horarioInfo as $data):
 					
 					//revisar disponibilidad y estado
-					if($data['disponible'] == 1)
+					if($data['disponible'] == 2)
 					{
+						$color = '#f7c0c0';
+					}else{
 						switch ($data['estado']) {
 							case 1:
-								$color = 'success';
+								$color = '#b1eeb1';
 								break;
 							case 2:
-								$color = 'yellow';
+								$color = '#f7f79a';
 								break;
 						}
-					}else{
-						$color = 'red';
 					}
 
 					echo  '{
 							  "id": "' . $data['id_horario'] . '",
-						      "title": "# Recorrido: ' . $data['id_horario'] . ' - Cupos disponibles: ' . $data['numero_cupos'] . '",
+						      "title": "# Recorrido: ' . $data['id_horario'] . ' - Cupos disponibles: ' . $data['numero_cupos_restantes'] . '",
 						      "start": "' . $data['hora_inicial'] . '",
 						      "end": "' . $data['hora_final'] . '",
 						      "color": "' . $color . '"

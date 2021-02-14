@@ -7,28 +7,33 @@
 
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 
-			locale: 'esLocale',
+			//locale: 'esLocale',
 			headerToolbar: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'listDay,listWeek'
+				right: 'timeGridWeek,timeGridDay'
+				//right: 'listDay,listWeek'
 			},
 
 			// customize the button names,
 			// otherwise they'd all just say "list"
 			views: {
-				listDay: { buttonText: 'Lista por Día' },
-				listWeek: { buttonText: 'Lista por Semana' }
+				timeGridDay: { buttonText: 'Día' },
+				timeGridWeek: { buttonText: 'Semana' }
 			},
 
 			buttonText: { today:    'Hoy' },
 			noEventsText: 'No hay registros',
 			firstDay: 1, //para iniciar en lunes
 			 
-			initialView: 'listWeek',
+			initialView: 'timeGridWeek',
 			navLinks: true, // can click day/week names to navigate views
+			//businessHours: true, // display business hours
 			editable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
+			allDaySlot: false,
+			slotMinTime: '8:00',
+			slotMaxTime: '18:00',
 			events: {
 				url: 'calendario/consulta',
 				method: 'POST',
@@ -42,23 +47,20 @@
 				color: 'green',   // a non-ajax option
 				textColor: 'black' // a non-ajax option
 			},
-      eventClick: function(arg) {
+			eventClick: function(arg) {
 
-			var oID = arg.event.id;
-            $.ajax ({
-                type: 'POST',
-				url: base_url + 'calendario/cargarModalReserva',
-                data: {'idHorario': oID},
-                cache: false,
-                success: function (data) {
-                    $('#tablaDatos').html(data);
-                    $('#modal').modal('toggle')
-                }
-            });
-	
-
-      },
-      editable: true
+				var oID = arg.event.id;
+			    $.ajax ({
+			        type: 'POST',
+					url: base_url + 'calendario/cargarModalReserva',
+			        data: {'idHorario': oID},
+			        cache: false,
+			        success: function (data) {
+			            $('#tablaDatos').html(data);
+			            $('#modal').modal('toggle')
+			        }
+			    });
+			}
     	});
     	calendar.render();
   	});
