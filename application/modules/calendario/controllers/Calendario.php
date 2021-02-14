@@ -49,12 +49,18 @@ class Calendario extends CI_Controller {
 				$longitud = count($horarioInfo);
 				$i=1;
 				foreach ($horarioInfo as $data):
+					if($data['numero_cupos'] > 20){
+						$color = 'green';
+					}else{
+						$color = 'red';
+					}
+
 					echo  '{
-						      "title": "W.O. #: ' . $data['id_workorder'] . ' - Job Code/Name: ' . $data['job_description'] . '",
-						      "start": "' . $data['date'] . '",
-						      "end": "' . $data['date'] . '",
-						      "color": "green",
-						      "url": "' . base_url("dashboard/info_by_day/" . $data['date']) . '"
+							  "id": "' . $data['id_horario'] . '",
+						      "title": "# Recorrido: ' . $data['id_horario'] . ' - Cupos disponibles: ' . $data['numero_cupos'] . '",
+						      "start": "' . $data['hora_inicial'] . '",
+						      "end": "' . $data['hora_final'] . '",
+						      "color": "' . $color . '"
 						    }';
 
 					if($i<$longitud){
@@ -66,6 +72,74 @@ class Calendario extends CI_Controller {
 
 			echo  ']';
 
+    }
+
+    /**
+     * Cargo modal - formulario reserva
+     * @since 12/2/2021
+     */
+    public function cargarModalReserva() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$data["idHorario"] = $this->input->post("idHorario");
+
+			$arrParam = array(
+				"idHorario" => $data["idHorario"]
+			);
+			$data['information'] = $this->general_model->get_horario_info($arrParam);
+			
+			$this->load->view("reserva_modal", $data);
+    }
+
+	/**
+	 * Guardar Reserva
+     * @since 12/2/2021
+     * @author BMOTTAG
+	 */
+    public function guardarReserva()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$idHorario = $this->input->post('hddIdHorario');
+			$NumeroCuposRestantes = $this->input->post('hddNumeroCuposRestantes');
+			$usuarios = $this->input->post('name');
+			$primerUsuario = $this->security->xss_clean($usuarios[0]);//limpio el primer valor
+
+			if(empty(trim($primerUsuario)))
+			{
+					$data["result"] = "error";					
+					$data["mensaje"] = " Error. Debe ingresar el nombre completo.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> No ingreso nombres');
+			}else{
+					if ($idReserva = $this->calendario_model->guardarReserva()) 
+					{
+						$numeroCupos = $this->calendario_model->guardarUsuarios($idReserva);//guardo usuarios
+
+						$arrParam = array(
+							'idReserva' => $idReserva,
+							'numeroCupos' => $numeroCupos
+						);
+						$this->calendario_model->actualizarReserva($arrParam);//guardo numero de cupos
+
+						$NumeroCuposRestantes = $NumeroCuposRestantes - $numeroCupos;
+						$arrParam = array(
+							'idHorario' => $idHorario,
+							'NumeroCuposRestantes' => $NumeroCuposRestantes
+						);
+						$this->calendario_model->actualizarHorarios($arrParam);//actualizar el numero de cupos restantes en la tabla horarios
+
+						$data["result"] = true;					
+						$this->session->set_flashdata('retornoExito', 'Se guardó la información');
+					} else {
+						$data["result"] = "error";					
+						$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+					}
+			}
+
+			echo json_encode($data);
     }
 	
 

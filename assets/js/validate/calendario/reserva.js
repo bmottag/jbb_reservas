@@ -1,9 +1,13 @@
 $( document ).ready( function () {
-		
-	$( "#form" ).validate( {
+
+	$("#celular").bloquearTexto().maxlength(10);
+	
+	$( "#add_reserva" ).validate( {
 		rules: {
-			id_encargado: 		{ required: true },
-			informacion: 		{ required: true }
+			email: 				{ required: true, minlength: 3, maxlength:25, email: true },
+			confirmarEmail: 	{ required: true, minlength: 3, maxlength:25, equalTo: "#email" },
+			celular: 			{ required: true, minlength: 4, maxlength:10 },
+			name: 				{ required: true, minlength: 3, maxlength:25 }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
@@ -13,10 +17,10 @@ $( document ).ready( function () {
 
 		},
 		highlight: function ( element, errorClass, validClass ) {
-			$( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+			$( element ).parents( ".col-sm-4" ).addClass( "has-error" ).removeClass( "has-success" );
 		},
 		unhighlight: function (element, errorClass, validClass) {
-			$( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+			$( element ).parents( ".col-sm-4" ).addClass( "has-success" ).removeClass( "has-error" );
 		},
 		submitHandler: function (form) {
 			return true;
@@ -25,7 +29,7 @@ $( document ).ready( function () {
 	
 	$("#btnSubmit").click(function(){		
 	
-		if ($("#form").valid() == true){
+		if ($("#add_reserva").valid() == true){
 		
 				//Activa icono guardando
 				$('#btnSubmit').attr('disabled','-1');
@@ -34,8 +38,8 @@ $( document ).ready( function () {
 			
 				$.ajax({
 					type: "POST",	
-					url: base_url + "ordentrabajo/guardar_ordentrabajo_estado",
-					data: $("#form").serialize(),
+					url: base_url + "calendario/guardarReserva",	
+					data: $("#add_reserva").serialize(),
 					dataType: "json",
 					contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 					cache: false,
@@ -47,7 +51,7 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$("#div_error").css("display", "inline");
 							$("#span_msj").html(data.mensaje);
-							$('#btnSubmit').removeAttr('disabled');
+							$('#btnSubmit').removeAttr('disabled');							
 							return false;
 						} 
 
@@ -56,7 +60,7 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmit').removeAttr('disabled');
 
-							var url = base_url + "ordentrabajo/ver_orden/" + data.idRecord;
+							var url = base_url + "admin/employee/" + data.state;
 							$(location).attr("href", url);
 						}
 						else

@@ -17,8 +17,8 @@
 			// customize the button names,
 			// otherwise they'd all just say "list"
 			views: {
-				listDay: { buttonText: 'Lita por Día' },
-				listWeek: { buttonText: 'Lita por Semana' }
+				listDay: { buttonText: 'Lista por Día' },
+				listWeek: { buttonText: 'Lista por Semana' }
 			},
 
 			buttonText: { today:    'Hoy' },
@@ -41,7 +41,24 @@
 				},
 				color: 'green',   // a non-ajax option
 				textColor: 'black' // a non-ajax option
-			}
+			},
+      eventClick: function(arg) {
+
+			var oID = arg.event.id;
+            $.ajax ({
+                type: 'POST',
+				url: base_url + 'calendario/cargarModalReserva',
+                data: {'idHorario': oID},
+                cache: false,
+                success: function (data) {
+                    $('#tablaDatos').html(data);
+                    $('#modal').modal('toggle')
+                }
+            });
+	
+
+      },
+      editable: true
     	});
     	calendar.render();
   	});
@@ -62,3 +79,13 @@
 	<!-- /.row -->
 </div>
 <!-- /#page-wrapper -->
+
+<!--INICIO Modal para RESERVAS -->
+<div class="modal fade text-center" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="tablaDatos">
+
+		</div>
+	</div>
+</div>                       
+<!--FIN Modal para RESERVAS -->

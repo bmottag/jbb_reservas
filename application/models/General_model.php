@@ -265,7 +265,7 @@ class General_model extends CI_Model {
 		{
 				$this->db->select();
 				if (array_key_exists("idHorario", $arrData)) {
-					$this->db->where('P.id_horario', $arrData["idHorario"]);
+					$this->db->where('H.id_horario', $arrData["idHorario"]);
 				}
 				if (array_key_exists("estado", $arrData)) {
 					$this->db->where('P.estado', $arrData["estado"]);
