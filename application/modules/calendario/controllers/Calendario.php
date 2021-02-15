@@ -132,8 +132,8 @@ class Calendario extends CI_Controller {
 						//INCIO - genero imagen con la libreria y la subo 
 						$this->load->library('ciqrcode');
 
-						$llave = $pass . $idReserva;
-						$valorQRcode = base_url("calendario/consultar/" . $llave);
+						$data['idRecord'] = $llave = $pass . $idReserva;
+						$valorQRcode = base_url("calendario/registro/" . $llave);
 						$rutaImagen = "images/reservas/QR/" . $llave . "_qr_code.png";
 						
 						$params['data'] = $valorQRcode;
@@ -203,6 +203,23 @@ class Calendario extends CI_Controller {
 			}
 			return $pass;
 	}	
+
+	/**
+	 * Info del registro
+     * @since 15/2/2021
+     * @author BMOTTAG
+	 */
+	public function registro($llave)
+	{
+			$arrParam = array("llave" => $this->security->xss_clean($llave));
+			$data['infoReserva'] = $this->general_model->get_reserva_info($arrParam);
+
+			$arrParam = array("idHorario" => $data['infoReserva'][0]['fk_id_horario']);
+			$data['infoHorario'] = $this->general_model->get_horario_info($arrParam);
+						
+			$data["view"] = 'info_reserva';
+			$this->load->view("layout_calendar", $data);
+	}
 
 	
 	

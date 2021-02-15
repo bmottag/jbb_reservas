@@ -287,5 +287,32 @@ class General_model extends CI_Model {
 				}
 		}
 
+		/**
+		 * Consultar registros de reservas
+		 * @since 15/2/2021
+		 */
+		public function get_reserva_info($arrData)
+		{
+				$this->db->select();
+				$this->db->join('reservas_usuarios U', 'U.fk_id_reserva = R.id_reserva', 'INNER');
+
+				if (array_key_exists("idReserva ", $arrData)) {
+					$this->db->where('R.id_reserva ', $arrData["idReserva"]);
+				}
+				if (array_key_exists("llave", $arrData)) {
+					$this->db->where('R.qr_code_llave', $arrData["llave"]);
+				}
+
+				$this->db->order_by('R.id_reserva', 'asc');
+
+				$query = $this->db->get('reservas R');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
 
 }

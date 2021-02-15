@@ -60,7 +60,7 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmit').removeAttr('disabled');
 
-							var url = base_url + "admin/employee/" + data.state;
+							var url = base_url + "calendario/registro/" + data.idRecord;
 							$(location).attr("href", url);
 						}
 						else

@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/calendario/reserva.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/calendario/reserva_v2.js"); ?>"></script>
 
 <script>
 $(document).ready(function(){
@@ -26,7 +26,7 @@ $(document).ready(function(){
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	<h4 class="modal-title" id="exampleModalLabel">Reservar Visita
 	<br><small>Para reservar su visita para <strong>
-		<?php echo $information[0]['hora_inicial']; ?> </strong>, favor ingresar los siguientes datos: 
+		<?php echo ucfirst(strftime("%a, %b %d %G, %I:%M %p",strtotime($information[0]['hora_inicial']))); ?> </strong>, favor ingresar los siguientes datos: 
 	<p class="text-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Cupos disponibles: <?php echo $information[0]['numero_cupos_restantes']; ?></p>
 	</small>
 	</h4>
