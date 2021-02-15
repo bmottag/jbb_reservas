@@ -6,7 +6,7 @@
 		 * Guardar la informacion de la reserva
 		 * @since 13/2/2021
 		 */
-		public function guardarReserva() 
+		public function guardarReserva($pass) 
 		{
 				$data = array(
 					'fk_id_horario' => $this->input->post('hddIdHorario'),
@@ -16,6 +16,14 @@
 
 				$query = $this->db->insert('reservas', $data);
 				$idReserva = $this->db->insert_id();
+
+				//actualizo la url del codigo QR
+				$path = $pass . $idReserva;
+				$rutaQRcode = "images/reservas/QR/" . $path . "_qr_code.png";
+		
+				//actualizo campo con el path encriptado
+				$sql = "UPDATE reservas SET qr_code_llave = '$path', qr_code_img = '$rutaQRcode' WHERE id_reserva = $idReserva";
+				$query = $this->db->query($sql);
 			
 				if ($query) {
 					return $idReserva;

@@ -33,7 +33,7 @@
 			dayMaxEvents: true, // allow "more" link when too many events
 			allDaySlot: false,
 			slotMinTime: '8:00',
-			slotMaxTime: '18:00',
+			slotMaxTime: '19:00',
 			events: {
 				url: 'calendario/consulta',
 				method: 'POST',

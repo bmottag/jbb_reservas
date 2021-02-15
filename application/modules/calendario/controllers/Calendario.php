@@ -112,6 +112,8 @@ class Calendario extends CI_Controller {
 	{			
 			header('Content-Type: application/json');
 			$data = array();
+
+			$pass = $this->generaPass();//clave para colocarle al codigo QR
 			
 			$idHorario = $this->input->post('hddIdHorario');
 			$NumeroCuposRestantes = $this->input->post('hddNumeroCuposRestantes');
@@ -124,8 +126,24 @@ class Calendario extends CI_Controller {
 					$data["mensaje"] = " Error. Debe ingresar el nombre completo.";
 					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> No ingreso nombres');
 			}else{
-					if ($idReserva = $this->calendario_model->guardarReserva()) 
+					if ($idReserva = $this->calendario_model->guardarReserva($pass)) 
 					{
+						//genero el codigo QR y subo la imagen
+						//INCIO - genero imagen con la libreria y la subo 
+						$this->load->library('ciqrcode');
+
+						$llave = $pass . $idReserva;
+						$valorQRcode = base_url("calendario/consultar/" . $llave);
+						$rutaImagen = "images/reservas/QR/" . $llave . "_qr_code.png";
+						
+						$params['data'] = $valorQRcode;
+						$params['level'] = 'H';
+						$params['size'] = 10;
+						$params['savename'] = FCPATH.$rutaImagen;
+										
+						$this->ciqrcode->generate($params);
+						//FIN - genero imagen con la libreria y la subo
+
 						$numeroCupos = $this->calendario_model->guardarUsuarios($idReserva);//guardo usuarios
 
 						//guardo numero de cupos
@@ -163,7 +181,28 @@ class Calendario extends CI_Controller {
 			echo json_encode($data);
     }
 	
-
+	public function generaPass()
+	{
+			//Se define una cadena de caractares. Te recomiendo que uses esta.
+			$cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+			//Obtenemos la longitud de la cadena de caracteres
+			$longitudCadena=strlen($cadena);
+			 
+			//Se define la variable que va a contener la contraseña
+			$pass = "";
+			//Se define la longitud de la contraseña, en mi caso 10, pero puedes poner la longitud que quieras
+			$longitudPass=20;
+			 
+			//Creamos la contraseña
+			for($i=1 ; $i<=$longitudPass ; $i++){
+				//Definimos numero aleatorio entre 0 y la longitud de la cadena de caracteres-1
+				$pos=rand(0,$longitudCadena-1);
+			 
+				//Vamos formando la contraseña en cada iteraccion del bucle, añadiendo a la cadena $pass la letra correspondiente a la posicion $pos en la cadena de caracteres definida.
+				$pass .= substr($cadena,$pos,1);
+			}
+			return $pass;
+	}	
 
 	
 	

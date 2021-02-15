@@ -248,13 +248,7 @@ class Login extends CI_Controller {
 			}
 	}
 
-	/**
-	 * Form to search a equipment
-	 */
-	public function search_equipment()
-	{
-		$this->load->view("form_search_equipment");
-	}
+
 	
 	
 	
