@@ -99,8 +99,18 @@ class Calendario extends CI_Controller {
 				"idHorario" => $data["idHorario"]
 			);
 			$data['information'] = $this->general_model->get_horario_info($arrParam);
-			
-			$this->load->view("reserva_modal", $data);
+
+			if($data['information'][0]['estado'] == 3)
+			{
+				echo '<br><p><strong>Atención:</strong><br>';
+				echo 'Se completo el cupo máximo para este horario, por favor seleccione otro.</p>';
+			}elseif($data['information'][0]['disponible'] == 2)
+			{
+				echo '<br><p><strong>Atención:</strong><br>';
+				echo 'Esta fecha esta siendo asignada, por favor seleccione otra.</p>';
+			}else{
+				$this->load->view("reserva_modal", $data);
+			}
     }
 
 	/**
