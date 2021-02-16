@@ -104,6 +104,27 @@
 					return false;
 				}
 		}
+
+		/**
+		 * Habilitar o desahilitar horaio
+		 * @since 13/2/2021
+		 */
+		public function habilitarHorario($arrData) 
+		{				
+				$data = array(
+					'disponible' => $arrData['disponibilidad'],
+					'fecha_bloqueo' => date("Y-m-d G:i:s")
+				);
+				
+				$this->db->where('id_horario',  $arrData['idHorario']);
+				$query = $this->db->update('horarios', $data);
+				
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
 		
 
 		

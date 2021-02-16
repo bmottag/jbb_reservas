@@ -108,13 +108,10 @@ class Calendario extends CI_Controller {
 			}else{
 				//bloquear sala por 5 minutos mientras se realiza la reserva
 				$arrParam = array(
-					'table' => 'horarios',
-					'primaryKey' => 'id_horario ',
-					'id' => $data["idHorario"],
-					'column' => 'disponible',
-					'value' => 2
+					'idHorario' => $data['idHorario'],
+					'disponibilidad' => 2
 				);
-				$this->general_model->updateRecord($arrParam);
+				$this->calendario_model->habilitarHorario($arrParam);
 
 				$this->load->view("reserva_modal", $data);
 			}
@@ -250,13 +247,10 @@ class Calendario extends CI_Controller {
 
 			//desbloquear horario
 			$arrParam = array(
-				'table' => 'horarios',
-				'primaryKey' => 'id_horario ',
-				'id' => $idHorario,
-				'column' => 'disponible',
-				'value' => 1
+				'idHorario' => $idHorario,
+				'disponibilidad' => 1
 			);
-			$this->general_model->updateRecord($arrParam);
+			$this->calendario_model->habilitarHorario($arrParam);
 	}
 
 	
