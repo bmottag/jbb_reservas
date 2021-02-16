@@ -1,16 +1,15 @@
 $( document ).ready( function () {
-
-	$("#contact").bloquearNumeros().maxlength(50);		
-	$("#movilNumber").bloquearTexto().maxlength(10);
 	
+	$("#numeroCupos").bloquearTexto().maxlength(2);
 	
-	$( "#form" ).validate( {
+	$( "#formHorario" ).validate( {
 		rules: {
-			company:				{ required: true, minlength: 3, maxlength:50 },
-			contact:				{ required: true, minlength: 3, maxlength:50 },
-			movilNumber:			{ required: true },
-			email:					{ required: true, email: true, maxlength:50 }
-			
+			numeroCupos: 			{ required: true, minlength: 1, maxlength:2 },
+			intervalo: 				{ required: true },
+			start_date:	 			{ required: true },
+			start_hour:	 			{ required: true },
+			finish_date:			{ required: true },
+			finish_hour:	 		{ required: true }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
@@ -32,17 +31,17 @@ $( document ).ready( function () {
 	
 	$("#btnSubmit").click(function(){		
 	
-		if ($("#form").valid() == true){
+		if ($("#formHorario").valid() == true){
 		
 				//Activa icono guardando
-				$('#btnSubmit').attr('disabled','-1');
+				$('#btnSubmitWorker').attr('disabled','-1');
 				$("#div_error").css("display", "none");
 				$("#div_load").css("display", "inline");
 			
 				$.ajax({
 					type: "POST",	
-					url: base_url + "settings/save_company",	
-					data: $("#form").serialize(),
+					url: base_url + "settings/save_horarios",	
+					data: $("#formHorario").serialize(),
 					dataType: "json",
 					contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 					cache: false,
@@ -52,16 +51,16 @@ $( document ).ready( function () {
 						if( data.result == "error" )
 						{
 							$("#div_load").css("display", "none");
-							$('#btnSubmit').removeAttr('disabled');							
+							$('#btnSubmitWorker').removeAttr('disabled');							
 							return false;
 						} 
 
 						if( data.result )//true
 						{	                                                        
 							$("#div_load").css("display", "none");
-							$('#btnSubmit').removeAttr('disabled');
+							$('#btnSubmitWorker').removeAttr('disabled');
 
-							var url = base_url + "settings/company";
+							var url = base_url + "settings/horarios/";
 							$(location).attr("href", url);
 						}
 						else
@@ -69,14 +68,14 @@ $( document ).ready( function () {
 							alert('Error. Reload the web page.');
 							$("#div_load").css("display", "none");
 							$("#div_error").css("display", "inline");
-							$('#btnSubmit').removeAttr('disabled');
+							$('#btnSubmitWorker').removeAttr('disabled');
 						}	
 					},
 					error: function(result) {
 						alert('Error. Reload the web page.');
 						$("#div_load").css("display", "none");
 						$("#div_error").css("display", "inline");
-						$('#btnSubmit').removeAttr('disabled');
+						$('#btnSubmitWorker').removeAttr('disabled');
 					}
 					
 		

@@ -109,30 +109,72 @@
 	    }
 		
 		/**
-		 * Add/Edit COMPANY
-		 * @since 13/12/2016
+		 * Add/Edit Horario
+		 * @since 16/2/2021
 		 */
-		public function saveCompany() 
+		public function saveHorarios() 
 		{
-				$idCompany = $this->input->post('hddId');
-				
-				$data = array(
-					'nombre_proveedor' => $this->input->post('company'),
-					'contacto' => $this->input->post('contact'),
-					'numero_celular' => $this->input->post('movilNumber'),
-					'email' => $this->input->post('email')
-				);
-				
-				//revisar si es para adicionar o editar
-				if ($idCompany == '') {
-					$query = $this->db->insert('param_proveedores', $data);
-					$idCompany = $this->db->insert_id();				
-				} else {
-					$this->db->where('id_proveedor', $idCompany);
-					$query = $this->db->update('param_proveedores', $data);
+				$intervalo = $this->input->post('intervalo');
+				$fechaInicio = $this->input->post('start_date');
+				$fechaFin = $this->input->post('finish_date');
+				$horaInicio = $this->input->post('start_hour');
+				$horaFin = $this->input->post('finish_hour');
+
+				$date1 = new DateTime($fechaInicio);
+				$date2 = new DateTime($fechaFin);
+				$diff = $date1->diff($date2);
+				$numeroDias = $diff->days + 1;
+
+				switch ($intervalo) {
+					case 1:
+						//cada 15 min
+						$incremento = '+15 minute';
+						$numeroHorariosDia = ($horaFin - $horaInicio)*4;
+						break;
+					case 2:
+						//cada 30 min
+						$incremento = '+30 minute';
+						$numeroHorariosDia = ($horaFin - $horaInicio)*2;
+						break;
+					case 3:
+						//cada 60 min
+						$incremento = '+60 minute';
+						$numeroHorariosDia = ($horaFin - $horaInicio);
+						break;
 				}
+
+				$fechaInicial = $fechaInicio . ' ' . $horaInicio . ':00:00';
+				
+				for ($i = 0; $i < $numeroDias; $i++) 
+				{
+					$date = new DateTime($fechaInicial);
+					$date->modify('+' . $i . ' day');
+					$horarioInicio = $date->format('Y-m-d H:i:s');
+
+					for ($y = 0; $y < $numeroHorariosDia; $y++)
+					{
+						$date = new DateTime($horarioInicio);
+						$date->modify($incremento);
+						$horaFinal = $date->format('Y-m-d H:i:s');
+
+						$data = array(
+							'hora_inicial' => $horarioInicio,
+							'hora_final' => $horaFinal,
+							'numero_cupos' => $this->input->post('numeroCupos'),
+							'numero_cupos_restantes' => $this->input->post('numeroCupos'),
+							'estado' => 1,
+							'disponible' => 1
+						);
+						$query = $this->db->insert('horarios', $data);
+
+						$horarioInicio = $horaFinal;
+					}
+
+				}
+			
+
 				if ($query) {
-					return $idCompany;
+					return true;
 				} else {
 					return false;
 				}

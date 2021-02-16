@@ -15,8 +15,8 @@
 							<?php if($infoReserva[0]['qr_code_img']){ ?>
 								<div class="form-group">
 									<div class="row" align="center">
-										<img src="<?php echo base_url($infoReserva[0]["qr_code_img"]); ?>" class="img-rounded" width="170" height="170" alt="QR CODE" />
-										<br><small>Guardar código QR, para el ingreso a las instalaciones.</small>
+										<img src="<?php echo base_url($infoReserva[0]["qr_code_img"]); ?>" class="img-rounded" width="200" height="200" alt="QR CODE" />
+										<br><small>Guardar código QR, para el ingreso a las instalaciones. Puede tomar una foto con su celular.</small>
 									</div>
 								</div>
 							<?php } ?>
@@ -29,7 +29,25 @@
 								<br><br>
 								<strong>No. de Cupos: </strong> <?php echo $infoReserva[0]['numero_cupos_usados']; ?><br>
 								<strong>Correo Electrónico: </strong> <?php echo $infoReserva[0]['correo_electronico']; ?><br>
-								<strong>Celular de Contaco: </strong> <?php echo $infoReserva[0]['numero_contacto']; ?><br>
+
+							<?php
+								$movil = $infoReserva[0]['numero_contacto'];
+								// Separa en grupos de tres 
+								$count = strlen($movil); 
+									
+								$num_tlf1 = substr($movil, 0, 3); 
+								$num_tlf2 = substr($movil, 3, 3); 
+								$num_tlf3 = substr($movil, 6, 2); 
+								$num_tlf4 = substr($movil, -2); 
+
+								if($count == 10){
+									$resultado = "$num_tlf1 $num_tlf2 $num_tlf3 $num_tlf4";  
+								}else{
+									$resultado = chunk_split($movil,3," "); 
+								}
+							?>
+
+								<strong>Celular de Contaco: </strong> <?php echo $resultado; ?><br>
 								<strong>Nombres: </strong>
 								<?php
 								foreach ($infoReserva as $data):

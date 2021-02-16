@@ -216,36 +216,33 @@ class Settings extends CI_Controller {
 	}
 	
 	/**
-	 * Company List
-     * @since 15/12/2016
+	 * Lista de horarios
+     * @since 16/2/2021
      * @author BMOTTAG
 	 */
-	public function company()
+	public function horarios()
 	{
-			//se filtra por company_type para que solo se pueda editar los subcontratistas
 			$arrParam = array(
-				"table" => "param_proveedores",
-				"order" => "id_proveedor",
-				"id" => "x"
+				'from' => date('Y-m-d')
 			);
-			$data['info'] = $this->general_model->get_basic_search($arrParam);
+			$data['infoHorarios'] = $this->general_model->get_horario_info($arrParam);
 			
-			$data["view"] = 'company';
-			$this->load->view("layout", $data);
+			$data["view"] = 'horarios';
+			$this->load->view("layout_calendar", $data);
 	}
 	
     /**
-     * Cargo modal - formulario company
-     * @since 15/12/2016
+     * Cargo modal - formulario horarios
+     * @since 16/2/2021
      */
-    public function cargarModalCompany() 
+    public function cargarModalHorarios() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 			
 			$data['information'] = FALSE;
-			$data["idCompany"] = $this->input->post("idCompany");	
+			$data["idHorario"] = $this->input->post("idHorario");	
 			
-			if ($data["idCompany"] != 'x') {
+			if ($data["idHorario"] != 'x') {
 				$arrParam = array(
 					"table" => "param_proveedores",
 					"order" => "id_proveedor",
@@ -255,35 +252,31 @@ class Settings extends CI_Controller {
 				$data['information'] = $this->general_model->get_basic_search($arrParam);
 			}
 			
-			$this->load->view("company_modal", $data);
+			$this->load->view("horarios_modal", $data);
     }
 	
 	/**
-	 * Update Company
-     * @since 15/12/2016
+	 * Save horarios
+     * @since 16/2/2021
      * @author BMOTTAG
 	 */
-	public function save_company()
+	public function save_horarios()
 	{			
 			header('Content-Type: application/json');
 			$data = array();
-			
-			$idCompany = $this->input->post('hddId');
+		
+			$idHorario = $this->input->post('hddId');
 			
 			$msj = "Se adicionó el Proveedor!";
-			if ($idCompany != '') {
+			if ($idHorario != '') {
 				$msj = "Se actualizó el Proveedor!";
 			}
 
-			if ($idCompany = $this->settings_model->saveCompany()) {
+			if ($idHorario = $this->settings_model->saveHorarios()) {
 				$data["result"] = true;
-				$data["idRecord"] = $idCompany;
-				
 				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> ' . $msj);
 			} else {
 				$data["result"] = "error";
-				$data["idRecord"] = "";
-				
 				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
 			}
 

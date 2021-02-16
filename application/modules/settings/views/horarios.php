@@ -1,11 +1,14 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
 $(function(){ 
 	$(".btn-success").click(function () {	
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
-				url: base_url + '/settings/cargarModalCompany',
-                data: {'idCompany': oID},
+				url: base_url + '/settings/cargarModalHorarios',
+                data: {'idHorario': oID},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
@@ -22,7 +25,7 @@ $(function(){
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h4 class="list-group-item-heading">
-					<i class="fa fa-gear fa-fw"></i> CONFIGURACIÓN - PROVEEDORES
+					<i class="fa fa-briefcase  fa-fw"></i> CONFIGURACIÓN - HORARIOS
 					</h4>
 				</div>
 			</div>
@@ -35,11 +38,11 @@ $(function(){
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-building"></i> LISTA PROVEEDORES
+					<i class="fa fa-briefcase"></i> LISTA DE HORARIOS
 				</div>
 				<div class="panel-body">
 					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal" id="x">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Proveedor
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Horarios
 					</button><br>
 <?php
 	$retornoExito = $this->session->flashdata('retornoExito');
@@ -63,45 +66,31 @@ $(function(){
 ?> 
 
 				<?php
-					if($info){
+					if($infoHorarios){
 				?>				
 					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 						<thead>
 							<tr>
-								<th class="text-center">Proveedor</th>
-								<th class="text-center">Contacto</th>
-								<th class="text-center">Celular</th>
-								<th class="text-center">Correo</th>
-								<th class="text-center">Editar</th>
+                                <th class='text-center'>ID</th>
+                                <th class='text-center'>Hora Inicial</th>
+                                <th class='text-center'>Hora Final</th>
+                                <th class='text-center'>No. de Cupos</th>
+                                <th class='text-center'>No. Disponibles</th>
+								<th class='text-center'>Editar</th>
 							</tr>
 						</thead>
 						<tbody>							
 						<?php
-							foreach ($info as $lista):
-									echo "<tr>";
-									echo "<td>" . $lista['nombre_proveedor'] . "</td>";
-									echo "<td>" . $lista['contacto'] . "</td>";
-$movil = $lista["numero_celular"];
-// Separa en grupos de tres 
-$count = strlen($movil); 
-	
-$num_tlf1 = substr($movil, 0, 3); 
-$num_tlf2 = substr($movil, 3, 3); 
-$num_tlf3 = substr($movil, 6, 2); 
-$num_tlf4 = substr($movil, -2); 
-
-if($count == 10){
-	$resultado = "$num_tlf1 $num_tlf2 $num_tlf3 $num_tlf4";  
-}else{
-	
-	$resultado = chunk_split($movil,3," "); 
-}
-								
-									echo "<td class='text-center'>" . $resultado . "</td>";
-									echo "<td>" . $lista['email'] . "</td>";
+							foreach ($infoHorarios as $lista):
+									echo '<tr>';
+	                                echo '<td class="text-center">' . $lista['id_horario'] . '</td>';
+	                                echo '<td class="text-center">' . $lista['hora_inicial'] . '</td>';
+	                                echo '<td class="text-center">' . $lista['hora_final'] . '</td>';
+	                                echo '<td class="text-center">' . $lista['numero_cupos'] . '</td>';
+	                                echo '<td class="text-center">' . $lista['numero_cupos_restantes'] . '</td>';
 									echo "<td class='text-center'>";
 						?>
-									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_proveedor']; ?>" >
+									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_horario']; ?>" >
 										Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
 									</button>
 						<?php
