@@ -50,19 +50,16 @@ class Calendario extends CI_Controller {
 				$i=1;
 				foreach ($horarioInfo as $data):
 					
-					//revisar disponibilidad y estado
-					if($data['disponible'] == 2)
-					{
-						$color = '#f7c0c0';
-					}else{
-						switch ($data['estado']) {
-							case 1:
-								$color = '#b1eeb1';
-								break;
-							case 2:
-								$color = '#f7f79a';
-								break;
-						}
+					switch ($data['estado']) {
+						case 1:
+							$color = '#b1eeb1';
+							break;
+						case 2:
+							$color = '#f7f79a';
+							break;
+						case 3:
+							$color = '#f7c0c0';
+							break;
 					}
 
 					echo  '{
@@ -109,6 +106,16 @@ class Calendario extends CI_Controller {
 				echo '<br><p><strong>Atención:</strong><br>';
 				echo 'Esta fecha esta siendo asignada, por favor seleccione otra.</p>';
 			}else{
+				//bloquear sala por 5 minutos mientras se realiza la reserva
+				$arrParam = array(
+					'table' => 'horarios',
+					'primaryKey' => 'id_horario ',
+					'id' => $data["idHorario"],
+					'column' => 'disponible',
+					'value' => 2
+				);
+				$this->general_model->updateRecord($arrParam);
+
 				$this->load->view("reserva_modal", $data);
 			}
     }
@@ -229,6 +236,27 @@ class Calendario extends CI_Controller {
 						
 			$data["view"] = 'info_reserva';
 			$this->load->view("layout_calendar", $data);
+	}
+
+
+	/**
+	 * Info del registro
+     * @since 15/2/2021
+     * @author BMOTTAG
+	 */
+	public function habilitar()
+	{
+			$idHorario = $this->input->post("idHorario");
+
+			//desbloquear horario
+			$arrParam = array(
+				'table' => 'horarios',
+				'primaryKey' => 'id_horario ',
+				'id' => $idHorario,
+				'column' => 'disponible',
+				'value' => 1
+			);
+			$this->general_model->updateRecord($arrParam);
 	}
 
 	

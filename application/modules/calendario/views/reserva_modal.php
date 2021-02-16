@@ -25,14 +25,84 @@ $(document).ready(function(){
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	<h4 class="modal-title" id="exampleModalLabel">Reservar Visita
-	<br><small>Para reservar su visita para <strong>
-		<?php echo ucfirst(strftime("%a, %b %d %G, %I:%M %p",strtotime($information[0]['hora_inicial']))); ?> </strong>, favor ingresar los siguientes datos: 
-	<p class="text-danger"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Cupos disponibles: <?php echo $information[0]['numero_cupos_restantes']; ?></p>
+	<small>
+	<p class="text-danger">
+		<span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Cupos disponibles: <?php echo $information[0]['numero_cupos_restantes']; ?>
+	</p>
+	<div style="color:blue; font-family: verdana, arial;" id="countdown"></div>
+	Fecha: 
+		<strong><?php echo ucfirst(strftime("%a, %b %d %G, %I:%M %p",strtotime($information[0]['hora_inicial']))); ?></strong>, favor ingresar los siguientes datos: 
 	</small>
 	</h4>
 </div>
 
 <div class="modal-body">
+	
+<script>
+	var end = new Date();
+    var sumarsesion = 1;
+    var minutes = end.getMinutes();
+
+    end.setMinutes(minutes + sumarsesion);//adiciono 5 min a la fecha actual
+    
+    var _second = 1000;
+    var _minute = _second * 60;
+    var _hour = _minute * 60;
+    var _day = _hour * 24;
+    var timer;
+
+    function showRemaining() {
+        var now = new Date();
+
+        var distance = end - now;
+        if (distance < 0) 
+        {
+            clearInterval(timer);
+            //habilitar horario
+            var idHorario = $('#hddIdHorario').val();
+            $.ajax ({
+                type: 'POST',
+                url: base_url + 'calendario/habilitar',
+                data: {'idHorario': idHorario},
+                cache: false,
+                success: function (data)
+                {
+                    $('#company').html(data);
+                }
+            });
+            //deshabilitar y limpiar campos
+            $('#btnSubmit').attr('disabled','-1');
+            $('#email').attr('disabled','-1');
+            $('#confirmarEmail').attr('disabled','-1');
+            $('#celular').attr('disabled','-1');
+			$("#email").val('');
+			$("#confirmarEmail").val('');
+			$("#celular").val('');
+            document.getElementById('countdown').innerHTML = 'Su sesión expiró!';
+            alert("Su sesión expiró.");
+
+            return;
+        }
+        var days = Math.floor(distance / _day);
+        var hours = Math.floor((distance % _day) / _hour);
+        var minutes = Math.floor((distance % _hour) / _minute);
+        var seconds = Math.floor((distance % _minute) / _second);
+
+        seconds = actualizarHora(seconds);    
+
+        //document.getElementById('countdown').innerHTML = days + ' dias, ';
+        //document.getElementById('countdown').innerHTML += hours + ' horas, ';
+        document.getElementById('countdown').innerHTML = 'Tiempo Restante: ' + minutes + ':' + seconds;
+        //document.getElementById('countdown').innerHTML += seconds + ' segundos';
+    }
+
+	function actualizarHora(i) {
+	    if (i<10) {i = "0" + i};  // Añadir el cero en números menores de 10
+	    	return i;
+	}
+
+    timer = setInterval(showRemaining, 1000);
+</script>
 
 	<form name="add_reserva" id="add_reserva" role="form" method="post" >
 		<input type="hidden" id="hddIdHorario" name="hddIdHorario" value="<?php echo $idHorario; ?>"/>
