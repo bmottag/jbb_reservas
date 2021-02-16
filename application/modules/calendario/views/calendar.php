@@ -7,6 +7,9 @@
 
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 
+			expandRows: true,
+			height: 1650,
+
 			//locale: 'esLocale',
 			headerToolbar: {
 				left: 'prev,next today',
@@ -34,6 +37,7 @@
 			allDaySlot: false,
 			slotMinTime: '8:00',
 			slotMaxTime: '19:00',
+			slotDuration: '00:15:00',
 			events: {
 				url: 'calendario/consulta',
 				method: 'POST',

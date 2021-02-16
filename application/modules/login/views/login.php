@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	
-    <title>JBB</title>
+    <title>JBB-APP</title>
 	<link rel="icon" type="image/png" href="<?php echo base_url("images/favicon.ico"); ?>" />
 
     <!-- Bootstrap Core CSS -->
@@ -71,9 +71,7 @@
                         </form>
 						
                         <br>
-						<a href="<?php echo base_url("login/recover"); ?>">¿Olvidó su contraseña?</a><br>
-                        <a href="<?php echo base_url("login/search_equipment"); ?>">Ver Equipo</a>
-						
+						<a href="<?php echo base_url("login/recover"); ?>">¿Olvidó su contraseña?</a>						
                     </div>
                 </div>
             </div>

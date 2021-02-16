@@ -64,7 +64,7 @@ class Calendario extends CI_Controller {
 
 					echo  '{
 							  "id": "' . $data['id_horario'] . '",
-						      "title": "# Recorrido: ' . $data['id_horario'] . ' - Cupos disponibles: ' . $data['numero_cupos_restantes'] . '",
+						      "title": "Cupos disponibles: ' . $data['numero_cupos_restantes'] . '",
 						      "start": "' . $data['hora_inicial'] . '",
 						      "end": "' . $data['hora_final'] . '",
 						      "color": "' . $color . '"
