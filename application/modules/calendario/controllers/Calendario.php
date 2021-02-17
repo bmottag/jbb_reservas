@@ -281,11 +281,12 @@ class Calendario extends CI_Controller {
 			$arrParam = array(
 				'email' => $email,
 				'fecha' => $fecha,
-				'celular' => $celular
+				'celular' => $celular,
+				'estadoReserva' => 1
 			);
-			$data['infoReserva'] = $this->general_model->get_reserva_info($arrParam);
+			$infoReserva = $this->general_model->get_reserva($arrParam);
 
-			if(!$data['infoReserva'])
+			if(!$infoReserva)
 			{
 					$data["result"] = "error";					
 					$data["mensaje"] = " Error. No hay reservas con esa información.";
@@ -293,10 +294,12 @@ class Calendario extends CI_Controller {
 			}else{
 					//deshaiblito reseva
 					$arrParam = array(
-						'idReserva' => $data['infoReserva'][0]['id_reserva']
+						'idReserva' => $infoReserva[0]['id_reserva']
 					);
 					if ($idReserva = $this->calendario_model->deshabilitarReserva($arrParam)) 
 					{
+						$NumeroCuposRestantes = $infoReserva[0]['numero_cupos_restantes'];
+						$numeroCupos = $infoReserva[0]['numero_cupos_usados'];
 						//actualizar el numero de cupos restantes en la tabla horarios
 						//si cumplio el numero maximo de cupos cambiar estado a cerrado
 						$NumeroCuposRestantes = $NumeroCuposRestantes + $numeroCupos;
@@ -304,7 +307,7 @@ class Calendario extends CI_Controller {
 						$disponibilidad = 1;
 
 						$arrParam = array(
-							'idHorario' => $data['infoReserva'][0]['fk_id_horario'],
+							'idHorario' => $infoReserva[0]['fk_id_horario'],
 							'NumeroCuposRestantes' => $NumeroCuposRestantes,
 							'estado' => $estado,
 							'disponibilidad' => $disponibilidad

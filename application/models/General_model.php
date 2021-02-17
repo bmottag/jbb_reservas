@@ -295,6 +295,32 @@ class General_model extends CI_Model {
 		{
 				$this->db->select();
 				$this->db->join('reservas_usuarios U', 'U.fk_id_reserva = R.id_reserva', 'INNER');
+
+				if (array_key_exists("idReserva ", $arrData)) {
+					$this->db->where('R.id_reserva ', $arrData["idReserva"]);
+				}
+				if (array_key_exists("llave", $arrData)) {
+					$this->db->where('R.qr_code_llave', $arrData["llave"]);
+				}
+
+				$this->db->order_by('R.id_reserva', 'asc');
+
+				$query = $this->db->get('reservas R');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar registros de reservas
+		 * @since 17/2/2021
+		 */
+		public function get_reserva($arrData)
+		{
+				$this->db->select();
 				$this->db->join('horarios H', 'H.id_horario = R.fk_id_horario', 'INNER');
 
 				if (array_key_exists("idReserva ", $arrData)) {
@@ -308,6 +334,9 @@ class General_model extends CI_Model {
 				}
 				if (array_key_exists("fecha", $arrData)) {
 					$this->db->like('H.hora_inicial', $arrData["fecha"]); 
+				}
+				if (array_key_exists("estadoReserva", $arrData)) {
+					$this->db->where('R.estado_reserva', $arrData["estadoReserva"]); 
 				}
 				if (array_key_exists("celular", $arrData)) {
 					$this->db->where('R.numero_contacto', $arrData["celular"]);
