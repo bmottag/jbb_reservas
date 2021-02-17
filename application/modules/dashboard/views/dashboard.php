@@ -47,7 +47,7 @@ if ($retornoError) {
         <div class="col-lg-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <i class="fa fa-wrench fa-fw"></i> Horarios vigentes 
+                    <i class="fa fa-thumb-tack fa-fw"></i> HORARIOS VIGENTES
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -72,6 +72,8 @@ if ($retornoError) {
                                 <th class='text-center'>Hora Final</th>
                                 <th class='text-center'>No. de Cupos</th>
                                 <th class='text-center'>No. Disponibles</th>
+                                <th class='text-center'>Estado</th>
+                                <th class='text-center'>Ver Reservas</th>
                             </tr>
                         </thead>
                         <tbody>                         
@@ -83,7 +85,31 @@ if ($retornoError) {
                                 echo '<td class="text-center">' . $lista['hora_final'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_cupos'] . '</td>';
                                 echo '<td class="text-center">' . $lista['numero_cupos_restantes'] . '</td>';
-                                echo "</tr>";
+                                echo '<td class="text-center">';
+                                switch ($lista['estado']) {
+                                    case 1:
+                                        $valor = 'Iniciada';
+                                        $clase = "text-success";
+                                        break;
+                                    case 2:
+                                        $valor = 'En Proceso';
+                                        $clase = "text-warning";
+                                        break;
+                                    case 3:
+                                        $valor = 'Cerrada';
+                                        $clase = "text-danger";
+                                        break;
+                                }
+                                echo '<p class="' . $clase . '"><strong>' . $valor . '</strong></p>';
+                                echo '</td>';
+                                echo '<td class="text-center">';
+                            ?>
+                                    <a class='btn btn-success btn-xs' href='<?php echo base_url('dashboard/reservas/' . $lista['id_horario']) ?>'>
+                                        Ver Reservas <span class="fa fa-check" aria-hidden="true">
+                                    </a>
+                            <?php
+                                echo '</td>';
+                                echo '</tr>';
                             endforeach;
                         ?>
                         </tbody>
