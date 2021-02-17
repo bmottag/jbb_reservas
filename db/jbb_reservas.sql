@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-02-2021 a las 22:41:59
+-- Tiempo de generación: 17-02-2021 a las 14:42:55
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -24,6 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `horarios`
+--
+
+CREATE TABLE `horarios` (
+  `id_horario` int(10) NOT NULL,
+  `hora_inicial` datetime NOT NULL,
+  `hora_final` datetime NOT NULL,
+  `numero_cupos` tinyint(1) NOT NULL,
+  `numero_cupos_restantes` tinyint(1) NOT NULL DEFAULT 0,
+  `estado` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1:Iniciada;2:En proceso;3:Cerrada',
+  `disponible` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1:Si;2:No',
+  `fecha_bloqueo` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `param_menu`
 --
 
@@ -37,6 +54,15 @@ CREATE TABLE `param_menu` (
   `menu_state` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1:Active; 2:Inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `param_menu`
+--
+
+INSERT INTO `param_menu` (`id_menu`, `menu_name`, `menu_url`, `menu_icon`, `menu_order`, `menu_type`, `menu_state`) VALUES
+(1, 'Configuración', '', 'fa-gear', 2, 2, 1),
+(2, '', '', 'fa-user', 6, 2, 1),
+(3, 'Administrar acceso sistema', '', 'fa-cogs', 5, 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +75,19 @@ CREATE TABLE `param_menu_access` (
   `fk_id_link` int(3) NOT NULL,
   `fk_id_role` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `param_menu_access`
+--
+
+INSERT INTO `param_menu_access` (`id_access`, `fk_id_menu`, `fk_id_link`, `fk_id_role`) VALUES
+(6, 1, 6, 99),
+(7, 1, 7, 99),
+(4, 2, 4, 99),
+(5, 2, 5, 99),
+(1, 3, 1, 99),
+(2, 3, 2, 99),
+(3, 3, 3, 99);
 
 -- --------------------------------------------------------
 
@@ -67,6 +106,19 @@ CREATE TABLE `param_menu_links` (
   `link_state` tinyint(1) NOT NULL COMMENT '1:Active;2:Inactive',
   `link_type` tinyint(1) NOT NULL COMMENT '1:System URL;2:Complete URL; 3:Divider; 4:Complete URL, Videos; 5:Complete URL, Manuals'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `param_menu_links`
+--
+
+INSERT INTO `param_menu_links` (`id_link`, `fk_id_menu`, `link_name`, `link_url`, `link_icon`, `order`, `date_issue`, `link_state`, `link_type`) VALUES
+(1, 3, 'Enlaces Menú', 'access/menu', 'fa-link', 1, '2021-02-16 06:21:56', 1, 1),
+(2, 3, 'Enlaces Submenú', 'access/links', 'fa-link', 2, '2021-02-16 06:21:56', 1, 1),
+(3, 3, 'Acceso Roles', 'access/role_access', 'fa-puzzle-piece', 4, '2021-02-16 06:21:56', 1, 1),
+(4, 2, 'Cambiar Contraseña', 'usuarios', 'fa-lock', 1, '2021-02-16 06:28:04', 1, 1),
+(5, 2, 'Salir', 'menu/salir', 'fa-sign-out', 2, '2021-02-16 06:29:08', 1, 1),
+(6, 1, 'Usuarios', 'settings/employee/1', 'fa-users', 1, '2021-02-16 08:39:49', 1, 1),
+(7, 1, 'Horarios', 'settings/horarios', 'fa-briefcase', 2, '2021-02-16 08:52:26', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -89,6 +141,35 @@ CREATE TABLE `param_role` (
 INSERT INTO `param_role` (`id_role`, `role_name`, `description`, `style`, `dashboard_url`) VALUES
 (1, 'Administrador', 'Se encarga de la configuracion del sistema. Cargar tabla de Usuarios.', 'text-success', 'dashboard/admin'),
 (99, 'SUPER ADMIN', 'Con acceso a todo el sistema, encargaado de tablas parametricas del sistema.', 'text-danger', 'dashboard/admin');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reservas`
+--
+
+CREATE TABLE `reservas` (
+  `id_reserva` int(10) NOT NULL,
+  `fk_id_horario` int(10) NOT NULL,
+  `correo_electronico` varchar(100) NOT NULL,
+  `numero_contacto` varchar(12) NOT NULL,
+  `numero_cupos_usados` tinyint(1) NOT NULL DEFAULT 0,
+  `qr_code_img` varchar(250) NOT NULL,
+  `qr_code_llave` varchar(30) NOT NULL,
+  `estado_reserva` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1:Habilitado;2:Deshabilitado'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reservas_usuarios`
+--
+
+CREATE TABLE `reservas_usuarios` (
+  `id_reserva_usuarios` int(10) NOT NULL,
+  `fk_id_reserva` int(11) NOT NULL,
+  `nombre_completo` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -135,6 +216,12 @@ CREATE TABLE `usuarios_llave_contraseña` (
 --
 
 --
+-- Indices de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  ADD PRIMARY KEY (`id_horario`);
+
+--
 -- Indices de la tabla `param_menu`
 --
 ALTER TABLE `param_menu`
@@ -166,6 +253,21 @@ ALTER TABLE `param_role`
   ADD PRIMARY KEY (`id_role`);
 
 --
+-- Indices de la tabla `reservas`
+--
+ALTER TABLE `reservas`
+  ADD PRIMARY KEY (`id_reserva`),
+  ADD UNIQUE KEY `qr_code_llave` (`qr_code_llave`),
+  ADD KEY `fk_id_horario` (`fk_id_horario`);
+
+--
+-- Indices de la tabla `reservas_usuarios`
+--
+ALTER TABLE `reservas_usuarios`
+  ADD PRIMARY KEY (`id_reserva_usuarios`),
+  ADD KEY `fk_id_reserva` (`fk_id_reserva`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -186,28 +288,46 @@ ALTER TABLE `usuarios_llave_contraseña`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  MODIFY `id_horario` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `param_menu`
 --
 ALTER TABLE `param_menu`
-  MODIFY `id_menu` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_menu` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `param_menu_access`
 --
 ALTER TABLE `param_menu_access`
-  MODIFY `id_access` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_access` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `param_menu_links`
 --
 ALTER TABLE `param_menu_links`
-  MODIFY `id_link` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_link` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `param_role`
 --
 ALTER TABLE `param_role`
   MODIFY `id_role` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
+--
+-- AUTO_INCREMENT de la tabla `reservas`
+--
+ALTER TABLE `reservas`
+  MODIFY `id_reserva` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `reservas_usuarios`
+--
+ALTER TABLE `reservas_usuarios`
+  MODIFY `id_reserva_usuarios` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -237,6 +357,18 @@ ALTER TABLE `param_menu_access`
 --
 ALTER TABLE `param_menu_links`
   ADD CONSTRAINT `param_menu_links_ibfk_1` FOREIGN KEY (`fk_id_menu`) REFERENCES `param_menu` (`id_menu`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `reservas`
+--
+ALTER TABLE `reservas`
+  ADD CONSTRAINT `reservas_ibfk_1` FOREIGN KEY (`fk_id_horario`) REFERENCES `horarios` (`id_horario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `reservas_usuarios`
+--
+ALTER TABLE `reservas_usuarios`
+  ADD CONSTRAINT `reservas_usuarios_ibfk_1` FOREIGN KEY (`fk_id_reserva`) REFERENCES `reservas` (`id_reserva`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
