@@ -37,8 +37,7 @@
 <script>
 	$( function() {
 		$( "#start_date" ).datepicker({
-			changeMonth: true,
-			changeYear: true,
+			minDate: '1',
 			dateFormat: 'yy-mm-dd'
 		});
 	});
@@ -74,8 +73,7 @@
 <script>
 	$( function() {
 		$( "#finish_date" ).datepicker({
-			changeMonth: true,
-			changeYear: true,
+			minDate: '1',
 			dateFormat: 'yy-mm-dd'
 		});
 	});
