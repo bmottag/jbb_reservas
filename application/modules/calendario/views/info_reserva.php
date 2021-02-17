@@ -60,6 +60,15 @@
 								endforeach;
 								?>
 							</div>
+						<?php
+							if($infoReserva[0]['estado_reserva'] == 2){
+						?>
+							<div class="alert alert-danger"> 
+								La reserva se canceló el dia: <br><strong><?php echo ucfirst(strftime("%a, %b %d %G, %I:%M %p",strtotime($infoReserva[0]['fecha_cancelacion']))); ?></strong>
+							</div>
+						<?php 
+							}
+						?>
 						</div>
 						<!-- /.col-lg-6 (nested) -->
 						<div class="col-lg-6">

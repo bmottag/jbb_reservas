@@ -137,7 +137,8 @@
 		public function deshabilitarReserva($arrData) 
 		{				
 				$data = array(
-					'estado_reserva' => 2
+					'estado_reserva' => 2,
+					'fecha_cancelacion' => date("Y-m-d G:i:s")
 				);
 				
 				$this->db->where('id_reserva',  $arrData['idReserva']);
