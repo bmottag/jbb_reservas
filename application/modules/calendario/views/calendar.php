@@ -36,7 +36,7 @@
 			dayMaxEvents: true, // allow "more" link when too many events
 			allDaySlot: false,
 			slotMinTime: '8:00',
-			slotMaxTime: '19:00',
+			slotMaxTime: '18:00',
 			slotDuration: '00:15:00',
 			events: {
 				url: 'calendario/consulta',
@@ -73,6 +73,40 @@
 <div id="page-wrapper">
 	<br>	
 	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">	
+            <div class="panel panel-default">
+                
+                <div class="panel-body">
+                	<small>
+                	<p class="lead">Visitas Jardín Botánico</p>
+                    <p>Registre su visita en dos simples pasos:</p>
+
+				    <ol>
+				    <li> 
+				    	<strong>Seleccione la fecha y hora: </strong>
+				    	Verifique que la casilla seleccionada tenga cupo. Si está en verde es que aún no hay nadie inscrito y si está en amarillo (hay cupos). Los horarios que se ven en color rojo no tienen cupo.
+				    </li>
+				    <li>
+				    	<strong>Ingrese sus datos: </strong>
+				    	Registre los Nombres de cada uno de los asistentes (máximo 20 personas, incluyendo niños mayores de 3 años), un número celular de contacto y el correo electrónico donde recibirá el código QR de verificación. No olvide llenar el campo de comprobación (captcha) que consiste en escribir la palabra que está en colores, en el campo dispuesto para ello.
+					</li>
+					</ol>
+
+					<ul>
+						<li>
+						Si después de tu visita al Jardín Botánico te diagnostican con Covid-19 debes reportarlo de inmediato a las autoridades de salud y al teléfono 4377060. Por tu salud y la de todos, Bogotá se sabe mover.Si después de tu visita al Jardín Botánico te diagnostican con Covid-19 debes reportarlo de inmediato a las autoridades de salud y al teléfono 4377060. Por tu salud y la de todos, Bogotá se sabe mover.
+						</li>
+					</ul>
+					Para cancelar su visita haga click en el siguiente botón
+					</small>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+	</div>
+
 	<div class="row">
 		<div class="col-lg-12">
 
