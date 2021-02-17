@@ -15,6 +15,11 @@
 
 <!-- /.TOP MENU -->
 	<ul class="nav navbar-top-links navbar-right">
+<?php
+		if($topMenu){
+			echo $topMenu;
+		}else{
+?>
 		<li>
 		    <a href="https://jbb.gov.co/"></i> Incio</a>
 		</li>
@@ -33,11 +38,10 @@
 		<li>
 		    <a href="http://www.jbb.gov.co/index.php/contactenos"></i> Contáctenos</a>
 		</li>
-<?php
-		if($topMenu){
-			echo $topMenu;
+<?php 
 		}
 ?>
+
 	</ul>
 <!-- /.TOP MENU -->
 
