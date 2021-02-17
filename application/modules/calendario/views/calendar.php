@@ -1,6 +1,24 @@
 <link href="<?php echo base_url("assets/bootstrap/vendor/fullcalendar/lib/main.css"); ?>" rel="stylesheet">
 <script src="<?php echo base_url("assets/bootstrap/vendor/fullcalendar/lib/main.js"); ?>"></script>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$(function(){ 
+	$(".btn-danger").click(function () {	
+            $.ajax ({
+                type: 'POST',
+				url: base_url + 'calendario/cargarModalEliminar',
+                cache: false,
+                success: function (data) {
+                    $('#tablaDatos').html(data);
+                }
+            });
+	});	
+});
+</script>
+
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		var calendarEl = document.getElementById('calendar');
@@ -78,8 +96,21 @@
             <div class="panel panel-default">
                 
                 <div class="panel-body">
+                	<div class="row">
+                		<div class="col-lg-6">	
+                			<p class="lead">Visitas Jardín Botánico</p>
+                		</div>
+                		<div class="col-lg-6">	
+                			<p class="text-right text-danger">
+                				<small>Para cancelar su visita haga click en el siguiente botón</small>
+								<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal" id="x" >
+									Cancelar Reserva <span class="glyphicon glyphicon-remove" aria-hidden="true">
+								</button>
+                			</p>
+            			</div>
+                	</div>
                 	<small>
-                	<p class="lead">Visitas Jardín Botánico</p>
+                	
                     <p>Registre su visita en dos simples pasos:</p>
 
 				    <ol>
@@ -98,7 +129,6 @@
 						Si después de tu visita al Jardín Botánico te diagnostican con Covid-19 debes reportarlo de inmediato a las autoridades de salud y al teléfono 4377060. Por tu salud y la de todos, Bogotá se sabe mover.Si después de tu visita al Jardín Botánico te diagnostican con Covid-19 debes reportarlo de inmediato a las autoridades de salud y al teléfono 4377060. Por tu salud y la de todos, Bogotá se sabe mover.
 						</li>
 					</ul>
-					Para cancelar su visita haga click en el siguiente botón
 					</small>
                 </div>
                 <!-- /.panel-body -->

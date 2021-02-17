@@ -295,12 +295,22 @@ class General_model extends CI_Model {
 		{
 				$this->db->select();
 				$this->db->join('reservas_usuarios U', 'U.fk_id_reserva = R.id_reserva', 'INNER');
+				$this->db->join('horarios H', 'H.id_horario = R.fk_id_horario', 'INNER');
 
 				if (array_key_exists("idReserva ", $arrData)) {
 					$this->db->where('R.id_reserva ', $arrData["idReserva"]);
 				}
 				if (array_key_exists("llave", $arrData)) {
 					$this->db->where('R.qr_code_llave', $arrData["llave"]);
+				}
+				if (array_key_exists("email", $arrData)) {
+					$this->db->where('R.correo_electronico', $arrData["email"]);
+				}
+				if (array_key_exists("fecha", $arrData)) {
+					$this->db->like('H.hora_inicial', $arrData["fecha"]); 
+				}
+				if (array_key_exists("celular", $arrData)) {
+					$this->db->where('R.numero_contacto', $arrData["celular"]);
 				}
 
 				$this->db->order_by('R.id_reserva', 'asc');

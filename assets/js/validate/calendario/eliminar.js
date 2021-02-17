@@ -2,12 +2,12 @@ $( document ).ready( function () {
 
 	$("#celular").bloquearTexto().maxlength(10);
 	
-	$( "#add_reserva" ).validate( {
+	$( "#formEliminar" ).validate( {
 		rules: {
 			email: 				{ required: true, minlength: 3, maxlength:25, email: true },
-			confirmarEmail: 	{ required: true, minlength: 3, maxlength:25, equalTo: "#email" },
-			celular: 			{ required: true, minlength: 10, maxlength:10 },
-			name: 				{ required: true, minlength: 3, maxlength:25 }
+			fecha: 				{ required: true },
+			celular: 			{ required: true, minlength: 10, maxlength:10 }
+			
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
@@ -29,7 +29,7 @@ $( document ).ready( function () {
 	
 	$("#btnSubmit").click(function(){		
 	
-		if ($("#add_reserva").valid() == true){
+		if ($("#formEliminar").valid() == true){
 		
 				//Activa icono guardando
 				$('#btnSubmit').attr('disabled','-1');
@@ -38,8 +38,8 @@ $( document ).ready( function () {
 			
 				$.ajax({
 					type: "POST",	
-					url: base_url + "calendario/guardarReserva",	
-					data: $("#add_reserva").serialize(),
+					url: base_url + "calendario/eliminarRegistro",	
+					data: $("#formEliminar").serialize(),
 					dataType: "json",
 					contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 					cache: false,
@@ -60,8 +60,9 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmit').removeAttr('disabled');
 
-							var url = base_url + "calendario/registro/" + data.idRecord;
+							var url = base_url + "calendario";
 							$(location).attr("href", url);
+							alert('Se canceló su reserva.');
 						}
 						else
 						{

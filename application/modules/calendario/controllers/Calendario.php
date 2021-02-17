@@ -253,6 +253,76 @@ class Calendario extends CI_Controller {
 			$this->calendario_model->habilitarHorario($arrParam);
 	}
 
+    /**
+     * Cargo modal - formulario eliminar reserva
+     * @since 17/2/2021
+     */
+    public function cargarModalEliminar() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+
+			$this->load->view("eliminar_modal");
+    }
+
+	/**
+	 * Eliminar Reserva
+     * @since 17/2/2021
+     * @author BMOTTAG
+	 */
+    public function eliminarRegistro()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$email = trim($this->security->xss_clean($this->input->post('email')));
+			$fecha = trim($this->security->xss_clean($this->input->post('fecha')));
+			$celular = trim($this->security->xss_clean($this->input->post('celular')));
+
+			$arrParam = array(
+				'email' => $email,
+				'fecha' => $fecha,
+				'celular' => $celular
+			);
+			$data['infoReserva'] = $this->general_model->get_reserva_info($arrParam);
+
+			if(!$data['infoReserva'])
+			{
+					$data["result"] = "error";					
+					$data["mensaje"] = " Error. No hay reservas con esa información.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> No hay reservas con esa información.');
+			}else{
+					//deshaiblito reseva
+					$arrParam = array(
+						'idReserva' => $data['infoReserva'][0]['id_reserva']
+					);
+					if ($idReserva = $this->calendario_model->deshabilitarReserva($arrParam)) 
+					{
+						//actualizar el numero de cupos restantes en la tabla horarios
+						//si cumplio el numero maximo de cupos cambiar estado a cerrado
+						$NumeroCuposRestantes = $NumeroCuposRestantes + $numeroCupos;
+						$estado = '2'; //En processo
+						$disponibilidad = 1;
+
+						$arrParam = array(
+							'idHorario' => $data['infoReserva'][0]['fk_id_horario'],
+							'NumeroCuposRestantes' => $NumeroCuposRestantes,
+							'estado' => $estado,
+							'disponibilidad' => $disponibilidad
+						);
+						$this->calendario_model->actualizarHorarios($arrParam);
+
+						$data["result"] = true;					
+						$this->session->set_flashdata('retornoExito', 'Se guardó la información');
+					} else {
+						$data["result"] = "error";					
+						$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+					}
+			}
+
+			echo json_encode($data);
+    }
+
+
 	
 	
 }

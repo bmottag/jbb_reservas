@@ -8,10 +8,14 @@
 		 */
 		public function guardarReserva($pass) 
 		{
+				$email = trim($this->security->xss_clean($this->input->post('email')));
+				$fecha = trim($this->security->xss_clean($this->input->post('fecha')));
+				$celular = trim($this->security->xss_clean($this->input->post('celular')));
+
 				$data = array(
 					'fk_id_horario' => $this->input->post('hddIdHorario'),
-					'correo_electronico' => $this->input->post('email'),
-					'numero_contacto' => $this->input->post('celular')
+					'correo_electronico' => $email,
+					'numero_contacto' => $celular
 				);
 
 				$query = $this->db->insert('reservas', $data);
@@ -118,6 +122,26 @@
 				
 				$this->db->where('id_horario',  $arrData['idHorario']);
 				$query = $this->db->update('horarios', $data);
+				
+				if ($query) {
+					return true;
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Actualizar estado de a reserva
+		 * @since 17/2/2021
+		 */
+		public function deshabilitarReserva($arrData) 
+		{				
+				$data = array(
+					'estado_reserva' => 2
+				);
+				
+				$this->db->where('id_reserva',  $arrData['idReserva']);
+				$query = $this->db->update('reservas', $data);
 				
 				if ($query) {
 					return true;
