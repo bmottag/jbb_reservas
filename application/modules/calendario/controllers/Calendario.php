@@ -143,6 +143,9 @@ class Calendario extends CI_Controller {
 			}else{
 					if ($idReserva = $this->calendario_model->guardarReserva($pass)) 
 					{
+						//envio de correo
+						$this->email($idReserva);
+
 						//genero el codigo QR y subo la imagen
 						//INCIO - genero imagen con la libreria y la subo 
 						$this->load->library('ciqrcode');
@@ -325,6 +328,76 @@ class Calendario extends CI_Controller {
 
 			echo json_encode($data);
     }
+
+	/**
+	 * Evio de correo
+     * @since 17/2/2021
+     * @author BMOTTAG
+	 */
+	public function email($idReserva)
+	{	
+			$arrParam = array("idReserva" => $idReserva);
+			$infoReserva = $this->general_model->get_reserva_info($arrParam);
+
+			$arrParam = array("idHorario" => $infoReserva[0]['fk_id_horario']);
+			$infoHorario = $this->general_model->get_horario_info($arrParam);
+			
+			$subjet = "Reserva Jardín Botánico";
+			$to = $infoReserva[0]['correo_electronico'];
+		
+			//mensaje del correo
+			$msj = '<p><strong>Gracias por reservar su visita </strong></p>';
+			$msj .= '<p>Sr.(a) ' . $infoReserva[0]['nombre_completo'] . ' lo(a) esperamos el día ';
+			$msj .= "<strong>" . ucfirst(strftime("%d de %b, %G",strtotime($infoHorario[0]['hora_inicial']))) . "</strong>";
+			$msj .= ' a las ' . "<strong>" .ucfirst(strftime("%I:%M %p",strtotime($infoHorario[0]['hora_inicial'])))  . "</strong>";
+			$msj .= ' para que se acerque a nuestra taquilla y adquiera los ingresos conforme a las tarifas aplicadas*, con el código de este correo.</p>';
+			$msj .= '<p>Le recomendamos llegar 20 minutos antes de su reserva para realizar el protocolo de bioseguridad.</p>';
+			$msj .= '<p>Teléfono de contacto: 319 433 9710</p>';
+			$msj .= "<strong>No. Visitantes: </strong>" . $infoReserva[0]['numero_cupos_usados'];
+			$msj .= '<p><strong>* Tarifas aplicadas: </strong></p>';
+			$msj .= '<ul><li>Adultos $3.500</li>';
+			$msj .= '<li>Niños de 4 a 12 años $1.800</li>';
+			$msj .= '<li>Niños de 3 o menos años y adultos mayores de 60 años no pagan</li></ul>';
+			$msj .= "<img src=" . base_url($infoReserva[0]['qr_code_img']) . " class='img-rounded' width='200' height='200' />";
+
+
+			$msj .= '<p>';
+			$msj .= '<strong>Recomendaciones</strong>
+					<ul><li>Usa correctamente tu tapabocas.</li>
+					<li>Lava tus manos frecuentemente.</li>
+					<li>Desinfecta tu calzado y objetos personales.</li>
+					<li>Estornuda en el antebrazo o cúbrete con pañuelo desechable, no con tu mano.</li>
+					<li>El personal médico te tomará la temperatura.</li>
+					<li>Trae tu kit de desinfección (tapabocas, gel antibacterial y papel higiénico).</li>
+					<li>Mantén la distancia mínima de 2 metros.</li>
+					<li>Evita aglomeraciones.</li>
+					<li>Porta tu paraguas o impermeable por si llueve.</li>
+					<li>Recuerda traer agua para hidratarte.</li>
+					<li>Descarga la aplicación Coronapp.</li></ul>';
+			$msj .= '</p>';
+									
+			$mensaje = "<html>
+			<head>
+			  <title> $subjet </title>
+			</head>
+			<body>
+				<p>$msj</p>
+				<p>Cordialmente,</p>
+				<p><strong>Jardín Botánico de Bogotá</strong></p>
+			</body>
+			</html>";		
+
+			$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+			$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			$cabeceras .= 'To: ' . $to . '<' . $to . '>' . "\r\n";
+			$cabeceras .= 'From: JBB APP <bmotta@jbb.gov.co>' . "\r\n";
+
+			//enviar correo al cliente
+			mail($to, $subjet, $mensaje, $cabeceras);
+
+			return TRUE;
+	}	
+
 
 
 	
