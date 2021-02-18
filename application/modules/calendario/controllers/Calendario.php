@@ -35,12 +35,36 @@ class Calendario extends CI_Controller {
 			$start = substr($start,0,10);
 			$end = substr($end,0,10);
 
+			//busco horarios bloqueados para revisarlos y desbloquearlos si pasaron los 5 minutos
 			$arrParam = array(
-				"from" => $start,
-				"to" => $end
+				'from' => $start,
+				'to' => $end,
+				'disponible' => 2
 			);
-			
-			//informacion Work Order
+			$horarioBloqueados = $this->general_model->get_horario_info($arrParam);
+
+			$date1 = new DateTime('now');
+			if($horarioBloqueados){
+				foreach ($horarioBloqueados as $data):
+					$date2 = new DateTime($data['fecha_bloqueo']);
+					$diff = $date1->diff($date2);
+					$numeroMinutos = $diff->i;
+					if($numeroMinutos > 5){
+							$arrParam = array(
+								'idHorario' => $data['id_horario'],
+								'NumeroCuposRestantes' => $data['numero_cupos_restantes'],
+								'estado' => $data['estado'],
+								'disponibilidad' => 1
+							);
+							$this->calendario_model->actualizarHorarios($arrParam);
+					}
+				endforeach;
+			}
+
+			$arrParam = array(
+				'from' => $start,
+				'to' => $end
+			);
 			$horarioInfo = $this->general_model->get_horario_info($arrParam);
 
 			echo  '[';
@@ -175,7 +199,6 @@ class Calendario extends CI_Controller {
 						$disponibilidad = 1;
 						if($NumeroCuposRestantes == 0){
 							$estado = '3'; //cerrado
-							$disponibilidad = 2;
 						}
 						$arrParam = array(
 							'idHorario' => $idHorario,

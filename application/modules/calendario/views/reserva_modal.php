@@ -40,7 +40,7 @@ $(document).ready(function(){
 	
 <script>
 	var end = new Date();
-    var sumarsesion = 1;
+    var sumarsesion = 5;
     var minutes = end.getMinutes();
 
     end.setMinutes(minutes + sumarsesion);//adiciono 5 min a la fecha actual
