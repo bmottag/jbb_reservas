@@ -18,6 +18,10 @@
 						<?php echo ucfirst(strftime("%I:%M %p",strtotime($horarioInfo[0]['hora_inicial']))); ?>
 						-
 						<?php echo ucfirst(strftime("%I:%M %p",strtotime($horarioInfo[0]['hora_final']))); ?>
+						<?php if($infoReserva){ ?>
+						<br><strong>Descargar Listado: </strong>
+						<a href='<?php echo base_url('reportes/generaReservaPDF/' . $horarioInfo[0]['id_horario'] ); ?>' target="_blank">PDF <img src='<?php echo base_url_images('pdf.png'); ?>' ></a>
+						<?php } ?>
 					</div>
 					<br>
 
@@ -98,15 +102,15 @@
 </div>
 <!-- /#page-wrapper -->
 
-    <!-- Tables -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables').DataTable({
-            responsive: true,
-			 "ordering": false,
-			 paging: false,
-			"searching": false,
-			"info": false
-        });
+<!-- Tables -->
+<script>
+$(document).ready(function() {
+    $('#dataTables').DataTable({
+        responsive: true,
+		 "ordering": false,
+		 paging: false,
+		"searching": false,
+		"info": false
     });
-    </script>
+});
+</script>

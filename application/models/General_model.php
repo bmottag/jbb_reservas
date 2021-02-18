@@ -302,6 +302,9 @@ class General_model extends CI_Model {
 				if (array_key_exists("idHorario", $arrData)) {
 					$this->db->where('R.fk_id_horario', $arrData["idHorario"]);
 				}
+				if (array_key_exists("estadoReserva", $arrData)) {
+					$this->db->where('R.estado_reserva', $arrData["estadoReserva"]);
+				}
 				if (array_key_exists("llave", $arrData)) {
 					$this->db->where('R.qr_code_llave', $arrData["llave"]);
 				}
