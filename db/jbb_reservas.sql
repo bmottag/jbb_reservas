@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-02-2021 a las 14:42:55
+-- Tiempo de generación: 18-02-2021 a las 15:47:42
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -156,7 +156,8 @@ CREATE TABLE `reservas` (
   `numero_cupos_usados` tinyint(1) NOT NULL DEFAULT 0,
   `qr_code_img` varchar(250) NOT NULL,
   `qr_code_llave` varchar(30) NOT NULL,
-  `estado_reserva` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1:Habilitado;2:Deshabilitado'
+  `estado_reserva` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1:Habilitado;2:Deshabilitado',
+  `fecha_cancelacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -362,13 +363,13 @@ ALTER TABLE `param_menu_links`
 -- Filtros para la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  ADD CONSTRAINT `reservas_ibfk_1` FOREIGN KEY (`fk_id_horario`) REFERENCES `horarios` (`id_horario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `reservas_ibfk_1` FOREIGN KEY (`fk_id_horario`) REFERENCES `horarios` (`id_horario`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `reservas_usuarios`
 --
 ALTER TABLE `reservas_usuarios`
-  ADD CONSTRAINT `reservas_usuarios_ibfk_1` FOREIGN KEY (`fk_id_reserva`) REFERENCES `reservas` (`id_reserva`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `reservas_usuarios_ibfk_1` FOREIGN KEY (`fk_id_reserva`) REFERENCES `reservas` (`id_reserva`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
