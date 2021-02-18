@@ -143,9 +143,6 @@ class Calendario extends CI_Controller {
 			}else{
 					if ($idReserva = $this->calendario_model->guardarReserva($pass)) 
 					{
-						//envio de correo
-						$this->email($idReserva);
-
 						//genero el codigo QR y subo la imagen
 						//INCIO - genero imagen con la libreria y la subo 
 						$this->load->library('ciqrcode');
@@ -234,6 +231,10 @@ class Calendario extends CI_Controller {
 
 			$arrParam = array("idHorario" => $data['infoReserva'][0]['fk_id_horario']);
 			$data['infoHorario'] = $this->general_model->get_horario_info($arrParam);
+
+			//envio de correo
+			$idReserva = $data['infoReserva'][0]['id_reserva'];
+			$this->email($idReserva);
 						
 			$data["view"] = 'info_reserva';
 			$this->load->view("layout_calendar", $data);

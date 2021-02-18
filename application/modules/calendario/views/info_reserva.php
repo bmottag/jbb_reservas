@@ -16,18 +16,18 @@
 								<div class="form-group">
 									<div class="row" align="center">
 										<img src="<?php echo base_url($infoReserva[0]["qr_code_img"]); ?>" class="img-rounded" width="200" height="200" alt="QR CODE" />
-										<br><small>Guardar código QR, para el ingreso a las instalaciones. Puede tomar una foto con su celular.</small>
+										<p class='text-danger'><small>Guardar código, para el ingreso a las instalaciones. <br>Puede tomar una foto con su celular.</small></p>
 									</div>
 								</div>
 							<?php } ?>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-lg-3">
 							<div class="alert alert-success"> 
-
+								<small>
 								Se guardó la Reserva de visita para el día: <br><strong><?php echo ucfirst(strftime("%a, %b %d %G, %I:%M %p",strtotime($infoHorario[0]['hora_inicial']))); ?></strong>
 
 								<br><br>
-								<strong>No. de Cupos: </strong> <?php echo $infoReserva[0]['numero_cupos_usados']; ?><br>
+								<strong>No. de Visitantes: </strong> <?php echo $infoReserva[0]['numero_cupos_usados']; ?><br>
 								<strong>Correo Electrónico: </strong> <?php echo $infoReserva[0]['correo_electronico']; ?><br>
 
 							<?php
@@ -49,31 +49,61 @@
 
 								<strong>Celular de Contaco: </strong> <?php echo $resultado; ?><br>
 								<strong>Nombres: </strong>
+								<ul>
 								<?php
 								foreach ($infoReserva as $data):
 								?>
-									<ul>
-										<li><?php echo $data['nombre_completo']; ?></li>
-									</ul>
+									<li><?php echo $data['nombre_completo']; ?></li>
 								<?php
-
 								endforeach;
 								?>
+								</ul>
+								</small>
 							</div>
 						<?php
 							if($infoReserva[0]['estado_reserva'] == 2){
 						?>
 							<div class="alert alert-danger"> 
+								<small>
 								La reserva se canceló el dia: <br><strong><?php echo ucfirst(strftime("%a, %b %d %G, %I:%M %p",strtotime($infoReserva[0]['fecha_cancelacion']))); ?></strong>
+								</small>
 							</div>
 						<?php 
 							}
 						?>
 						</div>
-						<!-- /.col-lg-6 (nested) -->
-						<div class="col-lg-6">
+						<!-- /.col-lg-3 (nested) -->
+						<div class="col-lg-3">
+							<div class="alert alert-success">
+								<small>
+								<p>Le recomendamos llegar 20 minutos antes de su reserva para realizar el protocolo de bioseguridad.</p>
+								<strong> Tarifas aplicadas: </strong>
+								<ul><li>Adultos $3.500</li>
+								<li>Niños de 4 a 12 años $1.800</li>
+								<li>Niños de 3 o menos años y adultos mayores de 60 años no pagan</li></ul>
+								</small>
+							</div>
 						</div>
-						<!-- /.col-lg-6 (nested) -->
+						<!-- /.col-lg-3 (nested) -->
+
+						<div class="col-lg-3">
+							<div class="alert alert-success">
+								<small>
+								<strong>Recomendaciones</strong>
+								<ul><li>Usa correctamente tu tapabocas.</li>
+								<li>Lava tus manos frecuentemente.</li>
+								<li>Desinfecta tu calzado y objetos personales.</li>
+								<li>Estornuda en el antebrazo o cúbrete con pañuelo desechable, no con tu mano.</li>
+								<li>El personal médico te tomará la temperatura.</li>
+								<li>Trae tu kit de desinfección (tapabocas, gel antibacterial y papel higiénico).</li>
+								<li>Mantén la distancia mínima de 2 metros.</li>
+								<li>Evita aglomeraciones.</li>
+								<li>Porta tu paraguas o impermeable por si llueve.</li>
+								<li>Recuerda traer agua para hidratarte.</li>
+								<li>Descarga la aplicación Coronapp.</li></ul>
+								</small>
+							</div>
+						</div>
 					</div>
 					<!-- /.row (nested) -->
 				</div>
