@@ -56,6 +56,7 @@ $(function(){
 			slotMinTime: '8:00',
 			slotMaxTime: '18:00',
 			slotDuration: '00:15:00',
+			slotLabelInterval: '00:15', 
 			events: {
 				url: 'calendario/consulta',
 				method: 'POST',
