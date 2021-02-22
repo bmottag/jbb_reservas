@@ -366,9 +366,9 @@ class Calendario extends CI_Controller {
 			$arrParam = array("idHorario" => $infoReserva[0]['fk_id_horario']);
 			$infoHorario = $this->general_model->get_horario_info($arrParam);
 			
-			$subjet = "Reserva Jardín Botánico";
+			$subjet = 'Reserva Jardín Botánico';
 			$to = $infoReserva[0]['correo_electronico'];
-		
+
 			//mensaje del correo
 			$msj = '<p><strong>Gracias por reservar su visita </strong></p>';
 			$msj .= '<p>Sr.(a) ' . $infoReserva[0]['nombre_completo'] . ' lo(a) esperamos el día ';
@@ -414,10 +414,10 @@ class Calendario extends CI_Controller {
 			$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
 			$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 			$cabeceras .= 'To: ' . $to . '<' . $to . '>' . "\r\n";
-			$cabeceras .= 'From: JBB APP <bmotta@jbb.gov.co>' . "\r\n";
+			$cabeceras .= 'From: JBB APP' . "\r\n";
 
 			//enviar correo al cliente
-			mail($to, $subjet, $mensaje, $cabeceras);
+			$email = mail($to, utf8_decode($subjet), $mensaje, $cabeceras);
 
 			return TRUE;
 	}	
