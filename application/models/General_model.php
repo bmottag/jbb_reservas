@@ -296,7 +296,7 @@ class General_model extends CI_Model {
 				$this->db->select();
 				$this->db->join('reservas_usuarios U', 'U.fk_id_reserva = R.id_reserva', 'INNER');
 
-				if (array_key_exists("idReserva ", $arrData)) {
+				if (array_key_exists("idReserva", $arrData)) {
 					$this->db->where('R.id_reserva ', $arrData["idReserva"]);
 				}
 				if (array_key_exists("idHorario", $arrData)) {
