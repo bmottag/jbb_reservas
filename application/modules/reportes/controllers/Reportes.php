@@ -6,7 +6,6 @@ class Reportes extends CI_Controller {
     public function __construct() {
         parent::__construct();
 		$this->load->model("reportes_model");
-		$this->load->model("general_model");
     }
 	
 	/**
@@ -84,7 +83,7 @@ class Reportes extends CI_Controller {
 			$pdf->AddPage();
 
 			$html = $this->load->view("reporte_reserva", $data, true);
-			
+
 			// output the HTML content
 			$pdf->writeHTML($html, true, false, true, false, '');
 			
