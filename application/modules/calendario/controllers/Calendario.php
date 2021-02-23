@@ -359,7 +359,7 @@ class Calendario extends CI_Controller {
      * @author BMOTTAG
 	 */
 	public function email($idReserva)
-	{	
+	{
 			$arrParam = array("idReserva" => $idReserva);
 			$infoReserva = $this->general_model->get_reserva_info($arrParam);
 
@@ -411,15 +411,24 @@ class Calendario extends CI_Controller {
 			</body>
 			</html>";		
 
-			$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-			$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-			$cabeceras .= 'To: ' . $to . '<' . $to . '>' . "\r\n";
-			$cabeceras .= 'From: JBB APP' . "\r\n";
+			$this->load->library('email');   
+			$config['mailtype'] = 'html';
+			$this->email->initialize($config);
+			$this->email->to($to, 'Usuario');
+			$this->email->from('benmotta@gmail.com','JBB APP');
+			$this->email->subject($subjet);
+			$this->email->message($mensaje);
 
-			//enviar correo al cliente
-			$email = mail($to, utf8_decode($subjet), $mensaje, $cabeceras);
+			if (!$this->email->send())
+			{
+			    show_error($this->email->print_debugger());
+			}
+			else
+			{
+			    return TRUE;
+			}
 
-			return TRUE;
+
 	}	
 
 
