@@ -74,17 +74,24 @@ class Calendario extends CI_Controller {
 				$longitud = count($horarioInfo);
 				$i=1;
 				foreach ($horarioInfo as $data):
+
+					$fechaActual = strtotime(date('Y-m-d G:i:s'));
+					$fechaInicial = strtotime($data['hora_inicial']);
 					
-					switch ($data['estado']) {
-						case 1:
-							$color = '#b1eeb1';
-							break;
-						case 2:
-							$color = '#f7f79a';
-							break;
-						case 3:
-							$color = '#f7c0c0';
-							break;
+					if($fechaInicial < $fechaActual){
+						$color = '#f0e3e3';
+					}else{
+						switch ($data['estado']) {
+							case 1:
+								$color = '#b1eeb1';
+								break;
+							case 2:
+								$color = '#f7f79a';
+								break;
+							case 3:
+								$color = '#f7c0c0';
+								break;
+						}
 					}
 
 					echo  '{
@@ -122,7 +129,13 @@ class Calendario extends CI_Controller {
 			);
 			$data['information'] = $this->general_model->get_horario_info($arrParam);
 
-			if($data['information'][0]['estado'] == 3)
+			$fechaActual = strtotime(date('Y-m-d G:i:s'));
+			$fechaInicial = strtotime($data['information'][0]['hora_inicial']);
+					
+			if($fechaInicial < $fechaActual){
+				echo '<br><p><strong>Atención:</strong><br>';
+				echo 'Esta fecha se encuentra cerrada.</p>';
+			}elseif($data['information'][0]['estado'] == 3)
 			{
 				echo '<br><p><strong>Atención:</strong><br>';
 				echo 'Se completo el cupo máximo para este horario, por favor seleccione otro.</p>';
