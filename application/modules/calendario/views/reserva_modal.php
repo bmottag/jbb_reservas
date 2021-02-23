@@ -10,7 +10,7 @@ $(document).ready(function(){
 		if(i<=CuposRestantes){
 			$('#dynamic_field').append('<tr id="row'+i+'"><td><small>'+i+'</small></td><td><input type="text" name="name[]" placeholder="Nombre Completo" class="form-control name_list" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times"></i></button></td></tr>');
 		}else{
-			alert('Sse completo el limite de cupos permidos');
+			alert('Se completo el limite de cupos permidos');
 		}
 
 	});
