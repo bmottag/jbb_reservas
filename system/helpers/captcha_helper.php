@@ -66,18 +66,18 @@ if ( ! function_exists('create_captcha'))
 			'word'		=> '',
 			'img_path'	=> '',
 			'img_url'	=> '',
-			'img_width'	=> '150',
-			'img_height'	=> '30',
+			'img_width'	=> '250',
+			'img_height'	=> '70',
 			'font_path'	=> '',
 			'expiration'	=> 7200,
 			'word_length'	=> 8,
-			'font_size'	=> 16,
+			'font_size'	=> 20,
 			'img_id'	=> '',
-			'pool'		=> '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+			'pool'		=> '23456789ABCFHJMNQRSTXYZ',
 			'colors'	=> array(
 				'background'	=> array(255,255,255),
 				'border'	=> array(153,102,102),
-				'text'		=> array(204,153,153),
+				'text'		=> array(0,0,0),
 				'grid'		=> array(255,182,182)
 			)
 		);
