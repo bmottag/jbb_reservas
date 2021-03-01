@@ -16,8 +16,9 @@
 								<div class="form-group">
 									<div class="row" align="center">
 										<img src="<?php echo base_url($infoReserva[0]["qr_code_img"]); ?>" class="img-rounded" width="200" height="200" alt="QR CODE" />
-										<p class='text-danger'><small>Guardar código, para el ingreso a las instalaciones. <br>Puede tomar una foto con su celular.</small></p>
 									</div>
+									<p class='text-danger'><small>Guardar código, para el ingreso a las instalaciones. <br>Puede tomar una foto con su celular.</small></p>
+									<p class='text-danger'><small>Se envió copia de su registro al correo electrónico registrado. Revisar SPAM o correo no deseado.</small></p>
 								</div>
 							<?php } ?>
 						</div>

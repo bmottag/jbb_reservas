@@ -7,6 +7,7 @@ class Calendario extends CI_Controller {
         parent::__construct();
         $this->load->model("calendario_model");
         $this->load->model("general_model");
+        $this->load->helper('captcha');
 		$this->load->helper('form');
     }
 
@@ -120,6 +121,20 @@ class Calendario extends CI_Controller {
     public function cargarModalReserva() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+
+			// Captcha
+			$config = array(
+			    'img_path'      => 'images/captcha_images/',
+			    'img_url'       => base_url().'images/captcha_images/'
+			);
+			$captcha = create_captcha($config);
+
+			// Unset previous captcha and store new captcha word
+			$this->session->unset_userdata('captchaCode');
+			$this->session->set_userdata('captchaCode',$captcha['word']);
+
+			// Send captcha image to view
+			$data['captchaImg'] = $captcha['image'];
 			
 			$data['information'] = FALSE;
 			$data["idHorario"] = $this->input->post("idHorario");
@@ -165,68 +180,79 @@ class Calendario extends CI_Controller {
 			header('Content-Type: application/json');
 			$data = array();
 
-			$pass = $this->generaPass();//clave para colocarle al codigo QR
-			
 			$idHorario = $this->input->post('hddIdHorario');
 			$NumeroCuposRestantes = $this->input->post('hddNumeroCuposRestantes');
 			$usuarios = $this->input->post('name');
 			$primerUsuario = $this->security->xss_clean($usuarios[0]);//limpio el primer valor
 
-			if(empty(trim($primerUsuario)))
-			{
+            $inputCaptcha = $email = trim($this->security->xss_clean($this->input->post('captcha')));
+            $sessCaptcha = $this->session->userdata('captchaCode');
+
+            if($inputCaptcha !== $sessCaptcha)
+            {
 					$data["result"] = "error";					
-					$data["mensaje"] = " Error. Debe ingresar el nombre completo.";
-					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> No ingreso nombres');
+					$data["mensaje"] = " Error. El captcha no coincide.";
 			}else{
-					if ($idReserva = $this->calendario_model->guardarReserva($pass)) 
-					{
-						//genero el codigo QR y subo la imagen
-						//INCIO - genero imagen con la libreria y la subo 
-						$this->load->library('ciqrcode');
-
-						$data['idRecord'] = $llave = $pass . $idReserva;
-						$valorQRcode = base_url("calendario/registro/" . $llave);
-						$rutaImagen = "images/reservas/QR/" . $llave . "_qr_code.png";
-						
-						$params['data'] = $valorQRcode;
-						$params['level'] = 'H';
-						$params['size'] = 10;
-						$params['savename'] = FCPATH.$rutaImagen;
-										
-						$this->ciqrcode->generate($params);
-						//FIN - genero imagen con la libreria y la subo
-
-						$numeroCupos = $this->calendario_model->guardarUsuarios($idReserva);//guardo usuarios
-
-						//guardo numero de cupos
-						$arrParam = array(
-							'idReserva' => $idReserva,
-							'numeroCupos' => $numeroCupos
-						);
-						$this->calendario_model->actualizarReserva($arrParam);
-
-						//actualizar el numero de cupos restantes en la tabla horarios
-						//si cumplio el numero maximo de cupos cambiar estado a cerrado
-						$NumeroCuposRestantes = $NumeroCuposRestantes - $numeroCupos;
-						$estado = '2'; //En processo
-						$disponibilidad = 1;
-						if($NumeroCuposRestantes == 0){
-							$estado = '3'; //cerrado
-						}
-						$arrParam = array(
-							'idHorario' => $idHorario,
-							'NumeroCuposRestantes' => $NumeroCuposRestantes,
-							'estado' => $estado,
-							'disponibilidad' => $disponibilidad
-						);
-						$this->calendario_model->actualizarHorarios($arrParam);
-
-						$data["result"] = true;					
-						$this->session->set_flashdata('retornoExito', 'Se guardó la información');
-					} else {
+				if(empty(trim($primerUsuario)))
+				{
 						$data["result"] = "error";					
-						$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
-					}
+						$data["mensaje"] = " Error. Debe ingresar el nombre completo.";
+						$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> No ingreso nombres');
+				}else{
+						$pass = $this->generaPass();//clave para colocarle al codigo QR
+
+						if ($idReserva = $this->calendario_model->guardarReserva($pass)) 
+						{
+							//genero el codigo QR y subo la imagen
+							//INCIO - genero imagen con la libreria y la subo 
+							$this->load->library('ciqrcode');
+
+							$data['idRecord'] = $llave = $pass . $idReserva;
+							$valorQRcode = base_url("calendario/registro/" . $llave);
+							$rutaImagen = "images/reservas/QR/" . $llave . "_qr_code.png";
+							
+							$params['data'] = $valorQRcode;
+							$params['level'] = 'H';
+							$params['size'] = 10;
+							$params['savename'] = FCPATH.$rutaImagen;
+											
+							$this->ciqrcode->generate($params);
+							//FIN - genero imagen con la libreria y la subo
+
+							$numeroCupos = $this->calendario_model->guardarUsuarios($idReserva);//guardo usuarios
+
+							//guardo numero de cupos
+							$arrParam = array(
+								'idReserva' => $idReserva,
+								'numeroCupos' => $numeroCupos
+							);
+							$this->calendario_model->actualizarReserva($arrParam);
+
+							//actualizar el numero de cupos restantes en la tabla horarios
+							//si cumplio el numero maximo de cupos cambiar estado a cerrado
+							$NumeroCuposRestantes = $NumeroCuposRestantes - $numeroCupos;
+							$estado = '2'; //En processo
+							$disponibilidad = 1;
+							if($NumeroCuposRestantes == 0){
+								$estado = '3'; //cerrado
+							}
+							$arrParam = array(
+								'idHorario' => $idHorario,
+								'NumeroCuposRestantes' => $NumeroCuposRestantes,
+								'estado' => $estado,
+								'disponibilidad' => $disponibilidad
+							);
+							$this->calendario_model->actualizarHorarios($arrParam);
+
+							$this->email($idReserva);
+
+							$data["result"] = true;					
+							$this->session->set_flashdata('retornoExito', 'Se guardó la información');
+						} else {
+							$data["result"] = "error";					
+							$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+						}
+				}
 			}
 
 			echo json_encode($data);
@@ -270,7 +296,6 @@ class Calendario extends CI_Controller {
 
 			//envio de correo
 			$idReserva = $data['infoReserva'][0]['id_reserva'];
-			$this->email($idReserva);
 						
 			$data["view"] = 'info_reserva';
 			$this->load->view("layout_calendar", $data);
@@ -391,60 +416,93 @@ class Calendario extends CI_Controller {
 			$msj .= '<p>Le recomendamos llegar 20 minutos antes de su reserva para realizar el protocolo de bioseguridad.</p>';
 			$msj .= '<p>Teléfono de contacto: 319 433 9710</p>';
 			$msj .= "<strong>No. Visitantes: </strong>" . $infoReserva[0]['numero_cupos_usados'];
+			$msj .= '<ul>';
+			foreach ($infoReserva as $data):
+				$msj .= '<li>' . $data['nombre_completo'] . '</li>';
+			endforeach;
+			$msj .= '</ul>';		
 			$msj .= '<p><strong>* Tarifas aplicadas: </strong></p>';
 			$msj .= '<ul><li>Adultos $3.500</li>';
 			$msj .= '<li>Niños de 4 a 12 años $1.800</li>';
 			$msj .= '<li>Niños de 3 o menos años y adultos mayores de 60 años no pagan</li></ul>';
 			$msj .= "<img src=" . base_url($infoReserva[0]['qr_code_img']) . " class='img-rounded' width='200' height='200' />";
-
-
-			$msj .= '<p>';
-			$msj .= '<strong>Recomendaciones</strong>
-					<ul><li>Usa correctamente tu tapabocas.</li>
-					<li>Lava tus manos frecuentemente.</li>
-					<li>Desinfecta tu calzado y objetos personales.</li>
-					<li>Estornuda en el antebrazo o cúbrete con pañuelo desechable, no con tu mano.</li>
-					<li>El personal médico te tomará la temperatura.</li>
-					<li>Trae tu kit de desinfección (tapabocas, gel antibacterial y papel higiénico).</li>
-					<li>Mantén la distancia mínima de 2 metros.</li>
-					<li>Evita aglomeraciones.</li>
-					<li>Porta tu paraguas o impermeable por si llueve.</li>
-					<li>Recuerda traer agua para hidratarte.</li>
-					<li>Descarga la aplicación Coronapp.</li></ul>';
-			$msj .= '</p>';
+			$msj .= '<br>';
+			$msj .= '<strong>Código para el ingreso a las instalaciones</strong>';
+			$msj .= '<p><strong>Recomendaciones</strong></p>';
+			$msj .= '<ul><li>Usa correctamente tu tapabocas.</li>';
+			$msj .= '<li>Lava tus manos frecuentemente.</li>';
+			$msj .= '<li>Desinfecta tu calzado y objetos personales.</li>';
+			$msj .= '<li>Estornuda en el antebrazo o cúbrete con pañuelo desechable, no con tu mano.</li>';
+			$msj .= '<li>El personal médico te tomará la temperatura.</li>';
+			$msj .= '<li>Trae tu kit de desinfección (tapabocas, gel antibacterial y papel higiénico).</li>';
+			$msj .= '<li>Mantén la distancia mínima de 2 metros.</li>';
+			$msj .= '<li>Evita aglomeraciones.</li>';
+			$msj .= '<li>Porta tu paraguas o impermeable por si llueve.</li>';
+			$msj .= '<li>Recuerda traer agua para hidratarte.</li>';
+			$msj .= '<li>Descarga la aplicación Coronapp.</li></ul>';
 									
-			$mensaje = "<html>
-			<head>
-			  <title> $subjet </title>
-			</head>
-			<body>
-				<p>$msj</p>
-				<p>Cordialmente,</p>
-				<p><strong>Jardín Botánico de Bogotá</strong></p>
-			</body>
-			</html>";		
+			$mensaje = "<p>$msj</p>
+						<p>Cordialmente,</p>
+						<p><strong>Jardín Botánico de Bogotá</strong></p>";		
 
-			$this->load->library('email');   
-			$config['mailtype'] = 'html';
-			$this->email->initialize($config);
-			$this->email->to($to, 'Usuario');
-			$this->email->from('benmotta@gmail.com','JBB APP');
-			$this->email->subject($subjet);
-			$this->email->message($mensaje);
+			require_once(APPPATH.'libraries/PHPMailer_5.2.4/class.phpmailer.php');
+            $mail = new PHPMailer(true);
 
-			if (!$this->email->send())
-			{
-			    show_error($this->email->print_debugger());
-			}
-			else
-			{
-			    return TRUE;
-			}
+            try {
+                    $mail->IsSMTP(); // set mailer to use SMTP
+                    $mail->Host = "smtp.office365.com"; // specif smtp server
+                    $mail->SMTPSecure= "tls"; // Used instead of TLS when only POP mail is selected
+                    $mail->Port = 587; // Used instead of 587 when only POP mail is selected
+                    $mail->SMTPAuth = true;
+                    $mail->Username = "xxxxxx@xxxxxx.co"; // SMTP username
+                    $mail->Password = "xxxxxx"; // SMTP password
+                    $mail->FromName = "JBB";
+                    $mail->From = "xxxxxx@xxxxxx.co";
+                    $mail->AddAddress($to, 'Usuario JJB Reservas');
+                    $mail->WordWrap = 50;
+                    $mail->CharSet = 'UTF-8';
+                    $mail->IsHTML(true); // set email format to HTML
+                    $mail->Subject = 'Reserva Jardín Botánico';
 
+                    $mail->Body = nl2br ($mensaje,false);
+
+                    if($mail->Send()) {
+
+                    	return TRUE;
+                        $this->session->set_flashdata('retorno_exito', 'Creaci&oacute;n de usuario exitosa!. La informaci&oacute;n para activar su cuenta fu&eacute; enviada al correo registrado, recuerde aceptar los t&eacute;rminos y condiciones y cambiar su contrase&ntilde;a');
+                        //redirect(base_url(), 'refresh');
+                        exit;
+
+                    }else{
+
+                        $this->session->set_flashdata('retorno_error', 'Se creo la persona, sin embargo no se pudo enviar el correo electr&oacute;nico');
+                       // redirect(base_url(), 'refresh');
+                        exit;
+
+                    }
+
+                }catch (Exception $e){
+                                print_r($e->getMessage());
+                                        exit;
+                }
 
 	}	
 
-
+    public function refresh(){
+        // Captcha configuration
+        $config = array(
+            'img_path'      => 'images/captcha_images/',
+            'img_url'       => base_url().'images/captcha_images/'
+        );
+        $captcha = create_captcha($config);
+  
+        // Unset previous captcha and store new captcha word
+        $this->session->unset_userdata('captchaCode');
+        $this->session->set_userdata('captchaCode',$captcha['word']);
+  
+        // Display captcha image
+        echo $captcha['image'];
+    }
 
 	
 	

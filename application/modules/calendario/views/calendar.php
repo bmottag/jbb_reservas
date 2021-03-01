@@ -65,7 +65,7 @@ $(function(){
 					custom_param2: 'somethingelse'
 				},
 				failure: function() {
-					alert('There was an error while fetching events!');
+					alert('Error al cargar los eventos!');
 				},
 				color: 'green',   // a non-ajax option
 				textColor: 'black' // a non-ajax option
