@@ -19,6 +19,14 @@ $(document).ready(function(){
 		var button_id = $(this).attr("id"); 
 		$('#row'+button_id+'').remove();
 	});
+
+
+	$(".btn-default").click(function () {	
+        $.get('<?php echo base_url().'calendario/refresh'; ?>', function(data){
+            $('#captImg').html(data);
+        });
+    });
+
 });
 </script>
 
@@ -130,6 +138,24 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-sm-6">		
+				<div class="form-group text-left">
+					<label class="control-label" for="captcha">Captcha 
+					<button type="button" name="refreshCaptcha" id="refreshCaptcha" class="btn btn-default btn-xs"><i class="fa fa-refresh"></i></button>
+					</label>
+					<p id="captImg"><?php echo $captchaImg; ?></p>
+				</div>
+			</div>
+			<div class="col-sm-4">		
+				<div class="form-group text-left">
+					<label class="control-label" for="captcha">Ingresar Captcha: *</label>
+					<input type="text" class="form-control" id="captcha" name="captcha" placeholder="Captcha" required />
+				</div>
+			</div>
+		</div>
+
 
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dynamic_field" border="0">
