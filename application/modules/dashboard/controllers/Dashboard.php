@@ -59,9 +59,9 @@ class Dashboard extends CI_Controller {
 	 */
 	public function buscar_reservas()
 	{		
-
+			$data['fecha'] = $this->input->post('fecha');
 			$arrParam = array(
-				'fecha' => $this->input->post('fecha')
+				'fecha' => $data['fecha']
 			);			
 			$data['listaReservas'] = $this->general_model->get_info_reservas($arrParam);
 

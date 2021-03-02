@@ -41,7 +41,7 @@
 						<thead>
 							<tr>
 								<th class='text-center'>Correo Electrónico</th>
-								<th class='text-center'>No.Celular de Contacto</th>
+								<th class='text-center'>No. Celular de Contacto</th>
 								<th class='text-center'>Nombre</th>
 								<th class='text-center'>Estado</th>
 							</tr>
