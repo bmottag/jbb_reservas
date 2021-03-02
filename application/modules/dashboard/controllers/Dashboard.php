@@ -41,6 +41,34 @@ class Dashboard extends CI_Controller {
 			$this->load->view("layout_calendar", $data);
 	}
 
+    /**
+     * Cargo modal - formulario buscar resercar por fecha
+     * @since 1/3/2021
+     */
+    public function cargarModalBuscar() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+						
+			$this->load->view('buscar_modal');
+    }
+
+	/**
+	 * Lista de reservas
+     * @since 1/3/2021
+     * @author BMOTTAG
+	 */
+	public function buscar_reservas()
+	{		
+
+			$arrParam = array(
+				'fecha' => $this->input->post('fecha')
+			);			
+			$data['listaReservas'] = $this->general_model->get_info_reservas($arrParam);
+
+			$data["view"] ='lista_reservas_fecha';
+			$this->load->view("layout_calendar", $data);
+	}
+
 	
 	
 	

@@ -1,3 +1,23 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+$(function(){ 
+    $(".btn-primary").click(function () {   
+            var oID = $(this).attr("id");
+            $.ajax ({
+                type: 'POST',
+                url: base_url + 'dashboard/cargarModalBuscar',
+                data: {'idLink': oID},
+                cache: false,
+                success: function (data) {
+                    $('#tablaDatos').html(data);
+                }
+            });
+    }); 
+});
+</script>
+
 <div id="page-wrapper">
     <div class="row"><br>
 		<div class="col-md-12">
@@ -47,11 +67,13 @@ if ($retornoError) {
         <div class="col-lg-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal" id="x">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Reservas por Fecha
+                    </button>
                     <i class="fa fa-thumb-tack fa-fw"></i> HORARIOS VIGENTES
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-
 <?php
     if(!$infoHorarios){ 
 ?>
@@ -125,3 +147,13 @@ if ($retornoError) {
     </div>
 
 </div>
+
+<!--INICIO Modal Buscar por fecha -->
+<div class="modal fade text-center" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="tablaDatos">
+
+        </div>
+    </div>
+</div>                       
+<!--FIN Modal Buscar por fecha -->
