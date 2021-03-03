@@ -1,9 +1,24 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/calendario/eliminar.js"); ?>"></script>
+<?php 
+	$variable = $this->input->post("variable"); 
+	$archivoValidacion =  base_url('assets/js/validate/calendario/' . $variable . '.js');
+?>
+<script type="text/javascript" src="<?php echo $archivoValidacion; ?>"></script>
 
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	<h4 class="modal-title" id="exampleModalLabel">ELIMINAR RESERVA
-	<br><small>Para cancelar su reserva, favor ingresar su correo electrónico, la fecha en que reservo y número de celular de contacto, borrará todas sus reservas de ese día.</small>
+	<h4 class="modal-title" id="exampleModalLabel"><?php echo strtoupper($variable); ?> RESERVA
+	<br><small>Para <?php echo $variable; ?> su reserva, favor ingresar su correo electrónico, la fecha en que reservo y número de celular de contacto. 
+	<?php 
+		$claseBoton = 'btn-success';
+		$iconoBoton = 'glyphicon-search';
+		if($variable == 'eliminar')
+		{
+			echo 'Borrará todas sus reservas de ese día.';
+			$claseBoton = 'btn-danger';
+			$iconoBoton = 'glyphicon-remove';
+		} 
+	?> 
+	</small>
 	</h4>
 </div>
 
@@ -58,8 +73,8 @@
 		<div class="form-group">
 			<div class="row" align="center">
 				<div style="width:50%;" align="center">
-					<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-danger" >
-						Cancelar Reserva <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true">
+					<button type="button" id="btnSubmit" name="btnSubmit" class="btn <?php echo $claseBoton; ?>" >
+						<?php echo ucfirst ($variable); ?> Reserva <span class="glyphicon glyphicon <?php echo $iconoBoton; ?>" aria-hidden="true">
 					</button> 
 				</div>
 			</div>

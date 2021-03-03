@@ -38,7 +38,7 @@ $( document ).ready( function () {
 			
 				$.ajax({
 					type: "POST",	
-					url: base_url + "calendario/eliminarRegistro",	
+					url: base_url + "calendario/consultarRegistro",	
 					data: $("#formEliminar").serialize(),
 					dataType: "json",
 					contentType: "application/x-www-form-urlencoded;charset=UTF-8",
@@ -60,7 +60,8 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmit').removeAttr('disabled');
 
-							alert('Se canceló su reserva.');
+							var url = base_url + "calendario/registro/" + data.codigoReserva;
+							$(location).attr("href", url);
 						}
 						else
 						{

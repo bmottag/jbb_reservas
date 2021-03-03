@@ -10,12 +10,25 @@ $(function(){
             $.ajax ({
                 type: 'POST',
 				url: base_url + 'calendario/cargarModalEliminar',
+				data: {'variable': 'cancelar'},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
                 }
             });
 	});	
+
+	$(".btn-success").click(function () {	
+            $.ajax ({
+                type: 'POST',
+				url: base_url + 'calendario/cargarModalEliminar',
+				data: {'variable': 'consultar'},
+                cache: false,
+                success: function (data) {
+                    $('#tablaDatos').html(data);
+                }
+            });
+	});
 });
 </script>
 
@@ -106,6 +119,12 @@ $(function(){
                 				<small>Para cancelar su visita haga click en el siguiente botón</small>
 								<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal" id="x" >
 									Cancelar Reserva <span class="glyphicon glyphicon-remove" aria-hidden="true">
+								</button>
+                			</p>
+                			<p class="text-right text-success">
+                				<small>Para consultar información de su visita haga click en el siguiente botón</small>
+								<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="x" >
+									Consultar Reserva <span class="glyphicon glyphicon-search" aria-hidden="true">
 								</button>
                 			</p>
             			</div>

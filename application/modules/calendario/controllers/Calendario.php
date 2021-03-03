@@ -331,11 +331,11 @@ class Calendario extends CI_Controller {
     }
 
 	/**
-	 * Eliminar Reserva
+	 * Cancelar Reserva
      * @since 17/2/2021
      * @author BMOTTAG
 	 */
-    public function eliminarRegistro()
+    public function cancelarRegistro()
 	{			
 			header('Content-Type: application/json');
 			$data = array();
@@ -502,6 +502,43 @@ class Calendario extends CI_Controller {
   
         // Display captcha image
         echo $captcha['image'];
+    }
+
+
+	/**
+	 * Consultar Reserva
+     * @since 3/3/2021
+     * @author BMOTTAG
+	 */
+    public function consultarRegistro()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			$email = trim($this->security->xss_clean($this->input->post('email')));
+			$fecha = trim($this->security->xss_clean($this->input->post('fecha')));
+			$celular = trim($this->security->xss_clean($this->input->post('celular')));
+
+			$arrParam = array(
+				'email' => $email,
+				'fecha' => $fecha,
+				'celular' => $celular,
+				'estadoReserva' => 1
+			);
+			$infoReserva = $this->general_model->get_reserva($arrParam);
+
+			if(!$infoReserva)
+			{
+					$data["result"] = "error";					
+					$data["mensaje"] = " Error. No hay reservas con esa información.";
+					$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> No hay reservas con esa información.');
+			}else{
+					$data['codigoReserva'] = $infoReserva[0]['qr_code_llave'];
+					$data["result"] = true;					
+					$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong>');
+			}
+
+			echo json_encode($data);
     }
 
 	
