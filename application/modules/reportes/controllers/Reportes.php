@@ -108,16 +108,38 @@ class Reportes extends CI_Controller {
      * @since 2/3/2021
      * @author BMOTTAG
 	 */
-	public function generaReservaFechaPDF($fecha)
+	public function generaReservaFechaPDF()
 	{
 			$this->load->library('Pdf');
 			
 			// create new PDF document
 			$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 			
-			$arrParam = array(
-				'fecha' => $fecha
-			);			
+			$bandera = $this->input->post('bandera');
+
+			if($bandera == 1 )
+			{
+				$data['fecha'] = $this->input->post('fecha');
+				$fechaEncabezado = 'Fecha: ' . ucfirst(strftime("%b %d, %G",strtotime($data['fecha'])));
+
+				$arrParam = array(
+					'fecha' => $this->input->post('fecha')
+				);
+			}else{
+				$data['from'] = $this->input->post('from');
+				$data['to'] = $this->input->post('to');
+
+				$fechaEncabezado = 'Rango Fechas: ' . ucfirst(strftime("%b %d, %G",strtotime($data['from']))) . ' - ' . ucfirst(strftime("%b %d, %G",strtotime($data['to'])));
+
+				$from = formatear_fecha($data['from']);
+				//le sumo un dia al dia final para que ingrese ese dia en la consulta
+				$to = date('Y-m-d',strtotime ( '+1 day ' , strtotime ( formatear_fecha($data['to']) ) ) );
+
+				$arrParam = array(
+					'from' => $from,
+					'to' => $to
+				);
+			}
 			$data['listaReservas'] = $this->reportes_model->get_info_reservas($arrParam);
 
 			// set document information
@@ -127,7 +149,7 @@ class Reportes extends CI_Controller {
 			$pdf->SetSubject('TCPDF Tutorial');
 
 			// set default header data
-			$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'RESERVAS', 'Fecha: ' . $fecha, array(94,164,49), array(147,204,110));			
+			$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'RESERVAS', $fechaEncabezado, array(94,164,49), array(147,204,110));			
 
 			// set header and footer fonts
 			$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));

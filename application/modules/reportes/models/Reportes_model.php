@@ -77,6 +77,13 @@
 				if (array_key_exists("fecha", $arrData) && $arrData["fecha"] != '') {
 					$this->db->like('H.hora_inicial', $arrData["fecha"]); 
 				}
+				if (array_key_exists('from', $arrData) && $arrData['from'] != '') {
+					$this->db->where('H.hora_inicial >=', $arrData["from"]);
+				}				
+				if (array_key_exists('to', $arrData) && $arrData['to'] != '' && $arrData['from'] != '') {
+					$this->db->where('H.hora_inicial <', $arrData["to"]);
+				}
+
 				$this->db->where('R.estado_reserva', 1); 
 				$this->db->order_by('H.hora_inicial', 'asc');
 

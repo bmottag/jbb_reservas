@@ -18,8 +18,13 @@
 						<strong>Fecha: </strong>
 						<?php echo ucfirst(strftime("%b %d, %G",strtotime($fecha))); ?>
 						<?php if($listaReservas){ ?>
-						<br><strong>Descargar Listado: </strong>
-						<a href='<?php echo base_url('reportes/generaReservaFechaPDF/' . $fecha ); ?>' target="_blank">PDF <img src='<?php echo base_url_images('pdf.png'); ?>' ></a>
+<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaPDF"); ?>" target="_blank">
+	<input type="hidden" class="form-control" id="bandera" name="bandera" value=1 />
+	<input type="hidden" class="form-control" id="fecha" name="fecha" value="<?php echo $fecha ?>" />
+	<button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
+		Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true">
+	</button>
+</form>
 						<?php } ?>
 					</div>
 				<?php
@@ -33,9 +38,15 @@
 							echo ' - ';
 							echo ucfirst(strftime("%b %d, %G",strtotime($to))); 
 						?>
-						<?php if($listaReservas){ ?>
-						<br><strong>Descargar Listado: </strong>
-						<a href='<?php echo base_url('reportes/generaReservaFechaPDF/' . $from . '/' . $to ); ?>' target="_blank">PDF <img src='<?php echo base_url_images('pdf.png'); ?>' ></a>
+						<?php if($listaReservas){ ?>				
+<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaPDF"); ?>" target="_blank">
+	<input type="hidden" class="form-control" id="bandera" name="bandera" value=2 />
+	<input type="hidden" class="form-control" id="from" name="from" value="<?php echo $from; ?>" />
+	<input type="hidden" class="form-control" id="to" name="to" value="<?php echo $to; ?>" />
+	<button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
+		Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true">
+	</button>
+</form>
 						<?php } ?>
 					</div>
 				<?php
