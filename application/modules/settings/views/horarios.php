@@ -16,7 +16,21 @@ $(function(){
             });
 	});	
 });
+
+function seleccionar_todo(){
+   for (i=0;i<document.form_disponibilidad.elements.length;i++)
+      if(document.form_disponibilidad.elements[i].type == "checkbox")
+         document.form_disponibilidad.elements[i].checked=1
+} 
+
+
+function deseleccionar_todo(){
+   for (i=0;i<document.form_disponibilidad.elements.length;i++)
+      if(document.form_disponibilidad.elements[i].type == "checkbox")
+         document.form_disponibilidad.elements[i].checked=0
+} 
 </script>
+
 
 <div id="page-wrapper">
 	<br>
@@ -68,15 +82,24 @@ $(function(){
 				<?php
 					if($infoHorarios){
 				?>				
+<form  name="form_disponibilidad" id="form_disponibilidad" method="post" action="<?php echo base_url("settings/bloquear_horarios"); ?>">
+				<p>
+				<a href="javascript:seleccionar_todo()">Marcar Todos</a> |
+				<a href="javascript:deseleccionar_todo()">Desmarcar Todos</a>
+				</p>
 					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 						<thead>
 							<tr>
                                 <th class='text-center'>ID</th>
                                 <th class='text-center'>Hora Inicial</th>
                                 <th class='text-center'>Hora Final</th>
-                                <th class='text-center'>No. de Cupos</th>
-                                <th class='text-center'>No. Disponibles</th>
-								<th class='text-center'>Editar</th>
+                                <th class='text-center'>No. Cupos</th>
+                                <th class='text-center'>No. Cupos Disponibles</th>
+                                <th class='text-center'>Disponiblidad<br>
+<button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" >
+	Bloquear/Desbloquear <span class="glyphicon glyphicon-edit" aria-hidden="true">
+</button>
+                                </th>
 							</tr>
 						</thead>
 						<tbody>							
@@ -88,17 +111,45 @@ $(function(){
 	                                echo '<td class="text-center">' . $lista['hora_final'] . '</td>';
 	                                echo '<td class="text-center">' . $lista['numero_cupos'] . '</td>';
 	                                echo '<td class="text-center">' . $lista['numero_cupos_restantes'] . '</td>';
-									echo "<td class='text-center'>";
-						?>
-									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_horario']; ?>" >
-										Editar <span class="glyphicon glyphicon-edit" aria-hidden="true">
-									</button>
-						<?php
-									echo "</td>";
+                                echo '<td class="text-center">';
+                                switch ($lista['disponible']) {
+                                    case 1:
+                                        $valor = 'DISPONIBLE';
+                                        $clase = "text-success";
+                                        $disponibilidad = FALSE;
+                                        break;
+                                    case 2:
+                                        $valor = 'BLOQUEADO: USUARIO RESERVANDO';
+                                        $clase = "text-warning";
+                                        $disponibilidad = FALSE;
+                                        break;
+                                    case 3:
+                                        $valor = 'BLOQUEDA: POR ADMINISTRACIÓN';
+                                        $clase = "text-danger";
+                                        $disponibilidad = TRUE;
+                                        break;
+                                }
+                                echo '<p class="' . $clase . '"><strong>' . $valor . '</strong>';
+
+                                if($lista['numero_cupos'] == $lista['numero_cupos_restantes']){
+
+									$data = array(
+										'name' => 'disponibilidad[]',
+										'id' => 'disponibilidad',
+										'value' => $lista['id_horario'],
+										'checked' => $disponibilidad,
+										'style' => 'margin:10px'
+									);
+									echo form_checkbox($data);
+								}
+
+                                echo '</p></td>';
+                                echo '</tr>';
 							endforeach;
 						?>
 						</tbody>
 					</table>
+</form>
 				<?php } ?>
 				</div>
 				<!-- /.panel-body -->

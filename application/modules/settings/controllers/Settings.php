@@ -283,6 +283,24 @@ class Settings extends CI_Controller {
 
 			echo json_encode($data);	
     }
+
+	/**
+	 * Bloquear/Desbloqear horarios
+     * @since 3/3/2021
+     * @author BMOTTAG
+	 */
+	public function bloquear_horarios()
+	{	
+			if ($this->settings_model->actualizarDisponibilidadHorarios()) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', "Se actualizó las disponibilidad de los horarios!!");
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
+			}
+
+			redirect(base_url('settings/horarios'), 'refresh');
+	}
 	
 
 	

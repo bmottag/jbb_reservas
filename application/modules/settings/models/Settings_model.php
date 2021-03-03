@@ -179,6 +179,35 @@
 					return false;
 				}
 		}
+
+		/**
+		 * Actualizar disponibilidad de horarios
+		 * @since 3/3/2021
+		 */
+		public function actualizarDisponibilidadHorarios() 
+		{
+			//cambiar todos los horarios VIGENTES, que estan Bloqueados por el administrador (3) a DISPONIBLES (1)
+			$data['disponible'] = 1;
+			$this->db->where('disponible', 3);
+			$query = $this->db->update('horarios', $data);
+			
+
+			//update states
+			$query = 1;
+			if ($disponibilidad = $this->input->post('disponibilidad')) {
+				$tot = count($disponibilidad);
+				for ($i = 0; $i < $tot; $i++) {
+					$data['disponible'] = 3;
+					$this->db->where('id_horario', $disponibilidad[$i]);
+					$query = $this->db->update('horarios', $data);					
+				}
+			}
+			if ($query) {
+				return true;
+			} else{
+				return false;
+			}
+		}
 		
 		
 		
