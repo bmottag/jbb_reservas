@@ -87,7 +87,7 @@
 									echo ucfirst(strftime("%b %d, %G",strtotime($lista['hora_inicial'])));
 									echo '</td>';
 									echo '<td class="text-center">';
-									echo ucfirst(strftime("%I:%M %p",strtotime($lista['hora_inicial'])));
+									echo ucfirst(strftime("%I:%M",strtotime($lista['hora_inicial'])));
 									echo ' - ';
 									echo ucfirst(strftime("%I:%M %p",strtotime($lista['hora_final'])));
 									echo '</td>';
