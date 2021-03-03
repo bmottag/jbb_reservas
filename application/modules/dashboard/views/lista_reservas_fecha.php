@@ -10,7 +10,10 @@
 					<i class="fa fa-list-ul"></i> <strong>LISTADO DE RESERVAS</strong>
 				</div>
 				<div class="panel-body">
-
+				<?php 
+					//si la consulta es por fecha
+					if($bandera){
+				?>
 					<div class="alert alert-success">
 						<strong>Fecha: </strong>
 						<?php echo ucfirst(strftime("%b %d, %G",strtotime($fecha))); ?>
@@ -19,6 +22,25 @@
 						<a href='<?php echo base_url('reportes/generaReservaFechaPDF/' . $fecha ); ?>' target="_blank">PDF <img src='<?php echo base_url_images('pdf.png'); ?>' ></a>
 						<?php } ?>
 					</div>
+				<?php
+					}else{
+					//si la consulta es por rango de fechas
+				?>
+					<div class="alert alert-success">
+						<strong>Rango de Fechas: </strong>
+						<?php 
+							echo ucfirst(strftime("%b %d, %G",strtotime($from))); 
+							echo ' - ';
+							echo ucfirst(strftime("%b %d, %G",strtotime($to))); 
+						?>
+						<?php if($listaReservas){ ?>
+						<br><strong>Descargar Listado: </strong>
+						<a href='<?php echo base_url('reportes/generaReservaFechaPDF/' . $from . '/' . $to ); ?>' target="_blank">PDF <img src='<?php echo base_url_images('pdf.png'); ?>' ></a>
+						<?php } ?>
+					</div>
+				<?php
+					}
+				?>
 				
 				<?php
 				    if(!$listaReservas){ 

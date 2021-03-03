@@ -372,8 +372,14 @@ class General_model extends CI_Model {
 				$this->db->select('H.hora_inicial, H.hora_final, R.correo_electronico, R.numero_contacto, U.nombre_completo');
 				$this->db->join('reservas R', 'R.fk_id_horario = H.id_horario', 'INNER');
 				$this->db->join('reservas_usuarios U', 'U.fk_id_reserva = R.id_reserva', 'INNER');
-				if (array_key_exists("fecha", $arrData) && $arrData["fecha"] != '') {
+				if (array_key_exists('fecha', $arrData) && $arrData['fecha'] != '') {
 					$this->db->like('H.hora_inicial', $arrData["fecha"]); 
+				}
+				if (array_key_exists('from', $arrData) && $arrData['from'] != '') {
+					$this->db->where('H.hora_inicial >=', $arrData["from"]);
+				}				
+				if (array_key_exists('to', $arrData) && $arrData['to'] != '' && $arrData['from'] != '') {
+					$this->db->where('H.hora_inicial <', $arrData["to"]);
 				}
 				$this->db->where('R.estado_reserva', 1); 
 				$this->db->order_by('H.hora_inicial', 'asc');

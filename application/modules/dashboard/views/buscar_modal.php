@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group text-left">
-					<label class="control-label" for="fecha">Fecha</label>
+					<label class="control-label" for="fecha">Fecha:</label>
 					<input type="text" class="form-control" id="fecha" name="fecha" value="" placeholder="Fecha" required />
 				</div>
 			</div>

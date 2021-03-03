@@ -18,6 +18,23 @@ $(function(){
 });
 </script>
 
+<script>
+$(function(){ 
+    $(".btn-info").click(function () {   
+            var oID = $(this).attr("id");
+            $.ajax ({
+                type: 'POST',
+                url: base_url + 'dashboard/cargarModalBuscarRango',
+                data: {'idLink': oID},
+                cache: false,
+                success: function (data) {
+                    $('#tablaDatos').html(data);
+                }
+            });
+    }); 
+});
+</script>
+
 <div id="page-wrapper">
     <div class="row"><br>
 		<div class="col-md-12">
@@ -70,6 +87,10 @@ if ($retornoError) {
                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal" id="x">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Reservas por Fecha
                     </button>
+
+                    <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal" id="x">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Reservas por Rango de Fechas
+                    </button>
                     <i class="fa fa-thumb-tack fa-fw"></i> HORARIOS VIGENTES
                 </div>
                 <!-- /.panel-heading -->
@@ -92,8 +113,8 @@ if ($retornoError) {
                                 <th class='text-center'>ID</th>
                                 <th class='text-center'>Hora Inicial</th>
                                 <th class='text-center'>Hora Final</th>
-                                <th class='text-center'>No. de Cupos</th>
-                                <th class='text-center'>No. Disponibles</th>
+                                <th class='text-center'>No. Cupos</th>
+                                <th class='text-center'>No. Cupos Disponibles</th>
                                 <th class='text-center'>Estado</th>
                                 <th class='text-center'>Ver Reservas</th>
                             </tr>
