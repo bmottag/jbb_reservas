@@ -270,6 +270,9 @@ class General_model extends CI_Model {
 				if (array_key_exists("disponible", $arrData)) {
 					$this->db->where('H.disponible', $arrData["disponible"]);
 				}
+				if (array_key_exists("bloqueados", $arrData) && $arrData["bloqueados"] != '') {
+					$this->db->where('H.disponible !=', 3);
+				}
 				if (array_key_exists("from", $arrData) && $arrData["from"] != '') {
 					$this->db->where('H.hora_inicial >=', $arrData["from"]);
 				}				

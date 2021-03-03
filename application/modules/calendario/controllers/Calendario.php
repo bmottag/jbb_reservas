@@ -62,9 +62,11 @@ class Calendario extends CI_Controller {
 				endforeach;
 			}
 
+			//buscar horarios que no esten bloqueados
 			$arrParam = array(
 				'from' => $start,
-				'to' => $end
+				'to' => $end,
+				'bloqueados' => 'no esten bloqueados por el administrador'
 			);
 			$horarioInfo = $this->general_model->get_horario_info($arrParam);
 
