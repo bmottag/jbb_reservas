@@ -143,6 +143,8 @@
 						break;
 				}
 
+				$numeroHorariosDia++;
+
 				$fechaInicial = $fechaInicio . ' ' . $horaInicio . ':00:00';
 				
 				for ($i = 0; $i < $numeroDias; $i++) 
