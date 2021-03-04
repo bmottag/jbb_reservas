@@ -18,7 +18,44 @@ class Dashboard extends CI_Controller {
 				'from' => date('Y-m-d')
 			);
 			$data['infoHorarios'] = $this->general_model->get_horario_info($arrParam);
-			
+
+			$arrParam = array(
+				'fecha' => date('Y-m-d')
+			);			
+			$data['listaReservas'] = $this->general_model->get_info_reservas($arrParam);
+
+			//numero de visitantes para el dia de HOY
+			$data['noVisitantesHOY'] = $data['listaReservas']?count($data['listaReservas']):0;
+
+			//calculo numero de visitantes para la semana presente
+			if (date('D')=='Mon'){
+			     $lunes = date('Y-m-d');
+			} else {
+			     $lunes = date('Y-m-d', strtotime('last Monday', time()));
+			}
+			 
+			$domingo = strtotime('next Sunday', time());
+ 			$domingo = date('Y-m-d', $domingo);
+			$arrParam = array(
+				'from' => $lunes,
+				'to' => $domingo
+			);
+			$data['listaReservasSEMANA'] = $this->general_model->get_info_reservas($arrParam);
+			$data['noVisitantesSEMANA'] = $data['listaReservasSEMANA']?count($data['listaReservasSEMANA']):0;
+
+			//calculo numero de visitantes para el MES presente
+			$month_start = strtotime('first day of this month', time());
+			$month_start = date('Y-m-d', $month_start);
+			$month_end = strtotime('last day of this month', time());
+			$month_end = date('Y-m-d', $month_end);
+
+			$arrParam = array(
+				'from' => $month_start,
+				'to' => $month_end
+			);
+			$data['listaReservasMES'] = $this->general_model->get_info_reservas($arrParam);
+			$data['noVisitantesMES'] = $data['listaReservasMES']?count($data['listaReservasMES']):0;
+
 			$data["view"] = "dashboard";
 			$this->load->view("layout_calendar", $data);
 	}
