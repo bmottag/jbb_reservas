@@ -60,10 +60,10 @@
 
                             <fieldset>
                                 <div class="form-group">
-									<input type="text" id="inputLogin" name="inputLogin" class="form-control" placeholder="Usuario" value="<?php echo get_cookie('user'); ?>" required autofocus >
+									<input type="text" id="inputLogin" name="inputLogin" class="form-control" placeholder="Usuario" value="" required autofocus >
                                 </div>
                                 <div class="form-group">
-									<input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Contraseña" value="<?php echo get_cookie('password'); ?>" >
+									<input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Contraseña" value="" >
                                 </div>
 
 								<button type="submit" class="btn btn-lg btn-success btn-block" id='btnSubmit' name='btnSubmit'>Ingresar </button>
