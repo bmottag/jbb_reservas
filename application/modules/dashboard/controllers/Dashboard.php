@@ -99,7 +99,7 @@ class Dashboard extends CI_Controller {
 			//para identificar en la visda de donde viene
 			$data['bandera'] = TRUE;
 
-			$data['fecha'] = $this->input->post('fecha');
+			$data['fecha'] = $this->input->post('date');
 			$arrParam = array(
 				'fecha' => $data['fecha']
 			);			

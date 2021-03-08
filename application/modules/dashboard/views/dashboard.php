@@ -28,7 +28,7 @@ $(function(){
                 data: {'idLink': oID},
                 cache: false,
                 success: function (data) {
-                    $('#tablaDatos').html(data);
+                    $('#formRango').html(data);
                 }
             });
     }); 
@@ -204,7 +204,7 @@ if ($retornoError) {
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Reservas por Fecha
                         </button>
 
-                        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#modal" id="x">
+                        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#modalRango" id="y">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Reservas por Rango
                         </button>
                     </div>
@@ -306,6 +306,16 @@ if ($retornoError) {
 <div class="modal fade text-center" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="tablaDatos">
+
+        </div>
+    </div>
+</div>                       
+<!--FIN Modal Buscar por fecha -->
+
+<!--INICIO Modal Buscar por fecha -->
+<div class="modal fade text-center" id="modalRango" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="formRango">
 
         </div>
     </div>

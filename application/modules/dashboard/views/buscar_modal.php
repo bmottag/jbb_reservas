@@ -9,7 +9,7 @@
 
 <script>
 	$( function() {
-		$( "#fecha" ).datepicker({
+		$( "#date" ).datepicker({
 			changeMonth: false,
 			changeYear: false,
 			dateFormat: 'yy-mm-dd'
@@ -21,7 +21,7 @@
 			<div class="col-sm-6">
 				<div class="form-group text-left">
 					<label class="control-label" for="fecha">Fecha:</label>
-					<input type="text" class="form-control" id="fecha" name="fecha" value="" placeholder="Fecha" required />
+					<input type="text" class="form-control" id="date" name="date" value="" placeholder="Fecha" required />
 				</div>
 			</div>
 			

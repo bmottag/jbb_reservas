@@ -2,7 +2,7 @@
 			
 			$( "#form" ).validate( {
 				rules: {
-					fecha: 			{ required: true }
+					date: 			{ required: true }
 				},
 				errorElement: "em",
 				errorPlacement: function ( error, element ) {
