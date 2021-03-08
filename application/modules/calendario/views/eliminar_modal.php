@@ -37,7 +37,7 @@
 <script>
 	$( function() {
 		$( "#fecha" ).datepicker({
-			minDate: '1',
+			minDate: '0',
 			dateFormat: 'yy-mm-dd'
 		});
 	});
