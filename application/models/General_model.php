@@ -233,7 +233,7 @@ class General_model extends CI_Model {
 	 */
 	public function get_role_menu($arrData) 
 	{		
-		$this->db->select();
+		$this->db->select('distinct(fk_id_menu), menu_url,menu_icon,menu_name,menu_order');
 		$this->db->join('param_menu M', 'M.id_menu = P.fk_id_menu', 'INNER');
 
 		if (array_key_exists("idRole", $arrData)) {
@@ -246,7 +246,7 @@ class General_model extends CI_Model {
 			$this->db->where('M.menu_state', $arrData["menuState"]);
 		}
 					
-		$this->db->group_by("P.fk_id_menu"); 
+		//$this->db->group_by("P.fk_id_menu"); 
 		$this->db->order_by('M.menu_order', 'asc');
 		$query = $this->db->get('param_menu_access P');
 
