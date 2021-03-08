@@ -5,6 +5,18 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
+$(document).ready(function () {
+    //Disable full page
+    $("body").on("contextmenu",function(e){
+        return false;
+    });
+    
+    //Disable part of page
+    $("#id").on("contextmenu",function(e){
+        return false;
+    });
+});
+	
 $(function(){ 
 	$(".btn-danger").click(function () {	
             $.ajax ({
