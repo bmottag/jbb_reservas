@@ -75,9 +75,6 @@ class Login extends CI_Controller {
 						);
 												
 						$this->session->set_userdata($sessionData);
-						//cookies
-						set_cookie('user',$login, '350000'); 
-						set_cookie('password',$passwd,'350000'); 
 						
 						$this->login_model->redireccionarUsuario();
 					}else{					
