@@ -71,6 +71,7 @@
 							</div>	
 						<?php } ?>
 						
+						<?php if(!$_POST){ ?>
 						<div class="row">
 							<div class="col-lg-12">
 								<p class="text-success">
@@ -79,10 +80,10 @@
 								</p>
 							</div>
 						</div>	
-												
+							
 						<form  name="form" id="form" role="form" method="post" action="<?php echo base_url("login/validateEmail"); ?>" >
 						  <div class="form-group has-feedback">
-							<input type="text" id="email" name="email" class="form-control" placeholder="Correo electrónico" maxlength=50 required="required">
+							<input type="emal" id="email" name="email" size="50" class="form-control" placeholder="Correo electrónico" maxlength=50 required="required">
 							<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 						  </div>
 						  <div class="row">
@@ -96,7 +97,8 @@
 							<!-- /.col -->
 						  </div>
 						</form>
-											
+						<?php } ?>					
+
 						<br>	
 						<a href="<?php echo base_url("login"); ?>">Ingresar</a><br>
 						

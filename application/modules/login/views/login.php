@@ -56,7 +56,6 @@
 								</div>
 						<?php } ?>
 						<form  name="form" id="form" role="form" method="post" action="<?php echo base_url("login/validateUser"); ?>" >
-						<input type="hidden" id="hddId" name="hddId" value="<?php echo $idEquipo?$idEquipo:"x"; ?>"/>
 
                             <fieldset>
                                 <div class="form-group">

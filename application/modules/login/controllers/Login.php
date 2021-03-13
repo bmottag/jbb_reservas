@@ -133,7 +133,7 @@ class Login extends CI_Controller {
 				$this->login_model->saveKey($idUsuario, $email, $llave);
 				
 				//envio correo con url para cambio de contraseña
-				//$this->email($llave);
+				$this->email($llave);
 
 				$data["msjSuccess"] = "Se envío correo a <strong>" . $email . "</strong> para recuperar la contraseña.";
 				$this->load->view('form_email', $data);
@@ -169,36 +169,71 @@ class Login extends CI_Controller {
 			//busco informacion en la base de datos
 			$arrParam = array("key" => $key);
 			$information = $this->login_model->validateLoginKey($arrParam);//brings user information from user table
+
+			//busco datos parametricos de configuracion para envio de correo
+			$arrParam = array(
+				"table" => "parametros",
+				"order" => "id_parametro",
+				"id" => "x"
+			);
+			$parametric = $this->general_model->get_basic_search($arrParam);
+
+			$paramHost = $parametric[0]["parametro_valor"];
+			$paramUsername = $parametric[1]["parametro_valor"];
+			$paramPassword = $parametric[2]["parametro_valor"];
+			$paramFromName = $parametric[3]["parametro_valor"];
 										
-			$subjet = "Recuperar contrasela - JBB-APP";
 			$user = $information["firstname"] . ' ' . $information["lastname"];
 			$to = $information["email"];
 				
 			//mensaje del correo
-			$msj = "<p>Siga el enlace para recuperar su contraseña:</p>";
+			$msj = "<p>Se solicitó recuperación de contraseña, siga el enlace para cambiar la contraseña e ingresar a la plataforma.</p>";
 			$msj .= "<a href='" . base_url("login/keyLogin/" . $key) . "'>Recuperar contraseña</a>";
 			
-			$mensaje = "<html>
-			<head>
-			  <title> $subjet </title>
-			</head>
-			<body>
-				<p>Señor(a)	$user:</p>
-				<p>$msj</p>
-				<p>Cordialmente,</p>
-				<p><strong>Administrador JBB-APP</strong></p>
-			</body>
-			</html>";
+			$mensaje = "<p>$msj</p>
+						<p>Cordialmente,</p>
+						<p><strong>Jardín Botánico de Bogotá</strong></p>";		
 			
-			$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-			$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-			$cabeceras .= 'To: ' . $user . '<' . $to . '>' . "\r\n";
-			$cabeceras .= 'From: JBB-APP <admin@tuapoyo.com.co>' . "\r\n";
+			require_once(APPPATH.'libraries/PHPMailer_5.2.4/class.phpmailer.php');
+            $mail = new PHPMailer(true);
 
-			//enviar correo al cliente
-			mail($to, $subjet, $mensaje, $cabeceras);
-			
-			return true;
+            try {
+                    $mail->IsSMTP(); // set mailer to use SMTP
+                    $mail->Host = $paramHost; // specif smtp server
+                    $mail->SMTPSecure= "tls"; // Used instead of TLS when only POP mail is selected
+                    $mail->Port = 587; // Used instead of 587 when only POP mail is selected
+                    $mail->SMTPAuth = true;
+					$mail->Username = $paramUsername; // SMTP username
+                    $mail->Password = $paramPassword; // SMTP password
+                    $mail->FromName = $paramFromName;
+                    $mail->From = $paramUsername;
+                    $mail->AddAddress($to, 'Usuario JJB Reservas');
+                    $mail->WordWrap = 50;
+                    $mail->CharSet = 'UTF-8';
+                    $mail->IsHTML(true); // set email format to HTML
+                    $mail->Subject = 'Recuperar contraseña - Reserva Jardín Botánico';
+
+                    $mail->Body = nl2br ($mensaje,false);
+
+                    if($mail->Send()) {
+
+                    	return TRUE;
+                        $this->session->set_flashdata('retorno_exito', 'Creaci&oacute;n de usuario exitosa!. La informaci&oacute;n para activar su cuenta fu&eacute; enviada al correo registrado, recuerde aceptar los t&eacute;rminos y condiciones y cambiar su contrase&ntilde;a');
+                        //redirect(base_url(), 'refresh');
+                        exit;
+
+                    }else{
+
+                        $this->session->set_flashdata('retorno_error', 'Se creo la persona, sin embargo no se pudo enviar el correo electr&oacute;nico');
+                       // redirect(base_url(), 'refresh');
+                        exit;
+
+                    }
+
+                }catch (Exception $e){
+                                print_r($e->getMessage());
+                                        exit;
+                }
 	}
 	
 	/**
@@ -209,8 +244,6 @@ class Login extends CI_Controller {
 	{
 			$arrParam = array("key" => $valor);
 			$user = $this->login_model->validateLoginKey($arrParam);//brings user information from user table
-			$data['idVehicle'] = FALSE;
-			$data['inspectionType'] = FALSE;
 
 			if (($user["valid"] == true)) 
 			{
@@ -230,11 +263,7 @@ class Login extends CI_Controller {
 					"name" => $user["firstname"] . ' ' . $user["lastname"],
 					"logUser" => $user["logUser"],
 					"state" => 66,
-					"role" => $user["role"],
-					"idVehicle" => 'x',
-					"inspectionType" => FALSE,
-					"linkInspection" => FALSE,
-					"formInspection" => FALSE
+					"role" => $user["role"]
 				);
 				$this->session->set_userdata($sessionData);
 				

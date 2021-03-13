@@ -55,15 +55,9 @@
 	     */
 	    public function redireccionarUsuario()
 		{
-			$idEquipo = $this->session->userdata("idEquipo");
 			$state = $this->session->userdata("state");
 			$userRole = $this->session->userdata("rol");
 			$dashboardURL = $this->session->userdata("dashboardURL");
-
-			if($idEquipo != "x")
-			{				
-					$state = 88;
-			}
 			
 	    	switch($state){
 	    		case 0: //NEW USER, must change the password
@@ -75,18 +69,6 @@
 	    		case 2: //INACTIVE USER
 	    				$this->session->sess_destroy();
 	    				redirect("/login","location",301);
-	    				break;
-	    		case 99: //NO HAY FORMATO DE INSPECCION, ENTONCES MUESTRO MENSAJE 
-						$data['linkBack'] = "dashboard/";
-						$data['titulo'] = "<i class='fa fa-unlock fa-fw'></i>QR CODE SCAN";				
-						$data["msj"] = "<strong>Error!!!</strong> This QR code doesn't have an inspection form.";
-						$data["clase"] = "alert-danger";
-									
-						$data["view"] = "template/answer";
-						$this->load->view("layout", $data);
-	    				break;
-	    		case 88: //ES PARA UNA INSPECCION, LO REDIRECCIONO AL FORMUALIO DE LA BD
-	    				redirect('equipos/detalle/' . $idEquipo,"location",301);
 	    				break;
 				case 66: //USUARIO QUE INGRESO CON LLAVE DE RECUPERACION, LO REDIRECCIONO AL CAMBIO DE CONTRASEÑA
 						redirect("/usuarios","location",301);
