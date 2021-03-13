@@ -268,7 +268,7 @@ class Settings extends CI_Controller {
 		
 			$idHorario = $this->input->post('hddId');
 			
-			$msj = "Se adicionó el Proveedor!";
+			$msj = "Se adicionaron los horarios!";
 			if ($idHorario != '') {
 				$msj = "Se actualizó el Proveedor!";
 			}
@@ -293,7 +293,7 @@ class Settings extends CI_Controller {
 	{	
 			if ($this->settings_model->actualizarDisponibilidadHorarios()) {
 				$data["result"] = true;
-				$this->session->set_flashdata('retornoExito', "Se actualizó las disponibilidad de los horarios!!");
+				$this->session->set_flashdata('retornoExito', "Se actualizó la disponibilidad de los horarios!!");
 			} else {
 				$data["result"] = "error";
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
