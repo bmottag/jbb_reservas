@@ -246,6 +246,7 @@ class Calendario extends CI_Controller {
 							);
 							$this->calendario_model->actualizarHorarios($arrParam);
 
+							$this->envioSMS($idReserva);
 							$this->email($idReserva);
 
 							$data["result"] = true;					
@@ -405,6 +406,19 @@ class Calendario extends CI_Controller {
 
 			$arrParam = array("idHorario" => $infoReserva[0]['fk_id_horario']);
 			$infoHorario = $this->general_model->get_horario_info($arrParam);
+
+			//busco datos parametricos de configuracion para envio de correo
+			$arrParam = array(
+				"table" => "parametros",
+				"order" => "id_parametro",
+				"id" => "x"
+			);
+			$parametric = $this->general_model->get_basic_search($arrParam);
+
+			$paramHost = $parametric[0]["parametro_valor"];
+			$paramUsername = $parametric[1]["parametro_valor"];
+			$paramPassword = $parametric[2]["parametro_valor"];
+			$paramFromName = $parametric[3]["parametro_valor"];
 			
 			$subjet = 'Reserva Jardín Botánico';
 			$to = $infoReserva[0]['correo_electronico'];
@@ -452,14 +466,14 @@ class Calendario extends CI_Controller {
 
             try {
                     $mail->IsSMTP(); // set mailer to use SMTP
-                    $mail->Host = "smtp.office365.com"; // specif smtp server
+                    $mail->Host = $paramHost; // specif smtp server
                     $mail->SMTPSecure= "tls"; // Used instead of TLS when only POP mail is selected
                     $mail->Port = 587; // Used instead of 587 when only POP mail is selected
                     $mail->SMTPAuth = true;
-                    $mail->Username = "xxxxxx@xxxxxx.co"; // SMTP username
-                    $mail->Password = "xxxxxx"; // SMTP password
-                    $mail->FromName = "JBB";
-                    $mail->From = "xxxxxx@xxxxxx.co";
+					$mail->Username = $paramUsername; // SMTP username
+                    $mail->Password = $paramPassword; // SMTP password
+                    $mail->FromName = $paramFromName;
+                    $mail->From = $paramUsername;
                     $mail->AddAddress($to, 'Usuario JJB Reservas');
                     $mail->WordWrap = 50;
                     $mail->CharSet = 'UTF-8';
@@ -542,6 +556,73 @@ class Calendario extends CI_Controller {
 
 			echo json_encode($data);
     }
+
+	/**
+	 * Evio de de mensaje de texto
+     * @since 13/3/2021
+     * @author BMOTTAG
+	 */
+    public function envioSMS($idReserva)
+    {
+			$arrParam = array("idReserva" => $idReserva);
+			$infoReserva = $this->general_model->get_reserva_info($arrParam);
+
+			$arrParam = array("idHorario" => $infoReserva[0]['fk_id_horario']);
+			$infoHorario = $this->general_model->get_horario_info($arrParam);
+			
+			$nombreUsuario = $infoReserva[0]['nombre_completo'];
+			$numeroContacto = $infoReserva[0]['numero_contacto'];
+			$enlace = base_url('calendario/registro/' . $infoReserva[0]['qr_code_llave']); 
+
+			//busco datos parametricos de configuracion para envio de mensaje de texto
+			$arrParam = array(
+				"table" => "parametros",
+				"order" => "id_parametro",
+				"id" => "x"
+			);
+			$parametric = $this->general_model->get_basic_search($arrParam);
+
+			$paramAccount = $parametric[4]["parametro_valor"];
+			$paramApiKey = $parametric[5]["parametro_valor"];
+			$paramToken = $parametric[6]["parametro_valor"];
+						
+			$ch=curl_init();
+
+			$post = array(
+			'account' => $paramAccount, //número de usuario
+			'apiKey' => $paramApiKey, //clave API del usuario
+			'token' => $paramToken, // Token de usuario
+			//'toNumber' => '573162490927', //número de destino
+			'toNumber' => '57' . $numeroContacto, //número de destino
+			'sms' => 'Senor(a) ' . $nombreUsuario . ' su reserva para el JBB ha sido aprobada, puede revisarla en el siguiente enlace ' . $enlace, // mensaje de texto
+			'flash' => '0', //mensaje tipo flash
+			'sendDate'=> time(), //fecha de envío del mensaje
+			'isPriority' => 0, //mensaje prioritario
+			'sc'=> '899991', //código corto para envío del mensaje de texto
+			'request_dlvr_rcpt' => 0, //mensaje de texto con confirmación de entrega al celular
+			);
+
+			$url = "https://api101.hablame.co/api/sms/v2.1/send/"; //endPoint: Primario
+			curl_setopt ($ch,CURLOPT_URL,$url) ;
+			curl_setopt ($ch,CURLOPT_POST,1);
+			curl_setopt ($ch,CURLOPT_POSTFIELDS, $post);
+			curl_setopt ($ch,CURLOPT_RETURNTRANSFER, true);
+			curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT ,3);
+			curl_setopt ($ch,CURLOPT_TIMEOUT, 20);
+			$response= curl_exec($ch);
+			curl_close($ch);
+			$response= json_decode($response ,true) ;
+
+			//La respuesta estará alojada en la variable $response
+
+			if ($response["status"]== '1x000' ){
+			return TRUE;
+			} else {
+			echo 'Ha ocurrido un error:'.$response["error_description"].'('.$response ["status" ]. ')'. PHP_EOL;
+			}
+			
+	}
+	
 
 	
 	
