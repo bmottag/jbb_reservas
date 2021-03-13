@@ -124,8 +124,14 @@ class Calendario extends CI_Controller {
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 
+			$flores = array('orquidea', 'cayena', 'heliconia', 'begoña', 'tulipan', 'brunellia', 'abarema', 'aniba', 'calatola', 'centronia', 'clusia', 'cordia', 'espeletia', 'guarea', 'herrania', 'licania', 'magnolia');
+
+			$i = rand(0, 15);
+
 			// Captcha
 			$config = array(
+				'word'		=> $flores[$i],
+			    'font_size'      => 25,
 			    'img_path'      => 'images/captcha_images/',
 			    'img_url'       => base_url().'images/captcha_images/'
 			);
@@ -504,20 +510,27 @@ class Calendario extends CI_Controller {
 
 	}	
 
-    public function refresh(){
-        // Captcha configuration
-        $config = array(
-            'img_path'      => 'images/captcha_images/',
-            'img_url'       => base_url().'images/captcha_images/'
-        );
-        $captcha = create_captcha($config);
-  
-        // Unset previous captcha and store new captcha word
-        $this->session->unset_userdata('captchaCode');
-        $this->session->set_userdata('captchaCode',$captcha['word']);
-  
-        // Display captcha image
-        echo $captcha['image'];
+    public function refresh()
+    {
+			$flores = array('orquidea', 'cayena', 'heliconia', 'begoña', 'tulipan', 'brunellia', 'abarema', 'aniba', 'calatola', 'centronia', 'clusia', 'cordia', 'espeletia', 'guarea', 'herrania', 'licania', 'magnolia');
+
+			$i = rand(0, 15);
+
+	        // Captcha configuration
+	        $config = array(
+				'word'		=> $flores[$i],
+			    'font_size'      => 25,
+	            'img_path'      => 'images/captcha_images/',
+	            'img_url'       => base_url().'images/captcha_images/'
+	        );
+	        $captcha = create_captcha($config);
+	  
+	        // Unset previous captcha and store new captcha word
+	        $this->session->unset_userdata('captchaCode');
+	        $this->session->set_userdata('captchaCode',$captcha['word']);
+	  
+	        // Display captcha image
+	        echo $captcha['image'];
     }
 
 
