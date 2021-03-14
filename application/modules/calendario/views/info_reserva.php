@@ -12,7 +12,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-3">
-							<?php if($infoReserva[0]['qr_code_img']){ ?>
+							<?php if($infoReserva[0]['qr_code_img'] && file_exists($infoReserva[0]['qr_code_img'])){ ?>
 								<div class="form-group">
 									<div class="row" align="center">
 										<img src="<?php echo base_url($infoReserva[0]["qr_code_img"]); ?>" class="img-rounded" width="200" height="200" alt="QR CODE" />

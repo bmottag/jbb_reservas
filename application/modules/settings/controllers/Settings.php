@@ -223,6 +223,27 @@ class Settings extends CI_Controller {
 	 */
 	public function horarios()
 	{
+			//eliminar imagenes de QR de mas de 15 dias
+			$files = glob('images/reservas/QR/*.png'); //obtenemos el nombre de todos los ficheros
+			foreach($files as $file){
+			    $lastModifiedTime = filemtime($file);
+			    $currentTime = time();
+			    
+			    $timeDiff = abs($currentTime - $lastModifiedTime)/(60*60*24); //en dias
+
+			    if(is_file($file) && $timeDiff > 15){
+			    	unlink($file); //elimino el fichero
+			    }
+			}
+
+			//eliminar imagenes de captcha
+			$files = glob('images/captcha_images/*.jpg'); //obtenemos todos los nombres de los ficheros
+
+			foreach($files as $file){
+			    if(is_file($file))
+			    unlink($file); //elimino el fichero
+			}
+
 			$arrParam = array(
 				'from' => date('Y-m-d')
 			);
