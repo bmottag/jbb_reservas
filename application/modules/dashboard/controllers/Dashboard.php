@@ -36,6 +36,9 @@ class Dashboard extends CI_Controller {
 			 
 			$domingo = strtotime('next Sunday', time());
  			$domingo = date('Y-m-d', $domingo);
+ 			//le sumo un dia al dia final para que ingrese ese dia en la consulta
+			$domingo = date('Y-m-d',strtotime ( '+1 day ' , strtotime ($domingo)));
+
 			$arrParam = array(
 				'from' => $lunes,
 				'to' => $domingo
@@ -48,6 +51,8 @@ class Dashboard extends CI_Controller {
 			$month_start = date('Y-m-d', $month_start);
 			$month_end = strtotime('last day of this month', time());
 			$month_end = date('Y-m-d', $month_end);
+ 			//le sumo un dia al dia final para que ingrese ese dia en la consulta
+			$month_end = date('Y-m-d',strtotime ( '+1 day ' , strtotime ($month_end)));
 
 			$arrParam = array(
 				'from' => $month_start,
