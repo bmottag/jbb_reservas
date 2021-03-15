@@ -11,7 +11,7 @@
 	<?php 
 		$claseBoton = 'btn-success';
 		$iconoBoton = 'glyphicon-search';
-		if($variable == 'eliminar')
+		if($variable == 'cancelar')
 		{
 			echo 'Borrará todas sus reservas de ese día.';
 			$claseBoton = 'btn-danger';
@@ -69,6 +69,8 @@
 				<div class="alert alert-danger"><span class="glyphicon glyphicon-remove" id="span_msj">&nbsp;</span></div>
 			</div>	
 		</div>
+
+		<div style="color:red; font-family: verdana, arial;" id="mensaje"></div>
 
 		<div class="form-group">
 			<div class="row" align="center">

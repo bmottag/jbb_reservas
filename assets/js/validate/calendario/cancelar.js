@@ -58,9 +58,12 @@ $( document ).ready( function () {
 						if( data.result )//true
 						{	                                                        
 							$("#div_load").css("display", "none");
-							$('#btnSubmit').removeAttr('disabled');
-
-							alert('Se canceló su reserva.');
+							$('#btnSubmit').attr('disabled','-1');
+							$('#email').attr('disabled','-1');
+							$('#fecha').attr('disabled','-1');
+							$('#celular').attr('disabled','-1');
+							document.getElementById('mensaje').innerHTML = 'Gracias por utilizar nuestro servicio, Se canceló su reserva.';
+							alert('Gracias por utilizar nuestro servicio, Se canceló su reserva.');
 						}
 						else
 						{
