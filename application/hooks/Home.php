@@ -31,7 +31,7 @@ class Home {
                     }
                 }
             } else if ($this->ci->uri->segment(1) == "reportes") {
-                $arrControllers = array("generaReservaPDF", "generaReservaFechaPDF", "generaPayrollXLS", "generaWorkOrderPDF", "generaPayrollPDF", "generaInsectionSpecialPDF", "generaInsectionHeavyPDF", "generaInsectionDailyPDF", "generaHaulingPDF", "generaSafetyPDF");
+                $arrControllers = array("generaReservaPDF", "generaReservaFechaPDF", "generaReservaFechaXLS", "generaWorkOrderPDF", "generaPayrollPDF", "generaInsectionSpecialPDF", "generaInsectionHeavyPDF", "generaInsectionDailyPDF", "generaHaulingPDF", "generaSafetyPDF");
                 if ($this->ci->uri->segment(2) != FALSE && in_array($this->ci->uri->segment(2), $arrControllers)) {
 					$flag = FALSE;//NO SE VERIFICA SI EXISTE PERMISOS A ESTE ENLACE
                 }

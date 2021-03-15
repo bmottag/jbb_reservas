@@ -15,39 +15,70 @@
 					if($bandera){
 				?>
 					<div class="alert alert-success">
-						<strong>Fecha: </strong>
-						<?php echo ucfirst(strftime("%b %d, %G",strtotime($fecha))); ?>
-						<?php if($listaReservas){ ?>
-<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaPDF"); ?>" target="_blank">
-	<input type="hidden" class="form-control" id="bandera" name="bandera" value=1 />
-	<input type="hidden" class="form-control" id="fecha" name="fecha" value="<?php echo $fecha ?>" />
-	<button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
-		Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true">
-	</button>
-</form>
-						<?php } ?>
+						<div class="row">
+							<div class="col-lg-2">
+								<strong>Fecha: </strong>
+								<?php echo ucfirst(strftime("%b %d, %G",strtotime($fecha))); ?>
+							</div>
+							<?php if($listaReservas){ ?>
+							<div class="col-lg-2">
+								<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaPDF"); ?>" target="_blank">
+									<input type="hidden" class="form-control" id="bandera" name="bandera" value=1 />
+									<input type="hidden" class="form-control" id="fecha" name="fecha" value="<?php echo $fecha ?>" />
+									<button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
+										Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true" />
+									</button>
+								</form>
+							</div>
+							<div class="col-lg-2">
+								<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaXLS"); ?>" target="_blank">
+									<input type="hidden" class="form-control" id="bandera" name="bandera" value=1 />
+									<input type="hidden" class="form-control" id="fecha" name="fecha" value="<?php echo $fecha ?>" />
+									<button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
+										Descargar Listado XLS <span class="fa fa-file-excel-o" aria-hidden="true" />
+									</button>
+								</form>
+							</div>
+							<?php } ?>
+						</div>
 					</div>
 				<?php
 					}else{
 					//si la consulta es por rango de fechas
 				?>
 					<div class="alert alert-success">
-						<strong>Rango de Fechas: </strong>
-						<?php 
-							echo ucfirst(strftime("%b %d, %G",strtotime($from))); 
-							echo ' - ';
-							echo ucfirst(strftime("%b %d, %G",strtotime($to))); 
-						?>
-						<?php if($listaReservas){ ?>				
-<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaPDF"); ?>" target="_blank">
-	<input type="hidden" class="form-control" id="bandera" name="bandera" value=2 />
-	<input type="hidden" class="form-control" id="from" name="from" value="<?php echo $from; ?>" />
-	<input type="hidden" class="form-control" id="to" name="to" value="<?php echo $to; ?>" />
-	<button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
-		Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true">
-	</button>
-</form>
-						<?php } ?>
+						<div class="row">
+							<div class="col-lg-3">
+								<strong>Rango de Fechas: </strong>
+								<?php 
+									echo ucfirst(strftime("%b %d, %G",strtotime($from))); 
+									echo ' - ';
+									echo ucfirst(strftime("%b %d, %G",strtotime($to))); 
+								?>
+							</div>
+							<?php if($listaReservas){ ?>				
+							<div class="col-lg-2">
+								<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaPDF"); ?>" target="_blank">
+									<input type="hidden" class="form-control" id="bandera" name="bandera" value=2 />
+									<input type="hidden" class="form-control" id="from" name="from" value="<?php echo $from; ?>" />
+									<input type="hidden" class="form-control" id="to" name="to" value="<?php echo $to; ?>" />
+									<button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
+										Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true" />
+									</button>
+								</form>
+							</div>
+							<div class="col-lg-2">
+								<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaXLS"); ?>" target="_blank">
+									<input type="hidden" class="form-control" id="bandera" name="bandera" value=2 />
+									<input type="hidden" class="form-control" id="from" name="from" value="<?php echo $from; ?>" />
+									<input type="hidden" class="form-control" id="to" name="to" value="<?php echo $to; ?>" />
+									<button type="submit" class="btn btn-primary btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
+										Descargar Listado XLS <span class="fa fa-file-excel-o" aria-hidden="true" />
+									</button>
+								</form>
+							</div>
+							<?php } ?>
+						</div>
 					</div>
 				<?php
 					}

@@ -6,6 +6,7 @@ class Reportes extends CI_Controller {
     public function __construct() {
         parent::__construct();
 		$this->load->model("reportes_model");
+		$this->load->library('PHPExcel.php');
     }
 	
 	/**
@@ -209,8 +210,161 @@ class Reportes extends CI_Controller {
 			//============================================================+
 			// END OF FILE
 			//============================================================+
-		
 	}	
+
+	/**
+	 * Generate Reportes in XLS
+     * @since 14/03/2021
+     * @author BMOTTAG
+	 */
+	public function generaReservaFechaXLS()
+	{				
+			$bandera = $this->input->post('bandera');
+
+			if($bandera == 1 )
+			{
+				$data['fecha'] = $this->input->post('fecha');
+				$fechaEncabezado = 'Fecha: ' . ucfirst(strftime("%b %d, %G",strtotime($data['fecha'])));
+
+				$arrParam = array(
+					'fecha' => $this->input->post('fecha')
+				);
+			}else{
+				$data['from'] = $this->input->post('from');
+				$data['to'] = $this->input->post('to');
+
+				$fechaEncabezado = 'Rango Fechas: ' . ucfirst(strftime("%b %d, %G",strtotime($data['from']))) . ' - ' . ucfirst(strftime("%b %d, %G",strtotime($data['to'])));
+
+				$from = formatear_fecha($data['from']);
+				//le sumo un dia al dia final para que ingrese ese dia en la consulta
+				$to = date('Y-m-d',strtotime ( '+1 day ' , strtotime ( formatear_fecha($data['to']) ) ) );
+
+				$arrParam = array(
+					'from' => $from,
+					'to' => $to
+				);
+			}
+			$listaReservas = $this->reportes_model->get_info_reservas($arrParam);
+
+			// Create new PHPExcel object	
+			$objPHPExcel = new PHPExcel();
+
+			// Set document properties
+			$objPHPExcel->getProperties()->setCreator("JBB APP")
+										 ->setLastModifiedBy("JBB APP")
+										 ->setTitle("Report")
+										 ->setSubject("Report")
+										 ->setDescription("JBB Report")
+										 ->setKeywords("office 2007 openxml php")
+										 ->setCategory("Report");
+										 
+			// Create a first sheet
+			$objPHPExcel->setActiveSheetIndex(0);
+			$objPHPExcel->getActiveSheet()->setCellValue('A1', 'LISTADO DE VISITANTES');
+						
+			$objPHPExcel->getActiveSheet()->setCellValue('A3', 'Fecha')
+										->setCellValue('B3', 'Horario')
+										->setCellValue('C3', 'Correo Electrónico')
+										->setCellValue('D3', 'No. Celular de Contacto')
+										->setCellValue('E3', 'Nombre');
+										
+			$j=4;
+			$total = 0; 
+
+			if($listaReservas){
+				foreach ($listaReservas as $lista):
+					
+						$movil = $lista['numero_contacto'];
+						// Separa en grupos de tres 
+						$count = strlen($movil); 
+							
+						$num_tlf1 = substr($movil, 0, 3); 
+						$num_tlf2 = substr($movil, 3, 3); 
+						$num_tlf3 = substr($movil, 6, 2); 
+						$num_tlf4 = substr($movil, -2); 
+
+						if($count == 10){
+							$resultado = "$num_tlf1 $num_tlf2 $num_tlf3 $num_tlf4";  
+						}else{
+							$resultado = chunk_split($movil,3," "); 
+						}
+
+						$objPHPExcel->getActiveSheet()->setCellValue('A'.$j, ucfirst(strftime("%b %d, %G",strtotime($lista['hora_inicial']))))
+													  ->setCellValue('B'.$j,  ucfirst(strftime("%I:%M",strtotime($lista['hora_inicial']))) . ' - ' . ucfirst(strftime("%I:%M %p",strtotime($lista['hora_final']))))
+													  ->setCellValue('C'.$j, $lista['correo_electronico'])
+													  ->setCellValue('D'.$j, $resultado)
+													  ->setCellValue('E'.$j, $lista['nombre_completo']);
+						$j++;
+				endforeach;
+			}
+
+			// Set column widths							  
+			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(22);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(22);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(50);
+
+			// Add conditional formatting
+			$objConditional1 = new PHPExcel_Style_Conditional();
+			$objConditional1->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
+							->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_BETWEEN)
+							->addCondition('200')
+							->addCondition('400');
+			$objConditional1->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_YELLOW);
+			$objConditional1->getStyle()->getFont()->setBold(true);
+			$objConditional1->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+
+			$objConditional2 = new PHPExcel_Style_Conditional();
+			$objConditional2->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
+							->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_LESSTHAN)
+							->addCondition('0');
+			$objConditional2->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_RED);
+			$objConditional2->getStyle()->getFont()->setItalic(true);
+			$objConditional2->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+
+			$objConditional3 = new PHPExcel_Style_Conditional();
+			$objConditional3->setConditionType(PHPExcel_Style_Conditional::CONDITION_CELLIS)
+							->setOperatorType(PHPExcel_Style_Conditional::OPERATOR_GREATERTHANOREQUAL)
+							->addCondition('0');
+			$objConditional3->getStyle()->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_GREEN);
+			$objConditional3->getStyle()->getFont()->setItalic(true);
+			$objConditional3->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE);
+
+			$conditionalStyles = $objPHPExcel->getActiveSheet()->getStyle('B2')->getConditionalStyles();
+			array_push($conditionalStyles, $objConditional1);
+			array_push($conditionalStyles, $objConditional2);
+			array_push($conditionalStyles, $objConditional3);
+			$objPHPExcel->getActiveSheet()->getStyle('B2')->setConditionalStyles($conditionalStyles);
+
+			// Set fonts			  
+			$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A3:Q3')->getFont()->setBold(true);
+
+			// Set header and footer. When no different headers for odd/even are used, odd header is assumed.
+			$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BPersonal cash register&RPrinted on &D');
+			$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHPExcel->getProperties()->getTitle() . '&RPage &P of &N');
+
+			// Set page orientation and size
+			$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+			$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+
+			// Rename worksheet
+			$objPHPExcel->getActiveSheet()->setTitle('Work Order');
+
+			// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+			$objPHPExcel->setActiveSheetIndex(0);
+
+			// redireccionamos la salida al navegador del cliente (Excel2007)
+			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment;filename="listado_visitantes.xls"');
+			header('Cache-Control: max-age=0');
+
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+			$objWriter->save('php://output');
+			  
+    }
 
 	
 }

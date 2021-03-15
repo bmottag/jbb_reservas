@@ -84,22 +84,44 @@ if ($retornoError) {
         <div class="col-lg-9">
             <div class="panel panel-violeta">
                 <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-lg-4">
+                        <i class="fa fa-list-ul"></i> <strong>LISTADO DE RESERVAS </strong> -  <?php echo ucfirst(strftime("%b %d, %G",strtotime(date('Y-m-d')))); ?>
+                        </div>
+                        <div class="col-lg-2">
+                            <form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaPDF"); ?>" target="_blank">
+                                <input type="hidden" class="form-control" id="bandera" name="bandera" value=1 />
+                                <input type="hidden" class="form-control" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" />
+                                
 
-<form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaPDF"); ?>" target="_blank">
-    <input type="hidden" class="form-control" id="bandera" name="bandera" value=1 />
-    <input type="hidden" class="form-control" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" />
-    <i class="fa fa-list-ul"></i> <strong>LISTADO DE RESERVAS </strong> -  <?php echo ucfirst(strftime("%b %d, %G",strtotime(date('Y-m-d')))); ?>
+                            <?php
+                                if($listaReservas){ 
+                            ?>
+                                <button type="submit" class="btn btn-violeta btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
+                                    Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true" />
+                                </button>
+                            <?php
+                                }
+                            ?>
+                            </form>
+                        </div>
+                        <div class="col-lg-2">
+                            <form  name="form_descarga" id="form_descarga" method="post" action="<?php echo base_url("reportes/generaReservaFechaXLS"); ?>" target="_blank">
+                                <input type="hidden" class="form-control" id="bandera" name="bandera" value=1 />
+                                <input type="hidden" class="form-control" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" />
 
-<?php
-    if($listaReservas){ 
-?>
-    <button type="submit" class="btn btn-violeta btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
-        Descargar Listado PDF <span class="fa fa-file-pdf-o" aria-hidden="true">
-    </button>
-<?php
-    }
-?>
-</form>
+                            <?php
+                                if($listaReservas){ 
+                            ?>
+                                <button type="submit" class="btn btn-violeta btn-xs" id="btnSubmit2" name="btnSubmit2" value="1" >
+                                    Descargar Listado XLS <span class="fa fa-file-excel-o" aria-hidden="true" />
+                                </button>
+                            <?php
+                                }
+                            ?>
+                            </form>
+                        </div>
+                    </div>
                        
                 </div>
                 <!-- /.panel-heading -->
