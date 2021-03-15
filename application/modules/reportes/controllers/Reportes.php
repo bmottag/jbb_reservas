@@ -122,6 +122,7 @@ class Reportes extends CI_Controller {
 			{
 				$data['fecha'] = $this->input->post('fecha');
 				$fechaEncabezado = 'Fecha: ' . ucfirst(strftime("%b %d, %G",strtotime($data['fecha'])));
+				$nombreArchivo = 'listado_visitantes_' . $data['fecha'] . '.pdf';
 
 				$arrParam = array(
 					'fecha' => $this->input->post('fecha')
@@ -131,6 +132,7 @@ class Reportes extends CI_Controller {
 				$data['to'] = $this->input->post('to');
 
 				$fechaEncabezado = 'Rango Fechas: ' . ucfirst(strftime("%b %d, %G",strtotime($data['from']))) . ' - ' . ucfirst(strftime("%b %d, %G",strtotime($data['to'])));
+				$nombreArchivo = 'listado_visitantes_' . $data['from'] . '-' . $data['to'] . '.pdf';
 
 				$from = formatear_fecha($data['from']);
 				//le sumo un dia al dia final para que ingrese ese dia en la consulta
@@ -150,7 +152,7 @@ class Reportes extends CI_Controller {
 			$pdf->SetSubject('TCPDF Tutorial');
 
 			// set default header data
-			$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'RESERVAS', $fechaEncabezado, array(94,164,49), array(147,204,110));			
+			$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, 'LISTADO DE VISITANTES', $fechaEncabezado, array(94,164,49), array(147,204,110));			
 
 			// set header and footer fonts
 			$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -205,7 +207,7 @@ class Reportes extends CI_Controller {
 
 
 			//Close and output PDF document
-			$pdf->Output('reservas'. '.pdf', 'I');
+			$pdf->Output($nombreArchivo, 'I');
 
 			//============================================================+
 			// END OF FILE
@@ -225,6 +227,7 @@ class Reportes extends CI_Controller {
 			{
 				$data['fecha'] = $this->input->post('fecha');
 				$fechaEncabezado = 'Fecha: ' . ucfirst(strftime("%b %d, %G",strtotime($data['fecha'])));
+				$nombreArchivo = 'listado_visitantes_' . $data['fecha'] . '.xls';
 
 				$arrParam = array(
 					'fecha' => $this->input->post('fecha')
@@ -234,6 +237,7 @@ class Reportes extends CI_Controller {
 				$data['to'] = $this->input->post('to');
 
 				$fechaEncabezado = 'Rango Fechas: ' . ucfirst(strftime("%b %d, %G",strtotime($data['from']))) . ' - ' . ucfirst(strftime("%b %d, %G",strtotime($data['to'])));
+				$nombreArchivo = 'listado_visitantes_' . $data['from'] . '-' . $data['to'] . '.xls';
 
 				$from = formatear_fecha($data['from']);
 				//le sumo un dia al dia final para que ingrese ese dia en la consulta
@@ -260,7 +264,7 @@ class Reportes extends CI_Controller {
 										 
 			// Create a first sheet
 			$objPHPExcel->setActiveSheetIndex(0);
-			$objPHPExcel->getActiveSheet()->setCellValue('A1', 'LISTADO DE VISITANTES');
+			$objPHPExcel->getActiveSheet()->setCellValue('A1', 'LISTADO DE VISITANTES - ' . $fechaEncabezado);
 						
 			$objPHPExcel->getActiveSheet()->setCellValue('A3', 'Fecha')
 										->setCellValue('B3', 'Horario')
@@ -274,25 +278,10 @@ class Reportes extends CI_Controller {
 			if($listaReservas){
 				foreach ($listaReservas as $lista):
 					
-						$movil = $lista['numero_contacto'];
-						// Separa en grupos de tres 
-						$count = strlen($movil); 
-							
-						$num_tlf1 = substr($movil, 0, 3); 
-						$num_tlf2 = substr($movil, 3, 3); 
-						$num_tlf3 = substr($movil, 6, 2); 
-						$num_tlf4 = substr($movil, -2); 
-
-						if($count == 10){
-							$resultado = "$num_tlf1 $num_tlf2 $num_tlf3 $num_tlf4";  
-						}else{
-							$resultado = chunk_split($movil,3," "); 
-						}
-
 						$objPHPExcel->getActiveSheet()->setCellValue('A'.$j, ucfirst(strftime("%b %d, %G",strtotime($lista['hora_inicial']))))
 													  ->setCellValue('B'.$j,  ucfirst(strftime("%I:%M",strtotime($lista['hora_inicial']))) . ' - ' . ucfirst(strftime("%I:%M %p",strtotime($lista['hora_final']))))
 													  ->setCellValue('C'.$j, $lista['correo_electronico'])
-													  ->setCellValue('D'.$j, $resultado)
+													  ->setCellValue('D'.$j, $lista['numero_contacto'])
 													  ->setCellValue('E'.$j, $lista['nombre_completo']);
 						$j++;
 				endforeach;
@@ -358,7 +347,7 @@ class Reportes extends CI_Controller {
 
 			// redireccionamos la salida al navegador del cliente (Excel2007)
 			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-			header('Content-Disposition: attachment;filename="listado_visitantes.xls"');
+			header('Content-Disposition: attachment;filename=' . $nombreArchivo);
 			header('Cache-Control: max-age=0');
 
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');

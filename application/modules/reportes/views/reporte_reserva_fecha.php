@@ -30,27 +30,12 @@ if($listaReservas)
 { 
 	foreach ($listaReservas as $lista):
 		$items++;
-		
-		$movil = $lista['numero_contacto'];
-		// Separa en grupos de tres 
-		$count = strlen($movil); 
-			
-		$num_tlf1 = substr($movil, 0, 3); 
-		$num_tlf2 = substr($movil, 3, 3); 
-		$num_tlf3 = substr($movil, 6, 2); 
-		$num_tlf4 = substr($movil, -2); 
-
-		if($count == 10){
-			$resultado = "$num_tlf1 $num_tlf2 $num_tlf3 $num_tlf4";  
-		}else{
-			$resultado = chunk_split($movil,3," "); 
-		}
-		
+				
 		$html.=	'<tr>
 					<th align="center">' . ucfirst(strftime("%b %d, %G",strtotime($lista['hora_inicial']))) . '</th>
 					<th align="center">' . ucfirst(strftime("%I:%M",strtotime($lista['hora_inicial']))) . ' - ' . ucfirst(strftime("%I:%M %p",strtotime($lista['hora_final']))) . '</th>
 					<th>' . $lista['correo_electronico'] . '</th>
-					<th align="center">' . $resultado . '</th>
+					<th align="center">' . $lista['numero_contacto'] . '</th>
 					<th>' . $lista['nombre_completo'] . '</th>';
 		$html.= '</tr>';
 	endforeach;
