@@ -98,6 +98,7 @@
 					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 						<thead>
 							<tr>
+								<th class='text-center'>#</th>
 								<th class='text-center'>Fecha</th>
 								<th class='text-center'>Horario</th>
 								<th class='text-center'>Correo Electrónico</th>
@@ -107,20 +108,23 @@
 						</thead>
 						<tbody>							
 						<?php
+							$i = 1;
 							foreach ($listaReservas as $lista):
-									echo '<tr>';
-									echo '<td class="text-center">';
-									echo ucfirst(strftime("%b %d, %G",strtotime($lista['hora_inicial'])));
-									echo '</td>';
-									echo '<td class="text-center">';
-									echo ucfirst(strftime("%I:%M",strtotime($lista['hora_inicial'])));
-									echo ' - ';
-									echo ucfirst(strftime("%I:%M %p",strtotime($lista['hora_final'])));
-									echo '</td>';
-									echo '<td>' . $lista['correo_electronico'] . '</td>';
-									echo '<td class="text-center">' . $lista['numero_contacto'] . '</td>';
-									echo '<td>' . $lista['nombre_completo'] . '</td>';
-									echo '</tr>';
+								echo '<tr>';
+								echo '<td class="text-center">' . $i . '</td>';
+								echo '<td class="text-center">';
+								echo ucfirst(strftime("%b %d, %G",strtotime($lista['hora_inicial'])));
+								echo '</td>';
+								echo '<td class="text-center">';
+								echo ucfirst(strftime("%I:%M",strtotime($lista['hora_inicial'])));
+								echo ' - ';
+								echo ucfirst(strftime("%I:%M %p",strtotime($lista['hora_final'])));
+								echo '</td>';
+								echo '<td>' . $lista['correo_electronico'] . '</td>';
+								echo '<td class="text-center">' . $lista['numero_contacto'] . '</td>';
+								echo '<td>' . $lista['nombre_completo'] . '</td>';
+								echo '</tr>';
+								$i++;
 							endforeach;
 						?>
 						</tbody>

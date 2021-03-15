@@ -142,6 +142,7 @@ if ($retornoError) {
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
                         <thead>
                             <tr>
+                                <th class='text-center'>#</th>
                                 <th class='text-center'>Horario</th>
                                 <th class='text-center'>Correo Electrónico</th>
                                 <th class='text-center'>No. Celular de Contacto</th>
@@ -150,33 +151,20 @@ if ($retornoError) {
                         </thead>
                         <tbody>                         
                         <?php
+                            $i = 1;
                             foreach ($listaReservas as $lista):
-
-                                $movil = $lista['numero_contacto'];
-                                // Separa en grupos de tres 
-                                $count = strlen($movil); 
-                                    
-                                $num_tlf1 = substr($movil, 0, 3); 
-                                $num_tlf2 = substr($movil, 3, 3); 
-                                $num_tlf3 = substr($movil, 6, 2); 
-                                $num_tlf4 = substr($movil, -2); 
-
-                                if($count == 10){
-                                    $resultado = "$num_tlf1 $num_tlf2 $num_tlf3 $num_tlf4";  
-                                }else{
-                                    $resultado = chunk_split($movil,3," "); 
-                                }
-
-                                    echo '<tr>';
-                                    echo '<td class="text-center">';
-                                    echo ucfirst(strftime("%I:%M",strtotime($lista['hora_inicial'])));
-                                    echo ' - ';
-                                    echo ucfirst(strftime("%I:%M %p",strtotime($lista['hora_final'])));
-                                    echo '</td>';
-                                    echo '<td>' . $lista['correo_electronico'] . '</td>';
-                                    echo '<td class="text-center">' . $resultado . '</td>';
-                                    echo '<td>' . $lista['nombre_completo'] . '</td>';
-                                    echo '</tr>';
+                                echo '<tr>';
+                                echo '<td class="text-center">' . $i . '</td>';
+                                echo '<td class="text-center">';
+                                echo ucfirst(strftime("%I:%M",strtotime($lista['hora_inicial'])));
+                                echo ' - ';
+                                echo ucfirst(strftime("%I:%M %p",strtotime($lista['hora_final'])));
+                                echo '</td>';
+                                echo '<td>' . $lista['correo_electronico'] . '</td>';
+                                echo '<td class="text-center">' . $lista['numero_contacto'] . '</td>';
+                                echo '<td>' . $lista['nombre_completo'] . '</td>';
+                                echo '</tr>';
+                                $i++;
                             endforeach;
                         ?>
                         </tbody>

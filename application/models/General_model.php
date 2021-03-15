@@ -283,7 +283,7 @@ class General_model extends CI_Model {
 					$this->db->like('H.hora_inicial', $arrData["fecha"]); 
 				}
 
-				$this->db->order_by('H.id_horario', 'desc');
+				$this->db->order_by('H.id_horario', 'asc');
 
 				$query = $this->db->get('horarios H');
 

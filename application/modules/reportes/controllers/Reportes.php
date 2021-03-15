@@ -71,7 +71,7 @@ class Reportes extends CI_Controller {
 			// ---------------------------------------------------------
 
 			// set font
-			$pdf->SetFont('dejavusans', '', 8);
+			$pdf->SetFont('dejavusans', '', 7);
 
 			// writeHTML($html, $ln=true, $fill=false, $reseth=false, $cell=false, $align='')
 			// writeHTMLCell($w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=0, $reseth=true, $align='', $autopadding=true)
@@ -183,7 +183,7 @@ class Reportes extends CI_Controller {
 			// ---------------------------------------------------------
 
 			// set font
-			$pdf->SetFont('dejavusans', '', 8);
+			$pdf->SetFont('dejavusans', '', 7);
 
 			// writeHTML($html, $ln=true, $fill=false, $reseth=false, $cell=false, $align='')
 			// writeHTMLCell($w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=0, $reseth=true, $align='', $autopadding=true)

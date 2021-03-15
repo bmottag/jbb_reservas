@@ -40,6 +40,7 @@
 					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 						<thead>
 							<tr>
+								<th class='text-center'>#</th>
 								<th class='text-center'>Correo Electrónico</th>
 								<th class='text-center'>No. Celular de Contacto</th>
 								<th class='text-center'>Nombre</th>
@@ -48,25 +49,28 @@
 						</thead>
 						<tbody>							
 						<?php
+							$i = 1;
 							foreach ($infoReserva as $lista):
-									echo '<tr>';
-									echo '<td>' . $lista['correo_electronico'] . '</td>';
-									echo '<td class="text-center">' . $lista['numero_contacto'] . '</td>';
-									echo '<td>' . $lista['nombre_completo'] . '</td>';
-	                                echo '<td class="text-center">';
-	                                switch ($lista['estado_reserva']) {
-	                                    case 1:
-	                                        $valor = '---';
-	                                        $clase = 'text-success';
-	                                        break;
-	                                    case 2:
-	                                        $valor = 'CANCELADA';
-	                                        $clase = 'text-danger';
-	                                        break;
-	                                }
-                             	   echo '<p class="' . $clase . '"><strong>' . $valor . '</strong></p>';
-                             	   echo '</td>';
-									echo '</tr>';
+								echo '<tr>';
+								echo '<td class="text-center">' . $i . '</td>';
+								echo '<td>' . $lista['correo_electronico'] . '</td>';
+								echo '<td class="text-center">' . $lista['numero_contacto'] . '</td>';
+								echo '<td>' . $lista['nombre_completo'] . '</td>';
+								echo '<td class="text-center">';
+								switch ($lista['estado_reserva']) {
+								    case 1:
+								        $valor = '---';
+								        $clase = 'text-success';
+								        break;
+								    case 2:
+								        $valor = 'CANCELADA';
+								        $clase = 'text-danger';
+								        break;
+								}
+								echo '<p class="' . $clase . '"><strong>' . $valor . '</strong></p>';
+								echo '</td>';
+								echo '</tr>';
+								$i++;
 							endforeach;
 						?>
 						</tbody>
