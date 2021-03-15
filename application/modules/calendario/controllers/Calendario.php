@@ -124,9 +124,9 @@ class Calendario extends CI_Controller {
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 
-			$flores = array('orquidea', 'cayena', 'heliconia', 'begoña', 'tulipan', 'brunellia', 'abarema', 'aniba', 'calatola', 'centronia', 'clusia', 'cordia', 'espeletia', 'guarea', 'herrania', 'licania', 'magnolia');
+			$flores = array('orquidea', 'cayena', 'heliconia', 'tulipan', 'brunellia', 'abarema', 'aniba', 'calatola', 'centronia', 'clusia', 'cordia', 'espeletia', 'guarea', 'herrania', 'licania', 'magnolia');
 
-			$i = rand(0, 15);
+			$i = rand(0, 14);
 
 			// Captcha
 			$config = array(
@@ -512,9 +512,9 @@ class Calendario extends CI_Controller {
 
     public function refresh()
     {
-			$flores = array('orquidea', 'cayena', 'heliconia', 'begoña', 'tulipan', 'brunellia', 'abarema', 'aniba', 'calatola', 'centronia', 'clusia', 'cordia', 'espeletia', 'guarea', 'herrania', 'licania', 'magnolia');
+			$flores = array('orquidea', 'cayena', 'heliconia', 'tulipan', 'brunellia', 'abarema', 'aniba', 'calatola', 'centronia', 'clusia', 'cordia', 'espeletia', 'guarea', 'herrania', 'licania', 'magnolia');
 
-			$i = rand(0, 15);
+			$i = rand(0, 14);
 
 	        // Captcha configuration
 	        $config = array(
