@@ -290,7 +290,7 @@ class Reportes extends CI_Controller {
 			// Set column widths							  
 			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(22);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(22);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(50);
 
