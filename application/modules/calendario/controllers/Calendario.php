@@ -252,7 +252,7 @@ class Calendario extends CI_Controller {
 							);
 							$this->calendario_model->actualizarHorarios($arrParam);
 
-							$this->envioSMS($idReserva);
+							//$this->envioSMS($idReserva);
 							$this->email($idReserva);
 
 							$data["result"] = true;					
@@ -444,9 +444,8 @@ class Calendario extends CI_Controller {
 			endforeach;
 			$msj .= '</ul>';		
 			$msj .= '<p><strong>* Tarifas aplicadas: </strong></p>';
-			$msj .= '<ul><li>Adultos $3.500</li>';
-			$msj .= '<li>Niños de 4 a 12 años $1.800</li>';
-			$msj .= '<li>Niños de 3 o menos años y adultos mayores de 60 años no pagan</li></ul>';
+			$msj .= '<ul><li>Mayores de 5 años en adelante $5.000</li>';
+			$msj .= '<li>Niños de 5 o menos años y adultos mayores de 62 años no pagan</li></ul>';
 			$msj .= "<img src=" . base_url($infoReserva[0]['qr_code_img']) . " class='img-rounded' width='200' height='200' />";
 			$msj .= '<br>';
 			$msj .= '<strong>Código para el ingreso a las instalaciones</strong>';

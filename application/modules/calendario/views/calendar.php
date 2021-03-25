@@ -160,6 +160,10 @@ $(function(){
 						<li>
 						Si después de tu visita al Jardín Botánico te diagnostican con Covid-19 debes reportarlo de inmediato a las autoridades de salud y al teléfono 4377060. Por tu salud y la de todos, Bogotá se sabe mover.Si después de tu visita al Jardín Botánico te diagnostican con Covid-19 debes reportarlo de inmediato a las autoridades de salud y al teléfono 4377060. Por tu salud y la de todos, Bogotá se sabe mover.
 						</li>
+
+						<li>
+						Amablemente nos permitimos informar a la ciudadanía que durante la mañana del primer lunes (O martes cuando el lunes es festivo)  de cada mes el Jardín Botánico de Bogotá cierra sus puertas con el fin de realizar jornadas de mantenimiento integrales.
+						</li>
 					</ul>
 					</small>
                 </div>

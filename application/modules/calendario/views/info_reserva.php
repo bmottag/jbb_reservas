@@ -78,10 +78,9 @@
 							<div class="alert alert-success">
 								<small>
 								<p>Le recomendamos llegar 20 minutos antes de su reserva para realizar el protocolo de bioseguridad.</p>
-								<strong> Tarifas aplicadas: </strong>
-								<ul><li>Adultos $3.500</li>
-								<li>Niños de 4 a 12 años $1.800</li>
-								<li>Niños de 3 o menos años y adultos mayores de 60 años no pagan</li></ul>
+								<strong>Tarifas aplicadas: </strong>
+								<ul><li>Mayores de 5 años en adelante $5.000</li>
+								<li>Niños de 5 o menos años y adultos mayores de 62 años no pagan</li></ul>
 								</small>
 							</div>
 						</div>
