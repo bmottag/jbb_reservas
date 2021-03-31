@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate/calendario/reserva_v2.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate/calendario/reserva_v3.js"); ?>"></script>
 
 <script>
 $(document).ready(function(){

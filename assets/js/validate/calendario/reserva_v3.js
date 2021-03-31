@@ -4,8 +4,8 @@ $( document ).ready( function () {
 	
 	$( "#add_reserva" ).validate( {
 		rules: {
-			email: 				{ required: true, minlength: 3, maxlength:25, email: true },
-			confirmarEmail: 	{ required: true, minlength: 3, maxlength:25, equalTo: "#email" },
+			email: 				{ required: true, minlength: 3, maxlength:90, email: true },
+			confirmarEmail: 	{ required: true, minlength: 3, maxlength:90, equalTo: "#email" },
 			celular: 			{ required: true, minlength: 10, maxlength:10 },
 			name: 				{ required: true, minlength: 3, maxlength:25 }
 		},

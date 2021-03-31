@@ -4,7 +4,7 @@ $( document ).ready( function () {
 	
 	$( "#formEliminar" ).validate( {
 		rules: {
-			email: 				{ required: true, minlength: 3, maxlength:25, email: true },
+			email: 				{ required: true, minlength: 3, maxlength:90, email: true },
 			fecha: 				{ required: true },
 			celular: 			{ required: true, minlength: 10, maxlength:10 }
 			
