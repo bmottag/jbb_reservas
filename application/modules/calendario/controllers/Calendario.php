@@ -189,7 +189,17 @@ class Calendario extends CI_Controller {
 			$data = array();
 
 			$idHorario = $this->input->post('hddIdHorario');
-			$NumeroCuposRestantes = $this->input->post('hddNumeroCuposRestantes');
+
+			//busco informacion de numero de cupos y numero de reseervas para saber numero de cupos restantes
+			$arrParam = array('idHorario' => $idHorario);
+			$infoHorario = $this->general_model->get_horario_info($arrParam);
+			$numeroCuposPermitidos = $infoHorario[0]['numero_cupos'];
+
+			$arrParam['estadoReserva'] = 1;
+			$infoReserva = $this->general_model->get_reserva_info($arrParam);
+			$noVisitantes = $infoReserva?count($infoReserva):0;
+			$NumeroCuposRestantes = $numeroCuposPermitidos - $noVisitantes;
+			
 			$usuarios = $this->input->post('name');
 			$primerUsuario = $this->security->xss_clean($usuarios[0]);//limpio el primer valor
 
@@ -495,7 +505,7 @@ class Calendario extends CI_Controller {
                         exit;
 
                     }else{
-
+                    	return TRUE;
                         $this->session->set_flashdata('retorno_error', 'Se creo la persona, sin embargo no se pudo enviar el correo electr&oacute;nico');
                        // redirect(base_url(), 'refresh');
                         exit;
@@ -503,8 +513,9 @@ class Calendario extends CI_Controller {
                     }
 
                 }catch (Exception $e){
-                                print_r($e->getMessage());
-                                        exit;
+                	return TRUE;
+                    print_r($e->getMessage());
+                    exit;
                 }
 
 	}	
