@@ -166,6 +166,9 @@ class Calendario extends CI_Controller {
 			{
 				echo '<br><p><strong>Atención:</strong><br>';
 				echo 'Esta fecha esta siendo asignada, por favor seleccione otra.</p>';
+			}elseif($data['information'][0]['numero_cupos_restantes'] <= 0){
+				echo '<br><p><strong>Atención:</strong><br>';
+				echo 'Se completo el cupo máximo para este horario, por favor seleccione otro.</p>';
 			}else{
 				//bloquear sala por 5 minutos mientras se realiza la reserva
 				$arrParam = array(
@@ -251,7 +254,7 @@ class Calendario extends CI_Controller {
 							$NumeroCuposRestantes = $NumeroCuposRestantes - $numeroCupos;
 							$estado = '2'; //En processo
 							$disponibilidad = 1;
-							if($NumeroCuposRestantes == 0){
+							if($NumeroCuposRestantes <= 0){
 								$estado = '3'; //cerrado
 							}
 							$arrParam = array(
@@ -389,7 +392,7 @@ class Calendario extends CI_Controller {
 						//si cumplio el numero maximo de cupos cambiar estado a cerrado
 						$NumeroCuposRestantes = $NumeroCuposRestantes + $numeroCupos;
 						$estado = '2'; //En processo
-						$disponibilidad = 1;
+						$disponibilidad = 2;
 
 						$arrParam = array(
 							'idHorario' => $infoReserva[0]['fk_id_horario'],
