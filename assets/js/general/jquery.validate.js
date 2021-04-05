@@ -356,7 +356,7 @@ $.extend( $.validator, {
 		url: "Please enter a valid URL.",
 		date: "Ingresar una fecha valida.",
 		dateISO: "Please enter a valid date ( ISO ).",
-		number: "Please enter a valid number.",
+		number: "Por favor ingresar un número.",
 		digits: "Please enter only digits.",
 		equalTo: "Ingrese el mismo valor de nuevo.",
 		maxlength: $.validator.format( "Ingresar como máximo {0} caracteres." ),

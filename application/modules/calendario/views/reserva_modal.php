@@ -120,21 +120,21 @@ $(document).ready(function(){
 			<div class="col-sm-4">
 				<div class="form-group text-left">
 					<label class="control-label" for="email">Correo Electrónico: *</label>
-					<input type="text" class="form-control" id="email" name="email" placeholder="Correo Electrónico" required />
+					<input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico" required />
 				</div>
 			</div>
 			
 			<div class="col-sm-4">		
 				<div class="form-group text-left">
 					<label class="control-label" for="confirmarEmail">Confirmar correo: *</label>
-					<input type="text" id="confirmarEmail" name="confirmarEmail" class="form-control" placeholder="Confirmar correo" required >
+					<input type="email" id="confirmarEmail" name="confirmarEmail" class="form-control" placeholder="Confirmar correo" required >
 				</div>
 			</div>
 
 			<div class="col-sm-4">		
 				<div class="form-group text-left">
 					<label class="control-label" for="celular">Celular de Contacto: *</label>
-					<input type="text" class="form-control" id="celular" name="celular" placeholder="Celular de Contacto" required />
+					<input type="number" class="form-control" id="celular" name="celular" placeholder="Celular de Contacto" required />
 				</div>
 			</div>
 		</div>

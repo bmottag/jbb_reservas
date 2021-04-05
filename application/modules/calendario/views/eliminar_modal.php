@@ -28,7 +28,7 @@
 			<div class="col-sm-6">		
 				<div class="form-group text-left">
 					<label class="control-label" for="email">Correo Electrónico: *</label>
-					<input type="text" class="form-control" id="email" name="email" placeholder="Correo Electrónico" required />
+					<input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico" required />
 				</div>
 			</div>
 			
@@ -52,7 +52,7 @@
 			<div class="col-sm-6">		
 				<div class="form-group text-left">
 					<label class="control-label" for="celular">Celular de Contacto: *</label>
-					<input type="text" class="form-control" id="celular" name="celular" placeholder="Celular de Contacto" required />
+					<input type="number" class="form-control" id="celular" name="celular" placeholder="Celular de Contacto" required />
 				</div>
 			</div>
 		</div>
