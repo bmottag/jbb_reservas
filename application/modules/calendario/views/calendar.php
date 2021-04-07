@@ -10,6 +10,10 @@ $(document).ready(function () {
     $("body").on("contextmenu",function(e){
         return false;
     });
+
+$( document ).ready(function() {
+    //alert('Alerta');
+});
     
     //Disable part of page
     $("#id").on("contextmenu",function(e){

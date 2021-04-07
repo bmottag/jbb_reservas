@@ -131,7 +131,9 @@ function deseleccionar_todo(){
                                 }
                                 echo '<p class="' . $clase . '"><strong>' . $valor . '</strong>';
 
-                                if($lista['numero_cupos'] == $lista['numero_cupos_restantes']){
+
+                               //se pueden bloquear todas los horarios
+                               // if($lista['numero_cupos'] == $lista['numero_cupos_restantes']){
 
 									$data = array(
 										'name' => 'disponibilidad[]',
@@ -141,7 +143,7 @@ function deseleccionar_todo(){
 										'style' => 'margin:10px'
 									);
 									echo form_checkbox($data);
-								}
+								//}
 
                                 echo '</p></td>';
                                 echo '</tr>';
@@ -178,7 +180,7 @@ function deseleccionar_todo(){
 $(document).ready(function() {
 	$('#dataTables').DataTable({
 		responsive: true,
-		"pageLength": 100
+		"pageLength": 200
 	});
 });
 </script>
