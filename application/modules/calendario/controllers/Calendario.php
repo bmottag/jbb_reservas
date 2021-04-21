@@ -449,7 +449,7 @@ class Calendario extends CI_Controller {
 			$msj .= ' a las ' . "<strong>" .ucfirst(strftime("%I:%M %p",strtotime($infoHorario[0]['hora_inicial'])))  . "</strong>";
 			$msj .= ' para que se acerque a nuestra taquilla y adquiera los ingresos conforme a las tarifas aplicadas*, con el código de este correo.</p>';
 			$msj .= '<p>Le recomendamos llegar 20 minutos antes de su reserva para realizar el protocolo de bioseguridad.</p>';
-			$msj .= '<p>Teléfono de contacto: 319 433 9710</p>';
+			$msj .= '<p>Servicio al ciudadano: contactenos@jbb.gov.co</p>';
 			$msj .= "<strong>No. Visitantes: </strong>" . $infoReserva[0]['numero_cupos_usados'];
 			$msj .= '<ul>';
 			foreach ($infoReserva as $data):
