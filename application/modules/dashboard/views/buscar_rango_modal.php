@@ -1,7 +1,7 @@
 <script type="text/javascript" src="<?php echo base_url("assets/js/validate/dashboard/buscar_rango.js"); ?>"></script>
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	<h4 class="modal-title" id="exampleModalLabel">Buscar resevas por rango de fechas	</h4>
+	<h4 class="modal-title" id="exampleModalLabel">Buscar reservas por rango de fechas	</h4>
 </div>
 
 <div class="modal-body">
