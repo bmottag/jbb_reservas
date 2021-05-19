@@ -13,7 +13,7 @@
 			<div class="col-sm-6">		
 				<div class="form-group text-left">
 					<label class="control-label" for="numeroCupos">Número de Cupos: *</label>
-					<input type="text" id="numeroCupos" name="numeroCupos" class="form-control" value="<?php echo $information?$information[0]["numero_cupos"]:""; ?>" placeholder="Número de Cupos" required >
+					<input type="text" id="numeroCupos" name="numeroCupos" class="form-control" value=20 placeholder="Número de Cupos" required >
 				</div>
 			</div>
 			
@@ -22,7 +22,7 @@
 					<label class="control-label" for="intervalo">Intervalo: *</label>
 					<select name="intervalo" id="intervalo" class="form-control" required>
 						<option value=''>Seleccione...</option>
-						<option value=1 >Cada 15 min</option>
+						<option value=1 selected >Cada 15 min</option>
 						<option value=2 >Cada 30 min</option>
 						<option value=3 >Cada 60 min</option>
 					</select>
@@ -56,8 +56,12 @@
 						for ($i = 8; $i < 21; $i++) {
 							
 							$i = $i<10?"0".$i:$i;
+							$seleccion = '';
+							if($i==9){
+								$seleccion = 'selected';
+							}
 							?>
-							<option value='<?php echo $i; ?>' ><?php echo $i; ?></option>
+							<option value='<?php echo $i; ?>' <?php echo $seleccion; ?> ><?php echo $i; ?></option>
 						<?php } ?>									
 					</select>
 				</div>
@@ -92,8 +96,12 @@
 						for ($i = 10; $i < 23; $i++) {
 							
 							$i = $i<10?"0".$i:$i;
+							$seleccion = '';
+							if($i==15){
+								$seleccion = 'selected';
+							}
 							?>
-							<option value='<?php echo $i; ?>' ><?php echo $i; ?></option>
+							<option value='<?php echo $i; ?>' <?php echo $seleccion; ?> ><?php echo $i; ?></option>
 						<?php } ?>									
 					</select>
 				</div>
