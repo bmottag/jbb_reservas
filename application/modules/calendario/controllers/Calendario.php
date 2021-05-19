@@ -393,6 +393,15 @@ class Calendario extends CI_Controller {
 						$NumeroCuposRestantes = $NumeroCuposRestantes + $numeroCupos;
 						$estado = '2'; //En processo
 						$disponibilidad = 2;
+						//busco el si el horario esta bloqueado por el administrado si es asi se deja bloqueado
+						$arrParam = array(
+							'idHorario' => $infoReserva[0]['fk_id_horario'],
+							'disponible' => 3
+						);
+						$horarioInfo = $this->general_model->get_horario_info($arrParam);
+						if($horarioInfo){
+							$disponibilidad = 3;
+						}
 
 						$arrParam = array(
 							'idHorario' => $infoReserva[0]['fk_id_horario'],
