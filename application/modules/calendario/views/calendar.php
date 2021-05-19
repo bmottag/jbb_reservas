@@ -12,7 +12,11 @@ $(document).ready(function () {
     });
 
 $( document ).ready(function() {
-    //alert('Alerta');
+	var popup = $('#hddPopUp').val();
+    //alert('Por la seguridad de nuestros visitantes y la de quienes tenemos el gusto de atenderlos informamos que hoy, 12 de mayo de 2021: La atención al público será hasta las 12 M. Los invitamos a registrarse en otros horarios.');
+    if(popup!=''){
+    	alert(popup);
+    }
 });
     
     //Disable part of page
@@ -124,7 +128,7 @@ $(function(){
 	<div class="row">
 		<div class="col-lg-12">	
             <div class="panel panel-default">
-                
+<input type="hidden" id="hddPopUp" name="hddPopUp" value="<?php echo $infoPopup?$infoPopup[0]['parametro_valor']:""; ?>" />                
                 <div class="panel-body">
                 	<div class="row">
                 		<div class="col-lg-6">	

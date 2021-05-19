@@ -28,7 +28,7 @@ class Settings extends CI_Controller {
 			$data['info'] = $this->general_model->get_user($arrParam);
 			
 			$data["view"] = 'employee';
-			$this->load->view("layout", $data);
+			$this->load->view("layout_calendar", $data);
 	}
 	
     /**
@@ -322,6 +322,59 @@ class Settings extends CI_Controller {
 
 			redirect(base_url('settings/horarios'), 'refresh');
 	}
+
+	/**
+	 * Mensaje emergente
+     * @since 19/5/2021
+     * @author BMOTTAG
+	 */
+	public function popup()
+	{
+			//busco en la tabla parametros el valor para el popup
+			$arrParam = array(
+				'table' => 'parametros',
+				'order' => 'id_parametro',
+				'column' => 'parametro_nombre',
+				'id' => 'popup'
+			);
+			$data['infoPopup'] = $this->general_model->get_basic_search($arrParam);
+
+			$data["view"] = 'popup';
+			$this->load->view('layout_calendar', $data);
+	}
+	
+	/**
+	 * Save horarios
+     * @since 16/2/2021
+     * @author BMOTTAG
+	 */
+	public function save_popup()
+	{			
+			$data['linkBack'] = "settings/popup";
+			$data['titulo'] = "<i class='fa fa-thumb-tack'></i> POP-UP";
+
+			$texto =  $this->security->xss_clean($this->input->post('texto'));
+			$texto =  addslashes($texto);
+					
+			//actualizamos el campo popup
+			$arrParam = array(
+				'table' => 'parametros',
+				'primaryKey' => 'parametro_nombre',
+				'id' => 'popup',
+				'column' => 'parametro_valor',
+				'value' => $texto
+			);
+			if($this->general_model->updateRecord($arrParam)){
+				$data['msj'] = 'Se actualizó el campo de Pop-Up.';
+				$data['clase'] = 'alert-success';
+			}else{
+				$data['msj'] = '<strong>Error!!!</strong> Ask for help.';
+				$data['clase'] = 'alert-danger';
+			}
+						
+			$data["view"] = "template/answer";
+			$this->load->view("layout", $data);
+    }
 	
 
 	

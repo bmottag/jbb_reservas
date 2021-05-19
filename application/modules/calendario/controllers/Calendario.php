@@ -18,6 +18,15 @@ class Calendario extends CI_Controller {
 	 */
 	public function index()
 	{
+			//busco en la tabla parametros el valor para el popup
+			$arrParam = array(
+				'table' => 'parametros',
+				'order' => 'id_parametro',
+				'column' => 'parametro_nombre',
+				'id' => 'popup'
+			);
+			$data['infoPopup'] = $this->general_model->get_basic_search($arrParam);
+
 			$data["view"] = 'calendar';
 			$this->load->view("layout_calendar", $data);
 	}
