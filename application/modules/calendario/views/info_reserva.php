@@ -79,8 +79,35 @@
 								<small>
 								<p>Le recomendamos llegar 20 minutos antes de su reserva para realizar el protocolo de bioseguridad.</p>
 								<strong>Tarifas aplicadas: </strong>
-								<ul><li>Mayores de 5 años en adelante $5.000</li>
-								<li>Niños de 5 o menos años y adultos mayores de 62 años no pagan</li></ul>
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th></th>
+											<th>GENERAL</th>
+											<th>TROPICARIO</th>
+										</tr>
+									</thead>
+									<tr>					
+										<td>Mayores de 5 años en adelante</td>
+										<td class='text-center'>$5.000</td>
+										<td class='text-center'>$5.000</td>
+									</tr>
+									<tr>					
+										<td>Menores de 5 años y mayores de 62 años</td>
+										<td class='text-center'>Gratis</td>
+										<td class='text-center'>$5.000</td>
+									</tr>
+									<tr>					
+										<td>Nacionales</td>
+										<td class='text-center'>$5.000</td>
+										<td class='text-center'>$5.000</td>
+									</tr>
+									<tr>					
+										<td>Extranjeros</td>
+										<td class='text-center'>$5.000</td>
+										<td class='text-center'>$10.000</td>
+									</tr>
+								</table>
 								</small>
 							</div>
 						</div>
