@@ -86,8 +86,8 @@ $(function(){
 			editable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
 			allDaySlot: false,
-			slotMinTime: '8:00',
-			slotMaxTime: '22:00',
+			slotMinTime: '8:30',
+			slotMaxTime: '17:15',
 			slotDuration: '00:15:00',
 			slotLabelInterval: '00:15', 
 			events: {
@@ -170,7 +170,10 @@ $(function(){
 						</li>
 
 						<li>
-						Amablemente nos permitimos informar a la ciudadanía que durante la mañana del primer lunes (O martes cuando el lunes es festivo)  de cada mes el Jardín Botánico de Bogotá cierra sus puertas con el fin de realizar jornadas de mantenimiento integrales.
+						Amablemente nos permitimos informar a la ciudadanía que durante la mañana del primer lunes (O martes cuando el lunes es festivo) de cada semana el Jardín Botánico de Bogotá cierra sus puertas con el fin de realizar jornadas de mantenimiento integrales.
+						</li>
+						<li>
+						Finalmente, se recuerda que todos los recorridos guiados están sujetos a cancelación si las condiciones climáticas o de seguridad así lo determinan, con el fin de evitar riesgos y aglomeraciones. Gracias por su comprensión.
 						</li>
 					</ul>
 					</small>
