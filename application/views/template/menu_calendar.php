@@ -24,19 +24,19 @@
 		    <a href="https://jbb.gov.co/"></i> Incio</a>
 		</li>
 		<li>
-		    <a href="http://www.jbb.gov.co/index.php/nuestro-jardin"></i> Nuestro Jardín</a>
+		    <a href="https://www.jbb.gov.co/index.php/nuestro-jardin"></i> Nuestro Jardín</a>
 		</li>
 		<li>
-		    <a href="http://www.jbb.gov.co/index.php/productos-y-servicios"></i> Productos y Servicios</a>
+		    <a href="https://www.jbb.gov.co/index.php/productos-y-servicios"></i> Productos y Servicios</a>
 		</li>
 		<li>
-		    <a href="http://www.jbb.gov.co/index.php/servicio-al-ciudadano"></i> Servicio al Ciudadano</a>
+		    <a href="https://www.jbb.gov.co/index.php/servicio-al-ciudadano"></i> Servicio al Ciudadano</a>
 		</li>
 		<li>
-		    <a href="http://www.jbb.gov.co/index.php/gestion-institucional"></i> Gestión Institucional</a>
+		    <a href="https://www.jbb.gov.co/index.php/gestion-institucional"></i> Gestión Institucional</a>
 		</li>
 		<li>
-		    <a href="http://www.jbb.gov.co/index.php/contactenos"></i> Contáctenos</a>
+		    <a href="https://www.jbb.gov.co/index.php/contactenos"></i> Contáctenos</a>
 		</li>
 <?php 
 		}

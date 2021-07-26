@@ -1,10 +1,10 @@
 $( document ).ready( function () {
 	
-	$("#numeroCupos").bloquearTexto().maxlength(2);
+	$("#numeroCupos").bloquearTexto().maxlength(3);
 	
 	$( "#formHorario" ).validate( {
 		rules: {
-			numeroCupos: 			{ required: true, minlength: 1, maxlength:2 },
+			numeroCupos: 			{ required: true, minlength: 1, maxlength:3 },
 			intervalo: 				{ required: true },
 			start_date:	 			{ required: true },
 			start_hour:	 			{ required: true },

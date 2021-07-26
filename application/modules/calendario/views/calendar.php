@@ -86,10 +86,14 @@ $(function(){
 			editable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
 			allDaySlot: false,
-			slotMinTime: '8:30',
-			slotMaxTime: '17:15',
-			slotDuration: '00:15:00',
-			slotLabelInterval: '00:15', 
+			//slotMinTime: '8:30',
+			//slotMaxTime: '17:15',
+			//slotDuration: '00:15:00',
+			//slotLabelInterval: '00:15', 
+			slotMinTime: '17:00',
+			slotMaxTime: '24:00',
+			slotDuration: '00:30:00',
+			slotLabelInterval: '00:30', 
 			events: {
 				url: 'calendario/consulta',
 				method: 'POST',
@@ -160,7 +164,7 @@ $(function(){
 				    </li>
 				    <li>
 				    	<strong>Ingrese sus datos: </strong>
-				    	Registre los Nombres de cada uno de los asistentes (máximo 20 personas, incluyendo niños mayores de 3 años), un número celular de contacto y el correo electrónico donde recibirá el código QR de verificación. No olvide llenar el campo de comprobación (captcha) que consiste en escribir la palabra que está en colores, en el campo dispuesto para ello.
+				    	Registre los Nombres de cada uno de los asistentes (máximo 7 personas, incluyendo niños mayores de 3 años), un número celular de contacto y el correo electrónico donde recibirá el código QR de verificación. No olvide llenar el campo de comprobación (captcha) que consiste en escribir la palabra que está en colores, en el campo dispuesto para ello.
 					</li>
 					</ol>
 

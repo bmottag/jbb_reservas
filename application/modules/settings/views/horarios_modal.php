@@ -13,7 +13,7 @@
 			<div class="col-sm-6">		
 				<div class="form-group text-left">
 					<label class="control-label" for="numeroCupos">Número de Cupos: *</label>
-					<input type="text" id="numeroCupos" name="numeroCupos" class="form-control" value=20 placeholder="Número de Cupos" required >
+					<input type="number" id="numeroCupos" name="numeroCupos" class="form-control" value=20 placeholder="Número de Cupos" required >
 				</div>
 			</div>
 			

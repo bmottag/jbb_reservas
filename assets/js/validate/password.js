@@ -2,8 +2,8 @@
 
 			$( "#form" ).validate( {
 				rules: {
-					inputPassword: 		{ required: true, minlength: 6, maxlength:12 },
-					inputConfirm: 		{ required: true, minlength: 6, maxlength:12, equalTo: "#inputPassword" }
+					inputPassword: 		{ required: true, minlength: 6, maxlength:15 },
+					inputConfirm: 		{ required: true, minlength: 6, maxlength:15, equalTo: "#inputPassword" }
 				},
 				messages: {
 					inputConfirm: {

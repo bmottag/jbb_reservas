@@ -7,6 +7,9 @@ $(document).ready(function(){
 	{
 		i++;
 		var CuposRestantes = $('#hddNumeroCuposRestantes').val();
+		if(CuposRestantes > 7){
+			CuposRestantes = 7;
+		} 
 		if(i<=CuposRestantes){
 			$('#dynamic_field').append('<tr id="row'+i+'"><td><small>'+i+'</small></td><td><input type="text" name="name[]" placeholder="Nombre Completo" class="form-control name_list" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times"></i></button></td></tr>');
 		}else{
