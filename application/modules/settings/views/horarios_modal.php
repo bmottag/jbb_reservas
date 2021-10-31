@@ -47,7 +47,7 @@
 				</div>
 			</div>
 			
-			<div class="col-sm-6">
+			<div class="col-sm-3">
 				<div class="form-group text-left">
 					<label for="type" class="control-label">Hora Inicio: *</label>
 					<select name="start_hour" id="start_hour" class="form-control" required>
@@ -66,6 +66,16 @@
 					</select>
 				</div>
 			</div>
+
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label class="control-label" for="start_minutes">Minitos Inicio: *</label>
+					<select name="start_minutes" id="start_minutes" class="form-control" required>
+						<option value="00" selected >00</option>
+						<option value="30" >30</option>
+					</select>
+				</div>
+			</div>			
 				
 		</div>
 
@@ -87,7 +97,7 @@
 				</div>
 			</div>
 			
-			<div class="col-sm-6">
+			<div class="col-sm-3">
 				<div class="form-group text-left">
 					<label for="type" class="control-label">Hora Fin: *</label>
 					<select name="finish_hour" id="finish_hour" class="form-control" required>
@@ -106,6 +116,16 @@
 					</select>
 				</div>
 			</div>
+
+			<div class="col-sm-3">
+				<div class="form-group text-left">
+					<label class="control-label" for="finish_minutes">Minitos Fin: *</label>
+					<select name="finish_minutes" id="finish_minutes" class="form-control" required>
+						<option value="00" selected >00</option>
+						<option value="30" >30</option>
+					</select>
+				</div>
+			</div>				
 				
 		</div>
 		

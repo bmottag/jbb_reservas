@@ -9,7 +9,9 @@ $( document ).ready( function () {
 			start_date:	 			{ required: true },
 			start_hour:	 			{ required: true },
 			finish_date:			{ required: true },
-			finish_hour:	 		{ required: true }
+			start_minutes:			{ required: true },
+			finish_hour:	 		{ required: true },
+			finish_minutes:			{ required: true }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {

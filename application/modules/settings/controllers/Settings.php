@@ -262,18 +262,6 @@ class Settings extends CI_Controller {
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 			
 			$data['information'] = FALSE;
-			$data["idHorario"] = $this->input->post("idHorario");	
-			
-			if ($data["idHorario"] != 'x') {
-				$arrParam = array(
-					"table" => "param_proveedores",
-					"order" => "id_proveedor",
-					"column" => "id_proveedor",
-					"id" => $data["idCompany"]
-				);
-				$data['information'] = $this->general_model->get_basic_search($arrParam);
-			}
-			
 			$this->load->view("horarios_modal", $data);
     }
 	
@@ -302,6 +290,50 @@ class Settings extends CI_Controller {
 				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
 			}
 
+			echo json_encode($data);	
+    }
+
+    /**
+     * Cargo modal - formulario para adicionar cupos
+     * @since 29/10/2021
+     */
+    public function cargarModalAddCupos() 
+	{
+			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
+			
+			$data['information'] = FALSE;
+			$data["idHorario"] = $this->input->post("idHorario");	
+			
+			if ($data["idHorario"] != 'x') {
+				$arrParam = array(
+					"table" => "horarios",
+					"order" => "id_horario",
+					"column" => "id_horario",
+					"id" => $data["idHorario"]
+				);
+				$data['information'] = $this->general_model->get_basic_search($arrParam);
+			}
+			
+			$this->load->view("horarios_cupos_modal", $data);
+    }
+
+	/**
+	 * Save adicion de cupoos
+     * @since 31/10/2021
+     * @author BMOTTAG
+	 */
+	public function save_add_cupos()
+	{			
+			header('Content-Type: application/json');
+			$data = array();
+			
+			if ($this->settings_model->saveMasCupos()) {
+				$data["result"] = true;
+				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> Se adicionaron los cupos.');
+			} else {
+				$data["result"] = "error";
+				$this->session->set_flashdata('retornoError', '<strong>Error!</strong> Ask for help');
+			}
 			echo json_encode($data);	
     }
 

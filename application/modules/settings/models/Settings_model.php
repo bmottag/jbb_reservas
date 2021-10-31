@@ -108,72 +108,28 @@
 				}
 	    }
 		
-		/**
-		 * Add/Edit Horario
-		 * @since 16/2/2021
+		/**icionar cupos/Edit Horario
+		 * @since 31/10/2021
 		 */
-		public function saveHorarios() 
+		public function saveMasCupos()
 		{
-				$intervalo = $this->input->post('intervalo');
-				$fechaInicio = $this->input->post('start_date');
-				$fechaFin = $this->input->post('finish_date');
-				$horaInicio = $this->input->post('start_hour');
-				$horaFin = $this->input->post('finish_hour');
+				$idHorario = $this->input->post('hddId');
+				$cuposActuales = $this->input->post('hddCuposActuales');
+				$cuposDisponibles = $this->input->post('hddCuposDisponibles');
+				$cuposAdicionales = $this->input->post('numeroCupos');
 
-				$date1 = new DateTime($fechaInicio);
-				$date2 = new DateTime($fechaFin);
-				$diff = $date1->diff($date2);
-				$numeroDias = $diff->days + 1;
-
-				switch ($intervalo) {
-					case 1:
-						//cada 15 min
-						$incremento = '+15 minute';
-						$numeroHorariosDia = ($horaFin - $horaInicio)*4;
-						break;
-					case 2:
-						//cada 30 min
-						$incremento = '+30 minute';
-						$numeroHorariosDia = ($horaFin - $horaInicio)*2;
-						break;
-					case 3:
-						//cada 60 min
-						$incremento = '+60 minute';
-						$numeroHorariosDia = ($horaFin - $horaInicio);
-						break;
-				}
-
-				$numeroHorariosDia++;
-
-				$fechaInicial = $fechaInicio . ' ' . $horaInicio . ':00:00';
+				$nuevosCupos = $cuposActuales + $cuposAdicionales;
+				$nuevosCuposDisponibles = $cuposDisponibles + $cuposAdicionales;
 				
-				for ($i = 0; $i < $numeroDias; $i++) 
-				{
-					$date = new DateTime($fechaInicial);
-					$date->modify('+' . $i . ' day');
-					$horarioInicio = $date->format('Y-m-d H:i:s');
+				$data = array(
+					'numero_cupos' => $nuevosCupos,
+					'numero_cupos_restantes' => $nuevosCuposDisponibles,
+					'estado' => 1,
+					'disponible' => 1
+				);	
 
-					for ($y = 0; $y < $numeroHorariosDia; $y++)
-					{
-						$date = new DateTime($horarioInicio);
-						$date->modify($incremento);
-						$horaFinal = $date->format('Y-m-d H:i:s');
-
-						$data = array(
-							'hora_inicial' => $horarioInicio,
-							'hora_final' => $horaFinal,
-							'numero_cupos' => $this->input->post('numeroCupos'),
-							'numero_cupos_restantes' => $this->input->post('numeroCupos'),
-							'estado' => 1,
-							'disponible' => 1
-						);
-						$query = $this->db->insert('horarios', $data);
-
-						$horarioInicio = $horaFinal;
-					}
-
-				}
-			
+				$this->db->where('id_horario', $idHorario);
+				$query = $this->db->update('horarios', $data);
 
 				if ($query) {
 					return true;
