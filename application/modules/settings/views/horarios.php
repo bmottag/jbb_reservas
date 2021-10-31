@@ -7,7 +7,20 @@ $(function(){
 			var oID = $(this).attr("id");
             $.ajax ({
                 type: 'POST',
-				url: base_url + '/settings/cargarModalHorarios',
+				url: base_url + 'settings/cargarModalHorarios',
+                data: {'idHorario': oID},
+                cache: false,
+                success: function (data) {
+                    $('#tablaDatos').html(data);
+                }
+            });
+	});	
+
+	$(".btn-danger").click(function () {	
+			var oID = $(this).attr("id");
+            $.ajax ({
+                type: 'POST',
+				url: base_url + 'settings/cargarModalAddCupos',
                 data: {'idHorario': oID},
                 cache: false,
                 success: function (data) {
@@ -109,7 +122,14 @@ function deseleccionar_todo(){
 	                                echo '<td class="text-center">' . $lista['id_horario'] . '</td>';
 	                                echo '<td class="text-center">' . $lista['hora_inicial'] . '</td>';
 	                                echo '<td class="text-center">' . $lista['hora_final'] . '</td>';
-	                                echo '<td class="text-center">' . $lista['numero_cupos'] . '</td>';
+	                                echo '<td class="text-center">' . $lista['numero_cupos'];
+						?>
+									<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_horario']; ?>" >
+										 <span class="glyphicon glyphicon-plus" aria-hidden="true">
+									</button>
+						<?php
+
+	                                echo '</td>';
 	                                echo '<td class="text-center">' . $lista['numero_cupos_restantes'] . '</td>';
                                 echo '<td class="text-center">';
                                 switch ($lista['disponible']) {
