@@ -77,37 +77,18 @@
 						<div class="col-lg-3">
 							<div class="alert alert-success">
 								<small>
-								<p>Le recomendamos llegar 20 minutos antes de su reserva para realizar el protocolo de bioseguridad.</p>
-								<strong>Tarifas aplicadas: </strong>
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th></th>
-											<th>GENERAL</th>
-											<th>TROPICARIO</th>
-										</tr>
-									</thead>
-									<tr>					
-										<td>Mayores de 5 años en adelante</td>
-										<td class='text-center'>$5.000</td>
-										<td class='text-center'>$5.000</td>
-									</tr>
-									<tr>					
-										<td>Menores de 5 años y mayores de 62 años</td>
-										<td class='text-center'>Gratis</td>
-										<td class='text-center'>$5.000</td>
-									</tr>
-									<tr>					
-										<td>Nacionales</td>
-										<td class='text-center'>$5.000</td>
-										<td class='text-center'>$5.000</td>
-									</tr>
-									<tr>					
-										<td>Extranjeros</td>
-										<td class='text-center'>$5.000</td>
-										<td class='text-center'>$10.000</td>
-									</tr>
-								</table>
+								<strong>CAMINO SAN FRANCISCO VICACHÁ </strong>
+<p>
+El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urbano de la ciudad de Bogotá en la Reserva Forestal Protectora Bosque Oriental de Bogotá. En este lugar se localizan los predios Molino del Boquerón, Molino inglés y Cerezos Los Laureles, propiedades de la EAAB-ESP, en las localidades de Santa fe y La Candelaria y limita con el barrio Los Laches y la vereda Fátima. El recorrido inicia, aproximadamente a 200 metros después del acceso al funicular del cerro de Monserrate, por la avenida circunvalar hacia el sur (EAAB, 2021).
+<br>
+<b>Longitud Aproximada: </b>2.082 metros (Camino empinado y escalonado)
+<br>
+<b>Altura: </b>desde 2.718 m.s.n.m hasta 2.910 m.s.n.m
+<br>
+<b>Tiempo de recorrido: </b>1 hora y 30 minutos aproximadamente.
+<br>
+<b>Costo: </b>El ingreso al camino es gratis
+</p>
 								</small>
 							</div>
 						</div>
@@ -117,7 +98,7 @@
 							<div class="alert alert-success">
 								<small>
 								<strong>Recomendaciones</strong>
-								<ul>
+								<ol>
 <li>
  Los menores de edad son responsabilidad de los adultos que los inscriben. Se recomienda la participación de niños y niñas de 7 años en adelante. • Llevar ropa de fácil secado y zapatos o botas de buen agarre. • Utilizar protección solar (gafas, gorras y bloqueador) y llevar impermeable en caso de lluvia. • Para mujeres en periodo de gestación, personas con problemas respiratorios o cardiovasculares y mayores de 65 años, se recomienda no realizar caminatas largas o de exigencia física.
 </li>
@@ -134,7 +115,7 @@
 <li>Respete los cultos, ritos o manifestaciones religiosas de los visitantes.</li>
 
 <li>Mantenga las condiciones ambientales del camino, disfrute y conserve.</li>
-								</ul>
+								</ol>
 								</small>
 							</div>
 						</div>

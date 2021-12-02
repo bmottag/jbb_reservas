@@ -239,7 +239,7 @@ class Visitas extends CI_Controller {
 							$this->load->library('ciqrcode');
 
 							$data['idRecord'] = $llave = $pass . $idReserva;
-							$valorQRcode = base_url("calendario/registro/" . $llave);
+							$valorQRcode = base_url("visitas/registro/" . $llave);
 							$rutaImagen = "images/reservas/QR/" . $llave . "_qr_code.png";
 							
 							$params['data'] = $valorQRcode;
@@ -458,16 +458,16 @@ class Visitas extends CI_Controller {
 			$paramPassword = $parametric[2]["parametro_valor"];
 			$paramFromName = $parametric[3]["parametro_valor"];
 			
-			$subjet = 'Reserva Jardín Botánico';
+			$subjet = 'JBB - Visita Cerros';
 			$to = $infoReserva[0]['correo_electronico'];
 
 			//mensaje del correo
-			$msj = '<p><strong>Gracias por reservar su visita </strong></p>';
-			$msj .= '<p>Sr.(a) ' . $infoReserva[0]['nombre_completo'] . ' lo(a) esperamos el día ';
+			$msj = '<p><strong>Gracias por reservar su visita, </strong></p>';
+
+			$msj .= '<p>El Jardín Botánico José Celestino Mutis confirma su visita al camino San Francisco Vicachá (aproximadamente 200 metros después del acceso al funicular del cerro de Monserrate, por la avenida circunvalar hacia el sur) el día ';
 			$msj .= "<strong>" . ucfirst(strftime("%d de %b, %G",strtotime($infoHorario[0]['hora_inicial']))) . "</strong>";
 			$msj .= ' a las ' . "<strong>" .ucfirst(strftime("%I:%M %p",strtotime($infoHorario[0]['hora_inicial'])))  . "</strong>";
-			$msj .= ' para que se acerque a nuestra taquilla y adquiera los ingresos conforme a las tarifas aplicadas*, con el código de este correo.</p>';
-			$msj .= '<p>Le recomendamos llegar 20 minutos antes de su reserva para realizar el protocolo de bioseguridad.</p>';
+			
 			$msj .= '<p>Servicio al ciudadano: contactenos@jbb.gov.co</p>';
 			$msj .= "<strong>No. Visitantes: </strong>" . $infoReserva[0]['numero_cupos_usados'];
 			$msj .= '<ul>';
@@ -475,51 +475,30 @@ class Visitas extends CI_Controller {
 				$msj .= '<li>' . $data['nombre_completo'] . '</li>';
 			endforeach;
 			$msj .= '</ul>';		
-			$msj .= '<p><strong>* Tarifas aplicadas: </strong>';
-			$msj .= "<table>
-						<tr>
-							<th></th>
-							<th>GENERAL</th>
-							<th>TROPICARIO</th>
-						</tr>
-						<tr>					
-							<td>Mayores de 5 años en adelante</td>
-							<td>$5.000</td>
-							<td>$5.000</td>
-						</tr>
-						<tr>					
-							<td>Menores de 5 años y mayores de 62 años</td>
-							<td>Gratis</td>
-							<td>$5.000</td>
-						</tr>
-						<tr>					
-							<td>Nacionales</td>
-							<td>$5.000</td>
-							<td>$5.000</td>
-						</tr>
-						<tr>					
-							<td>Extranjeros</td>
-							<td>$5.000</td>
-							<td>$10.000</td>
-						</tr>
-					</table>
-					</p>";
+			$msj .= '<p><strong>Recuerde:</strong></p>';
+			$msj .= '<ol>';
+$msj .= '<li>Recuerde llevar el texto de autorización de la visita, con fecha, hora y sitio, así como el código QR. Este será la evidencia que le permitirá ingresar. </li>';
+$msj .= '<li>Llegar diez (10) minutos antes de la hora de la visita, para facilitar el registro.</li>';
+$msj .= '<li>Llevar documentos de identificación personal.</li>';
+$msj .= '<li>Cargar medicamentos de uso personal.</li>';
+$msj .= '<li>Ingresar sin haber consumido o para consumir, sustancias alucinógenas, alcohólicas o cigarrillos.</li>';
+$msj .= '<li>Acatar las indicaciones proporcionadas por el personal de la entidad.</li>';
+$msj .= '<li>Participar en la charla de ingreso al camino por parte del personal a cargo.</li>';
+$msj .= '<li>Acatar las medidas de bioseguridad: temperatura, uso de gel, información de síntomas, elementos de protección personal.</li>';
+$msj .= '<li>Caminar en fila y a una distancia mínima de 1 metro entre cada persona. Evitará aglomeraciones y caídas.</li>';
+$msj .= '<li>Si asiste en grupo, manténgase unido durante la permanencia en el camino.</li>';
+$msj .= '<li>Los animales de compañía no pueden ingresar al camino.</li>';
+$msj .= '<li>Cuando ingrese, mantenga moderado el tono de la voz, usted está ingresando a una zona de Reserva Forestal y el ruido afecta a las aves e interrumpe la tranquilidad de los vecinos.</li>';
+$msj .= '<li>No llevar elementos que generen basura al camino o de ser así por favor guarde los residuos hasta disponerlos fuera de la reserva.</li>';
+$msj .= '<li>No hay parqueadero para vehículos en los predios de la EAAB-ESP en donde se encuentra ubicada el camino San Francisco Vicachá, no obstante, en los alrededores al camino hay parqueaderos públicos.</li>';
+$msj .= '<li>Si no se asiste en la hora programada se perderá la reserva y se impedirá el acceso.</li>';
+$msj .= '<li>Se debe presentar el carnet de vacunación de forma virtual o física en la entrada al camino. Sin este documento no se permitirá el ingreso.</li>';
+			$msj .= '</ol>';
+
 			$msj .= "<img src=" . base_url($infoReserva[0]['qr_code_img']) . " class='img-rounded' width='200' height='200' />";
 			$msj .= '<br>';
 			$msj .= '<strong>Código para el ingreso a las instalaciones</strong>';
-			$msj .= '<p><strong>Recomendaciones</strong></p>';
-			$msj .= '<ul><li>Usa correctamente tu tapabocas.</li>';
-			$msj .= '<li>Lava tus manos frecuentemente.</li>';
-			$msj .= '<li>Desinfecta tu calzado y objetos personales.</li>';
-			$msj .= '<li>Estornuda en el antebrazo o cúbrete con pañuelo desechable, no con tu mano.</li>';
-			$msj .= '<li>El personal médico te tomará la temperatura.</li>';
-			$msj .= '<li>Trae tu kit de desinfección (tapabocas, gel antibacterial y papel higiénico).</li>';
-			$msj .= '<li>Mantén la distancia mínima de 2 metros.</li>';
-			$msj .= '<li>Evita aglomeraciones.</li>';
-			$msj .= '<li>Porta tu paraguas o impermeable por si llueve.</li>';
-			$msj .= '<li>Recuerda traer agua para hidratarte.</li>';
-			$msj .= '<li>Descarga la aplicación Coronapp.</li></ul>';
-									
+
 			$mensaje = "<p>$msj</p>
 						<p>Cordialmente,</p>
 						<p><strong>Jardín Botánico de Bogotá</strong></p>";		
