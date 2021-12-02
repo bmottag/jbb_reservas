@@ -13,7 +13,8 @@ class Dashboard extends CI_Controller {
 	 * SUPER ADMIN DASHBOARD
 	 */
 	public function admin($tipoVisita)
-	{				
+	{			
+			$data['tipoVisita'] = $tipoVisita;
 			$arrParam = array(
 				'from' => date('Y-m-d'),
 				'tipoVisita' => $tipoVisita
@@ -94,8 +95,8 @@ class Dashboard extends CI_Controller {
     public function cargarModalBuscar() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
-						
-			$this->load->view('buscar_modal');
+			$data["tipoVisita"] = $this->input->post("tipoVisita");	
+			$this->load->view('buscar_modal', $data);
     }
 
 	/**
@@ -109,8 +110,10 @@ class Dashboard extends CI_Controller {
 			$data['bandera'] = TRUE;
 
 			$data['fecha'] = $this->input->post('date');
+			$data["tipoVisita"] = $this->input->post("tipoVisita");	
 			$arrParam = array(
-				'fecha' => $data['fecha']
+				'fecha' => $data['fecha'],
+				'tipoVisita' => $data['tipoVisita']
 			);			
 			$data['listaReservas'] = $this->general_model->get_info_reservas($arrParam);
 
@@ -125,8 +128,8 @@ class Dashboard extends CI_Controller {
     public function cargarModalBuscarRango() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
-						
-			$this->load->view('buscar_rango_modal');
+			$data["tipoVisita"] = $this->input->post("tipoVisita");		
+			$this->load->view('buscar_rango_modal', $data);
     }
 
 	/**
@@ -141,6 +144,7 @@ class Dashboard extends CI_Controller {
 
 			$data['from'] = $this->input->post('from');
 			$data['to'] = $this->input->post('to');
+			$data["tipoVisita"] = $this->input->post("tipoVisita");	
 
 			$from = formatear_fecha($data['from']);
 			//le sumo un dia al dia final para que ingrese ese dia en la consulta
@@ -148,7 +152,8 @@ class Dashboard extends CI_Controller {
 
 			$arrParam = array(
 				'from' => $from,
-				'to' => $to
+				'to' => $to,
+				'tipoVisita' => $data['tipoVisita']
 			);
 			$data['listaReservas'] = $this->general_model->get_info_reservas($arrParam);
 

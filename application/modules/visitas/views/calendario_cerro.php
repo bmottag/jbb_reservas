@@ -74,10 +74,10 @@ $(function(){
 			editable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
 			allDaySlot: false,
-			slotMinTime: '8:00',
-			slotMaxTime: '17:30',
+			slotMinTime: '6:00',
+			slotMaxTime: '12:00',
 			slotDuration: '00:30:00',
-			slotLabelInterval: '00:30', 
+			slotLabelInterval: '00:60', 
 			events: {
 				url: 'visitas/consulta',
 				method: 'POST',
@@ -140,6 +140,12 @@ El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urb
 <br>
 <b>Altura: </b>desde 2.718 m.s.n.m hasta 2.910 m.s.n.m
 <br>
+<b>Recorridos: </b>Sabados, domingos y lunes festivos.
+<br>
+<b>Recorrido guiado: </b>Salida 8am. (El visitante es atendido por un educador ambiental que orientarán el recorrido, siempre deberá estar acompañado del profesional encargado)
+<br>
+<b>Recorridos libres: </b>Salidas: 6am, 7am, 9am y 10am. (El recorrido lo realiza autónomamente el visitante en el horario de la reserva).
+<br>
 <b>Tiempo de recorrido: </b>1 hora y 30 minutos aproximadamente.
 <br>
 <b>Costo: </b>El ingreso al camino es gratis
@@ -171,22 +177,28 @@ El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urb
 						Lea las recomendaciones del camino en el correo de confirmación.
 				    </li>
 					</ol>
-
+<p>
+Acepto los términos y condiciones - 
+Para conocer nuestra <a href="https://www.jbb.gov.co/documentos/secretaria_general/2019/politica_datos_personales.pdf" target="_blank"><b>Política de Tratamiento de Datos consúltela aquí.</b></a>
+</p>
 <p>
 Acepto cumplir con las restricciones del sitio - <b>Restricciones del Sitio</b>
 <br>
 Me comprometo a respetar las siguientes restricciones para ingresar a los predios de la EAAB-ESP donde el Jardín Botánico José Celestino Mutis realiza actividades de educación ambiental:
 <br>
 <ul>
-<li>No se puede producir ruidos o utilizar instrumentos o equipos que perturben el ambiente natural o incomoden a otras personas. • "No dejar rastro", es decir llevarse todos los residuos que genere para su disposición final.</li>
+<li>No se puede producir ruidos o utilizar instrumentos o equipos que perturben el ambiente natural o incomoden a otras personas.</li>
+ <li>"No dejar rastro", es decir llevarse todos los residuos que genere para su disposición final.</li>
 <li>No se permite el ingreso de ningún tipo de animales, plantas, semillas y flores. </li>
 <li>No está permitido utilizar productos químicos (esencias, sahumerios), sustancias inflamables (spray) y explosivos (juegos pirotécnicos).</li>
 <li>Se prohíbe acampar.</li>
 <li>Se prohíbe hacer fogatas o quemas.</li>
-<li>No se puede ingresar bebidas embriagantes y sustancias psicoactivas, así como portar cualquier tipo de arma. • No afectar las señales, avisos y mobiliario existente.</li>
+<li>No se puede ingresar bebidas embriagantes y sustancias psicoactivas, así como portar cualquier tipo de arma.</li>
+<li>No afectar las señales, avisos y mobiliario existente.</li>
 <li>No escribir sobre la corteza de los árboles.</li>
 <li>Prohibido entrar o sumergirse en las fuentes de agua natural.</li>
-<li>No realizar pesca deportiva, ni recolección de cualquier producto de plantas, animales o tierra. • Correr o practicar atletismo.</li>
+<li>No realizar pesca deportiva, ni recolección de cualquier producto de plantas, animales o tierra.</li>
+<li>Correr o practicar atletismo.</li>
 <li>Absténgase de ingresar al camino en bicicleta, patineta o patines.</li>
 <li>Las actividades de aventura no están permitidas en el área protegida.</li>
 <li>Utilice únicamente los baños que se encuentren fuera de la reserva.</li>
@@ -200,8 +212,13 @@ Me comprometo a respetar las siguientes restricciones para ingresar a los predio
 Acepto cumplir las normas para la visita - <b>Normas para la Visita</b>
 <br>
 <ul>
-<li>Estar afiliado a un sistema de seguridad social. • Llegar 10 minutos antes de la hora programada para la visita.</li>
-<li>Presentar el código QR para poder ingresar. • Si usted lleva algún animal de compañía, no puede ingresar al camino. • No llevar joyas, aparatos electrónicos de alta gama, cámaras fotográficas con trípode, ni equipos audiovisuales. El Jardín Botánico José Celestino Mutis, no se responsabiliza por su pérdida, robo o deterioro. Igual para el caso de las bicicletas. • Participar en la charla de inducción (20 minutos). • Caminar, únicamente, por los caminos permitidos y demarcados.</li>
+<li>Estar afiliado a un sistema de seguridad social.</li>
+ <li>Llegar 10 minutos antes de la hora programada para la visita.</li>
+ <li>Presentar el código QR para poder ingresar.</li>
+  <li>Si usted lleva algún animal de compañía, no puede ingresar al camino.</li>
+   <li>No llevar joyas, aparatos electrónicos de alta gama, cámaras fotográficas con trípode, ni equipos audiovisuales. El Jardín Botánico José Celestino Mutis, no se responsabiliza por su pérdida, robo o deterioro. Igual para el caso de las bicicletas. </li> 
+   	<li>Participar en la charla de inducción (20 minutos). </li>
+   	<li>Caminar, únicamente, por los caminos permitidos y demarcados.</li>
 <li>No haga parte del tráfico ilegal de fauna o flora silvestre.</li>
 <li>No se debe generar alteración, remoción o daño de señales, avisos, vallas, cercas, mojones y demás elementos de adecuación en los caminos.</li>
 <li>Si el propósito es hacer deporte, se recomienda tener precaución con los caminantes, disminuir la velocidad, no empujar y respetar el ritmo de los otros visitantes durante su permanencia en el camino.</li>
@@ -223,23 +240,22 @@ Acepto cumplir las recomendaciones - <b>Recomendaciones</b>
 <br>
 <ul>
 <li>
- Los menores de edad son responsabilidad de los adultos que los inscriben. Se recomienda la participación de niños y niñas de 7 años en adelante. • Llevar ropa de fácil secado y zapatos o botas de buen agarre. • Utilizar protección solar (gafas, gorras y bloqueador) y llevar impermeable en caso de lluvia. • Para mujeres en periodo de gestación, personas con problemas respiratorios o cardiovasculares y mayores de 65 años, se recomienda no realizar caminatas largas o de exigencia física.
+ Los menores de edad son responsabilidad de los adultos que los inscriben. Se recomienda la participación de niños y niñas de 7 años en adelante.</li>
+<li>Llevar ropa de fácil secado y zapatos o botas de buen agarre.</li>
+ <li>Utilizar protección solar (gafas, gorras y bloqueador) y llevar impermeable en caso de lluvia.</li>
+ <li>Para mujeres en periodo de gestación, personas con problemas respiratorios o cardiovasculares y mayores de 65 años, se recomienda no realizar caminatas largas o de exigencia física.
 </li>
 <li>Si tiene alguna enfermedad o consume medicamentos, consulte a su médico, antes de programar la visita.</li>
 
 <li>Si presenta alguna condición física durante el recorrido contacte al apoyo médico.</li>
-<li>Realizar actividades de calentamiento y estiramiento para prevenir esguinces, luxaciones y desgarres musculares. • No ingerir alimentos mientras camina, especialmente en ascensos, así evita la obstrucción de las vías aéreas. </li>
+<li>Realizar actividades de calentamiento y estiramiento para prevenir esguinces, luxaciones y desgarres musculares. 
+<li>No ingerir alimentos mientras camina, especialmente en ascensos, así evita la obstrucción de las vías aéreas. </li>
 <li> En caso de sentir mareo, agotamiento, dolor de cabeza, tos y congestión, realice paradas de descanso, tome agua y respire profundo y despacio 5 veces. </li>
-	<li> Si los síntomas continúan consulte al personal del Jardín Botánico José Celestino Mutis.</li>
+<li> Si los síntomas continúan consulte al personal del Jardín Botánico José Celestino Mutis.</li>
 <li> No hay área para parquear vehículos en el camino de San Francisco Vicachá. Consulte, antes de la visita, los parqueaderos cercanos y calcule el tiempo para llegar puntualmente.</li>
-
 <li>Si identifica situaciones inseguras u observa alguna posibilidad de accidente por favor haga la sugerencia.</li>
-
 <li>Respete los cultos, ritos o manifestaciones religiosas de los visitantes.</li>
-
 <li>Mantenga las condiciones ambientales del camino, disfrute y conserve.</li>
-
-
 </ul>
 </p>
 

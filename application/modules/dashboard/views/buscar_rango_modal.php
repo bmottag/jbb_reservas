@@ -6,7 +6,7 @@
 
 <div class="modal-body">
 	<form name="form" id="form" role="form" method="post" action="<?php echo base_url('dashboard/buscar_reservas_rango'); ?>">
-
+		<input type="hidden" name="tipoVisita" id="tipoVisita" value="<?php echo $tipoVisita; ?>">
 <script>
 $( function() {
 var dateFormat = "mm/dd/yy",

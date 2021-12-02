@@ -54,7 +54,7 @@
 					<select name="start_hour" id="start_hour" class="form-control" required>
 						<option value='' >Select...</option>
 						<?php
-						for ($i = 8; $i < 21; $i++) {
+						for ($i = 6; $i < 21; $i++) {
 							
 							$i = $i<10?"0".$i:$i;
 							$seleccion = '';
@@ -104,7 +104,7 @@
 					<select name="finish_hour" id="finish_hour" class="form-control" required>
 						<option value='' >Select...</option>
 						<?php
-						for ($i = 10; $i < 23; $i++) {
+						for ($i = 9; $i < 23; $i++) {
 							
 							$i = $i<10?"0".$i:$i;
 							$seleccion = '';

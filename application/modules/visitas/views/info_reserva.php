@@ -6,7 +6,7 @@
 		<div class="col-lg-12">
 			<div class="panel panel-success">
 				<div class="panel-heading">
-					<a class="btn btn-success btn-xs" href=" <?php echo base_url('calendario'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
+					<a class="btn btn-success btn-xs" href=" <?php echo base_url('visitas/cerros'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
 					<i class="fa fa-briefcase"></i> <strong>INFORMACIÓN VISITA CERROS</strong>
 				</div>
 				<div class="panel-body">
@@ -54,7 +54,7 @@
 								<?php
 								foreach ($infoReserva as $data):
 								?>
-									<li><?php echo $data['nombre_completo']; ?></li>
+									<li><?php echo $data['nombre_completo'] . " - EPS: " . $data['eps'] . " - Contacto Emergencia: " . $data['emergencia']; ?></li>
 								<?php
 								endforeach;
 								?>
@@ -85,6 +85,12 @@ El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urb
 <br>
 <b>Altura: </b>desde 2.718 m.s.n.m hasta 2.910 m.s.n.m
 <br>
+<b>Recorrido: </b>Sabados, domingos y lunes festivos.
+<br>
+<b>Recorridos guiado: </b>Salida 8am.
+<br>
+<b>Recorridos libres: </b>Salidas: 6am, 7am, 9am y 10am.
+<br>
 <b>Tiempo de recorrido: </b>1 hora y 30 minutos aproximadamente.
 <br>
 <b>Costo: </b>El ingreso al camino es gratis
@@ -100,14 +106,17 @@ El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urb
 								<strong>Recomendaciones</strong>
 								<ol>
 <li>
- Los menores de edad son responsabilidad de los adultos que los inscriben. Se recomienda la participación de niños y niñas de 7 años en adelante. • Llevar ropa de fácil secado y zapatos o botas de buen agarre. • Utilizar protección solar (gafas, gorras y bloqueador) y llevar impermeable en caso de lluvia. • Para mujeres en periodo de gestación, personas con problemas respiratorios o cardiovasculares y mayores de 65 años, se recomienda no realizar caminatas largas o de exigencia física.
+ Los menores de edad son responsabilidad de los adultos que los inscriben. Se recomienda la participación de niños y niñas de 7 años en adelante. • Llevar ropa de fácil secado y zapatos o botas de buen agarre.
+ <li>Utilizar protección solar (gafas, gorras y bloqueador) y llevar impermeable en caso de lluvia. </li>
+ <li> Para mujeres en periodo de gestación, personas con problemas respiratorios o cardiovasculares y mayores de 65 años, se recomienda no realizar caminatas largas o de exigencia física.
 </li>
 <li>Si tiene alguna enfermedad o consume medicamentos, consulte a su médico, antes de programar la visita.</li>
 
 <li>Si presenta alguna condición física durante el recorrido contacte al apoyo médico.</li>
-<li>Realizar actividades de calentamiento y estiramiento para prevenir esguinces, luxaciones y desgarres musculares. • No ingerir alimentos mientras camina, especialmente en ascensos, así evita la obstrucción de las vías aéreas. </li>
+<li>Realizar actividades de calentamiento y estiramiento para prevenir esguinces, luxaciones y desgarres musculares.
+<li>No ingerir alimentos mientras camina, especialmente en ascensos, así evita la obstrucción de las vías aéreas. </li>
 <li> En caso de sentir mareo, agotamiento, dolor de cabeza, tos y congestión, realice paradas de descanso, tome agua y respire profundo y despacio 5 veces. </li>
-	<li> Si los síntomas continúan consulte al personal del Jardín Botánico José Celestino Mutis.</li>
+<li> Si los síntomas continúan consulte al personal del Jardín Botánico José Celestino Mutis.</li>
 <li> No hay área para parquear vehículos en el camino de San Francisco Vicachá. Consulte, antes de la visita, los parqueaderos cercanos y calcule el tiempo para llegar puntualmente.</li>
 
 <li>Si identifica situaciones inseguras u observa alguna posibilidad de accidente por favor haga la sugerencia.</li>

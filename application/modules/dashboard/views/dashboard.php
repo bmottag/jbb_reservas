@@ -5,10 +5,11 @@
 $(function(){ 
     $(".btn-primary").click(function () {   
             var oID = $(this).attr("id");
+            var tipoVisita = $("#tipoVisita").val();
             $.ajax ({
                 type: 'POST',
                 url: base_url + 'dashboard/cargarModalBuscar',
-                data: {'idLink': oID},
+                data: {'idLink': oID, 'tipoVisita': tipoVisita},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
@@ -22,10 +23,11 @@ $(function(){
 $(function(){ 
     $(".btn-info").click(function () {   
             var oID = $(this).attr("id");
+            var tipoVisita = $("#tipoVisita").val();
             $.ajax ({
                 type: 'POST',
                 url: base_url + 'dashboard/cargarModalBuscarRango',
-                data: {'idLink': oID},
+                data: {'idLink': oID, 'tipoVisita': tipoVisita},
                 cache: false,
                 success: function (data) {
                     $('#formRango').html(data);
@@ -210,6 +212,7 @@ if ($retornoError) {
                     <!-- /.list-group -->
 
                     <div class="list-group">
+                        <input type="hidden" class="form-control" id="tipoVisita" name="tipoVisita" value=<?php echo $tipoVisita; ?> />
                         <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal" id="x">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Reservas por Fecha
                         </button>
