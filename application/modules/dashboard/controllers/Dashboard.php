@@ -12,15 +12,17 @@ class Dashboard extends CI_Controller {
 	/**
 	 * SUPER ADMIN DASHBOARD
 	 */
-	public function admin()
+	public function admin($tipoVisita)
 	{				
 			$arrParam = array(
-				'from' => date('Y-m-d')
+				'from' => date('Y-m-d'),
+				'tipoVisita' => $tipoVisita
 			);
 			$data['infoHorarios'] = $this->general_model->get_horario_info($arrParam);
 
 			$arrParam = array(
-				'fecha' => date('Y-m-d')
+				'fecha' => date('Y-m-d'),
+				'tipoVisita' => $tipoVisita
 			);			
 			$data['listaReservas'] = $this->general_model->get_info_reservas($arrParam);
 
@@ -41,7 +43,8 @@ class Dashboard extends CI_Controller {
 
 			$arrParam = array(
 				'from' => $lunes,
-				'to' => $domingo
+				'to' => $domingo,
+				'tipoVisita' => $tipoVisita
 			);
 			$data['listaReservasSEMANA'] = $this->general_model->get_info_reservas($arrParam);
 			$data['noVisitantesSEMANA'] = $data['listaReservasSEMANA']?count($data['listaReservasSEMANA']):0;
@@ -56,7 +59,8 @@ class Dashboard extends CI_Controller {
 
 			$arrParam = array(
 				'from' => $month_start,
-				'to' => $month_end
+				'to' => $month_end,
+				'tipoVisita' => $tipoVisita
 			);
 			$data['listaReservasMES'] = $this->general_model->get_info_reservas($arrParam);
 			$data['noVisitantesMES'] = $data['listaReservasMES']?count($data['listaReservasMES']):0;

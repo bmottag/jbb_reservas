@@ -387,6 +387,9 @@ class General_model extends CI_Model {
 				if (array_key_exists('to', $arrData) && $arrData['to'] != '' && $arrData['from'] != '') {
 					$this->db->where('H.hora_inicial <', $arrData["to"]);
 				}
+				if (array_key_exists("tipoVisita", $arrData) && $arrData["tipoVisita"] != '') {
+					$this->db->like('H.tipo_visita', $arrData["tipoVisita"]); 
+				}
 				$this->db->where('R.estado_reserva', 1); 
 				$this->db->order_by('H.hora_inicial', 'asc');
 
