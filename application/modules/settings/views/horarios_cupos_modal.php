@@ -23,6 +23,7 @@
 
 	<form name="formHorario" id="formHorario" role="form" method="post" >
 		<input type="hidden" id="hddId" name="hddId" value="<?php echo $information?$information[0]["id_horario"]:""; ?>"/>
+		<input type="hidden" name="tipoVisita" id="tipoVisita" value=<?php echo $information?$information[0]["tipo_visita"]:""; ?> >
 		<input type="hidden" id="hddCuposActuales" name="hddCuposActuales" value="<?php echo $information?$information[0]["numero_cupos"]:""; ?>"/>
 		<input type="hidden" id="hddCuposDisponibles" name="hddCuposDisponibles" value="<?php echo $information?$information[0]["numero_cupos_restantes"]:""; ?>"/>
 		

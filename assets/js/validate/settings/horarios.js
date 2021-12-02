@@ -62,7 +62,7 @@ $( document ).ready( function () {
 							$("#div_load").css("display", "none");
 							$('#btnSubmitWorker').removeAttr('disabled');
 
-							var url = base_url + "settings/horarios/";
+							var url = base_url + "settings/horarios/" + data.tipoVisita;
 							$(location).attr("href", url);
 						}
 						else

@@ -165,7 +165,8 @@
 							'numero_cupos' => $this->input->post('numeroCupos'),
 							'numero_cupos_restantes' => $this->input->post('numeroCupos'),
 							'estado' => 1,
-							'disponible' => 1
+							'disponible' => 1,
+							'tipo_visita' => $this->input->post('tipoVisita')
 						);
 						$query = $this->db->insert('horarios', $data);
 

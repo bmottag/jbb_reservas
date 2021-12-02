@@ -1,10 +1,16 @@
 $( document ).ready( function () {
+
+	$("#celular").bloquearTexto().maxlength(10);
+	$("#emergencia").bloquearTexto().maxlength(10);
 	
-	$("#numeroCupos").bloquearTexto().maxlength(3);
-	
-	$( "#formHorario" ).validate( {
+	$( "#add_reserva" ).validate( {
 		rules: {
-			numeroCupos: 			{ required: true, minlength: 1, maxlength:3 }
+			email: 				{ required: true, minlength: 3, maxlength:90, email: true },
+			confirmarEmail: 	{ required: true, minlength: 3, maxlength:90, equalTo: "#email" },
+			celular: 			{ required: true, minlength: 10, maxlength:10 },
+			name: 				{ required: true, minlength: 3, maxlength:25 },
+			eps: 				{ required: true, minlength: 3, maxlength:25 },
+			emergencia: 		{ required: true, minlength: 3, maxlength:10 }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
@@ -14,10 +20,10 @@ $( document ).ready( function () {
 
 		},
 		highlight: function ( element, errorClass, validClass ) {
-			$( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+			$( element ).parents( ".col-sm-4" ).addClass( "has-error" ).removeClass( "has-success" );
 		},
 		unhighlight: function (element, errorClass, validClass) {
-			$( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+			$( element ).parents( ".col-sm-4" ).addClass( "has-success" ).removeClass( "has-error" );
 		},
 		submitHandler: function (form) {
 			return true;
@@ -26,17 +32,17 @@ $( document ).ready( function () {
 	
 	$("#btnSubmit").click(function(){		
 	
-		if ($("#formHorario").valid() == true){
+		if ($("#add_reserva").valid() == true){
 		
 				//Activa icono guardando
-				$('#btnSubmitWorker').attr('disabled','-1');
+				$('#btnSubmit').attr('disabled','-1');
 				$("#div_error").css("display", "none");
 				$("#div_load").css("display", "inline");
 			
 				$.ajax({
 					type: "POST",	
-					url: base_url + "settings/save_add_cupos",	
-					data: $("#formHorario").serialize(),
+					url: base_url + "visitas/guardarReserva",	
+					data: $("#add_reserva").serialize(),
 					dataType: "json",
 					contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 					cache: false,
@@ -46,16 +52,18 @@ $( document ).ready( function () {
 						if( data.result == "error" )
 						{
 							$("#div_load").css("display", "none");
-							$('#btnSubmitWorker').removeAttr('disabled');							
+							$("#div_error").css("display", "inline");
+							$("#span_msj").html(data.mensaje);
+							$('#btnSubmit').removeAttr('disabled');							
 							return false;
 						} 
 
 						if( data.result )//true
 						{	                                                        
 							$("#div_load").css("display", "none");
-							$('#btnSubmitWorker').removeAttr('disabled');
+							$('#btnSubmit').removeAttr('disabled');
 
-							var url = base_url + "settings/horarios/" + data.tipoVisita;
+							var url = base_url + "visitas/registro/" + data.idRecord;
 							$(location).attr("href", url);
 						}
 						else
@@ -63,14 +71,14 @@ $( document ).ready( function () {
 							alert('Error. Reload the web page.');
 							$("#div_load").css("display", "none");
 							$("#div_error").css("display", "inline");
-							$('#btnSubmitWorker').removeAttr('disabled');
+							$('#btnSubmit').removeAttr('disabled');
 						}	
 					},
 					error: function(result) {
 						alert('Error. Reload the web page.');
 						$("#div_load").css("display", "none");
 						$("#div_error").css("display", "inline");
-						$('#btnSubmitWorker').removeAttr('disabled');
+						$('#btnSubmit').removeAttr('disabled');
 					}
 					
 		

@@ -5,10 +5,11 @@
 $(function(){ 
 	$(".btn-success").click(function () {	
 			var oID = $(this).attr("id");
+			var tipoVisita = $("#tipoVisita").val();
             $.ajax ({
                 type: 'POST',
 				url: base_url + 'settings/cargarModalHorarios',
-                data: {'idHorario': oID},
+                data: {'idHorario': oID, 'tipoVisita': tipoVisita},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
@@ -65,12 +66,13 @@ function deseleccionar_todo(){
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-briefcase"></i> LISTA DE HORARIOS
+					<i class="fa fa-briefcase"></i> LISTA DE HORARIOS <?php echo $tipoVisita==1?"JARDÍN":"CERROS"; ?>
 				</div>
 				<div class="panel-body">
 					<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal" id="x">
 							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Horarios
 					</button><br>
+					<input type="hidden" name="tipoVisita" id="tipoVisita" value="<?php echo $tipoVisita; ?>">
 <?php
 	$retornoExito = $this->session->flashdata('retornoExito');
 	if ($retornoExito) {

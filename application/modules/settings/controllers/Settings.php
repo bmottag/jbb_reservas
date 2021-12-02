@@ -221,7 +221,7 @@ class Settings extends CI_Controller {
      * @since 16/2/2021
      * @author BMOTTAG
 	 */
-	public function horarios()
+	public function horarios($tipoVisita)
 	{
 			//eliminar imagenes de QR de mas de 15 dias
 			$files = glob('images/reservas/QR/*.png'); //obtenemos el nombre de todos los ficheros
@@ -245,9 +245,11 @@ class Settings extends CI_Controller {
 			}
 
 			$arrParam = array(
-				'from' => date('Y-m-d')
+				'from' => date('Y-m-d'),
+				'tipoVisita' => $tipoVisita
 			);
 			$data['infoHorarios'] = $this->general_model->get_horario_info($arrParam);
+			$data['tipoVisita'] = $tipoVisita;
 			
 			$data["view"] = 'horarios';
 			$this->load->view("layout_calendar", $data);
@@ -260,7 +262,8 @@ class Settings extends CI_Controller {
     public function cargarModalHorarios() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
-			
+
+			$data["tipoVisita"] = $this->input->post("tipoVisita");	
 			$data['information'] = FALSE;
 			$this->load->view("horarios_modal", $data);
     }
@@ -276,7 +279,7 @@ class Settings extends CI_Controller {
 			$data = array();
 		
 			$idHorario = $this->input->post('hddId');
-			
+			$data["tipoVisita"] = $this->input->post('tipoVisita');
 			$msj = "Se adicionaron los horarios!";
 			if ($idHorario != '') {
 				$msj = "Se actualizó el Proveedor!";
@@ -306,12 +309,9 @@ class Settings extends CI_Controller {
 			
 			if ($data["idHorario"] != 'x') {
 				$arrParam = array(
-					"table" => "horarios",
-					"order" => "id_horario",
-					"column" => "id_horario",
-					"id" => $data["idHorario"]
+					"idHorario" => $data["idHorario"]
 				);
-				$data['information'] = $this->general_model->get_basic_search($arrParam);
+				$data['information'] = $this->general_model->get_horario_info($arrParam);
 			}
 			
 			$this->load->view("horarios_cupos_modal", $data);
@@ -326,7 +326,7 @@ class Settings extends CI_Controller {
 	{			
 			header('Content-Type: application/json');
 			$data = array();
-			
+			$data["tipoVisita"] = $this->input->post('tipoVisita');
 			if ($this->settings_model->saveMasCupos()) {
 				$data["result"] = true;
 				$this->session->set_flashdata('retornoExito', '<strong>Correcto!</strong> Se adicionaron los cupos.');

@@ -282,6 +282,9 @@ class General_model extends CI_Model {
 				if (array_key_exists("fecha", $arrData) && $arrData["fecha"] != '') {
 					$this->db->like('H.hora_inicial', $arrData["fecha"]); 
 				}
+				if (array_key_exists("tipoVisita", $arrData) && $arrData["tipoVisita"] != '') {
+					$this->db->like('H.tipo_visita', $arrData["tipoVisita"]); 
+				}
 
 				$this->db->order_by('H.id_horario', 'asc');
 
