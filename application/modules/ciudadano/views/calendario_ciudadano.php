@@ -1,114 +1,20 @@
-<link href="<?php echo base_url("assets/bootstrap/vendor/fullcalendar/lib/main.css"); ?>" rel="stylesheet">
-<script src="<?php echo base_url("assets/bootstrap/vendor/fullcalendar/lib/main.js"); ?>"></script>
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script>
-$(document).ready(function () {
-    //Disable full page
-    $("body").on("contextmenu",function(e){
-        return false;
-    });
-
-$( document ).ready(function() {
-	var popup = $('#hddPopUp').val();
-    //alert('Por la seguridad de nuestros visitantes y la de quienes tenemos el gusto de atenderlos informamos que hoy, 12 de mayo de 2021: La atención al público será hasta las 12 M. Los invitamos a registrarse en otros horarios.');
-    if(popup!=''){
-    	alert(popup);
-    }
-});
-    
-    //Disable part of page
-    $("#id").on("contextmenu",function(e){
-        return false;
-    });
-});
-	
 $(function(){ 
 	$(".btn-success").click(function () {	
+			var oID = 1;
             $.ajax ({
                 type: 'POST',
-				url: base_url + 'visitas/cargarModalEliminar',
-				data: {'variable': 'consultar'},
+				url: base_url + '/ciudadano/cargarModalVisitas',
+                data: {'idHorario': oID},
                 cache: false,
                 success: function (data) {
                     $('#tablaDatos').html(data);
                 }
             });
-	});
+	});	
 });
 </script>
 
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
-		var calendarEl = document.getElementById('calendar');
-
-		var calendar = new FullCalendar.Calendar(calendarEl, {
-
-			expandRows: true,
-			height: 1650,
-
-			//locale: 'esLocale',
-			headerToolbar: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'timeGridWeek,timeGridDay'
-				//right: 'listDay,listWeek'
-			},
-
-			// customize the button names,
-			// otherwise they'd all just say "list"
-			views: {
-				timeGridDay: { buttonText: 'Día' },
-				timeGridWeek: { buttonText: 'Semana' }
-			},
-
-			buttonText: { today:    'Hoy' },
-			noEventsText: 'No hay registros',
-			firstDay: 1, //para iniciar en lunes
-			 
-			initialView: 'timeGridWeek',
-			navLinks: true, // can click day/week names to navigate views
-			//businessHours: true, // display business hours
-			editable: true,
-			dayMaxEvents: true, // allow "more" link when too many events
-			allDaySlot: false,
-			slotMinTime: '7:00',
-			slotMaxTime: '12:00',
-			slotDuration: '00:30:00',
-			slotLabelInterval: '00:60', 
-			events: {
-				url: 'visitas/consulta',
-				method: 'POST',
-				extraParams: {
-					custom_param1: 'something',
-					custom_param2: 'somethingelse'
-				},
-				failure: function() {
-					alert('Error al cargar los eventos!');
-				},
-				color: 'green',   // a non-ajax option
-				textColor: 'black' // a non-ajax option
-			},
-			eventClick: function(arg) {
-
-				var oID = arg.event.id;
-			    $.ajax ({
-			        type: 'POST',
-					url: base_url + 'visitas/cargarModalVisitasCerro',
-			        data: {'idHorario': oID},
-			        cache: false,
-			        success: function (data) {
-			            $('#tablaDatos').html(data);
-			            $('#modal').modal('toggle')
-			        }
-			    });
-			}
-    	});
-    	calendar.render();
-  	});
-</script>
 
 <div id="page-wrapper">
 	<br>	
@@ -119,158 +25,34 @@ $(function(){
 <input type="hidden" id="hddPopUp" name="hddPopUp" value="<?php echo $infoPopup?$infoPopup[0]['parametro_valor']:""; ?>" />                
                 <div class="panel-body">
                 	<div class="row">
-                		<div class="col-lg-6">	
-                			<p class="lead">CAMINO SAN FRANCISCO VICACHÁ</p>
+                		<div class="col-lg-12">	
+                			<p class="lead">TERCER DIÁLOGO CIUDADANO, EXPEDICIÓN 2021, DIALOGA CONSCIENCIA. </p>
                 		</div>
-                		<div class="col-lg-6">	
-                			<p class="text-right text-success">
-                				<small>Para consultar información de su visita haga click en el siguiente botón</small>
-								<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="x" >
-									Consultar Reserva <span class="glyphicon glyphicon-search" aria-hidden="true">
-								</button>
-                			</p>
-            			</div>
                 	</div>
                 	<small>
                 	
 <p>
-El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urbano de la ciudad de Bogotá en la Reserva Forestal Protectora Bosque Oriental de Bogotá. En este lugar se localizan los predios Molino del Boquerón, Molino inglés y Cerezos Los Laureles, propiedades de la EAAB-ESP, en las localidades de Santa fe y La Candelaria y limita con el barrio Los Laches y la vereda Fátima. El recorrido inicia, aproximadamente a 200 metros después del acceso al funicular del cerro de Monserrate, por la avenida circunvalar hacia el sur (EAAB, 2021).
-<br>
-<b>Longitud Aproximada: </b>2.082 metros (Camino empinado y escalonado)
-<br>
-<b>Altura: </b>desde 2.718 m.s.n.m hasta 2.910 m.s.n.m
-<br>
-<b>Recorridos: </b>por el mes de diciembre (sábados y domingos). El 25 de diciembre no se hará apertura del camino.
-<br>
-<b>Recorrido guiados: </b>Salidas 7a.m, 8am y 9 a.m. (El visitante es atendido por un educador ambiental que orientarán el recorrido, siempre deberá estar acompañado del personal encargado). No se habilitarán recorridos libres o autoguiados. Después de 10 minutos de la hora de la reserva no se podrá ingresar al camino.
-<br>
-<b>Tiempo de recorrido: </b>1 hora y 30 minutos aproximadamente.
-<br>
-<b>Costo: El ingreso al camino es gratis</b>
+En el marco del proceso de Rendición de Cuentas del Jardín Botánico José Celestino Mutis 2021, abrimos la posibilidad a la ciudadanía a realizar la inscripción de manera voluntaria para asistir al Tercer Diálogo de Espacio Ciudadano con enfoque científico mediante un recorrido en el que se conocerán las líneas de investigación de uno de los proyectos misionales de la Entidad.  
 </p>
 
-                    <p>Registre su visita guiada en dos simples pasos:</p>
+                    <p>A tener en cuenta: </p>
 
-				    <ol>
-				    <li> 
-				    	<strong>Seleccione la fecha y hora para reservar:  </strong>
-Seleccione la fecha y hora para reservar: Verifique que la casilla seleccionada tenga cupo. Si está en verde es que aún no hay nadie inscrito y si está en amarillo (hay cupos). Los horarios que se ven en color rojo no tienen cupo.
+				    <ul>
+				    
+<li> La inscripción arrojará un Código el cual debe guardar y presentar al momento de ingresar a las instalaciones del Jardín Botánico.   </li>
+<li> Contar con kit de bioseguridad; gel antibacterial y tapabocas.  </li>
+<li> Esquema completo de vacunación para COVID-19.  </li>
+<li> Para un mejor disfrute de la actividad al aire libre, asistir con ropa cómoda, tenis o botas.   </li>
+<li> El ingreso de mascotas no está permitido.  </li>
+<li> Contar con cadena en caso de tener bicicleta como medio de transporte. Se dejará en el biciparqueadero del Jardín.  </li>
+<li> No se permite el ingreso de alimentos ni bebidas.  </li>
+<li> El Jardín Botánico está comprometido con la protección de sus datos personales. Por ello, la información y datos de contacto que Usted ha comparte aquí para el registro, se acogen a la Política de Seguridad de Privacidad y Seguridad de la Información, así como la de Protección de Datos Personales, tal como lo dispone la normatividad vigente.  </li>
+<li> La actividad está sujeta a cambios por situaciones climáticas o de otra índole que implique riesgo en general.  </li>
+<li> Después de la visita al Jardín Botánico se diagnostica con Covid-19, debe reportarlo de inmediato a las autoridades de salud y al teléfono 4377060. Por su salud y la de quienes asistieron #BogotáSeSabeMover.   </li>
 
-
-				    </li>
-				    <li>
-				    	<strong>Ingrese sus datos: </strong>
-Registre los Nombres de cada uno de los asistentes (máximo 7 personas, incluyendo niños desde los 7 años), un número celular de contacto y el correo electrónico donde recibirá el código QR de verificación. No olvide llenar el campo de comprobación (captcha) que consiste en escribir la palabra que está en colores, en el campo dispuesto para ello.
-					</li>
-					</ol>
-					<p>Ten en cuenta:</p>
-					<ol>
-				    <li>
-				    	<strong>Los menores de edad: </strong>
-				    	(7 años en adelante) deben estar acompañados de un adulto responsable.
-				    </li>
-				    <li>
-Responsabilidad con los residuos: Cada senderista se compromete a “No dejar rastro”, es decir, que los residuos que genere debe llevarlos a casa o a un sitio para disposición final.
-				    </li>
-				    <li>
-No llevar joyas, aparatos electrónicos de alta gama, cámaras fotográficas con o sin trípode, ni equipos audiovisuales. El Jardín Botánico José Celestino Mutis, no se responsabiliza por su pérdida, robo o deterioro. Igual para el caso de las bicicletas.
-
-				    </li>
-				    <li>
-Acepte las políticas, restricciones, normas y recomendaciones antes de efectuar su reserva.
-				    </li>
-				    <li>
-Lea las recomendaciones del camino en el correo de confirmación.
-				    </li>				    
-					</ol>
-<p>
-Acepto los términos y condiciones - 
-Para conocer nuestra <a href="https://www.jbb.gov.co/documentos/secretaria_general/2019/politica_datos_personales.pdf" target="_blank"><b>Política de Tratamiento de Datos consúltela aquí.</b></a>
-</p>
-<p>
-Acepto cumplir con las restricciones del sitio - <b>Restricciones del Sitio</b>
-<br>
-Me comprometo a respetar las siguientes restricciones para ingresar a los predios de la EAAB-ESP donde el Jardín Botánico José Celestino Mutis realiza actividades de educación ambiental:
-<br>
-<ul>
-<li>No se puede producir ruidos o utilizar instrumentos o equipos que perturben el ambiente natural o incomoden a otras personas.</li>
- <li>"No dejar rastro", es decir llevarse todos los residuos que genere para su disposición final.</li>
-<li>No se permite el ingreso de ningún tipo de animales, plantas, semillas y flores. </li>
-<li>No está permitido utilizar productos químicos (esencias, sahumerios), sustancias inflamables (spray) y explosivos (juegos pirotécnicos).</li>
-<li>Se prohíbe acampar.</li>
-<li>Se prohíbe hacer fogatas o quemas.</li>
-<li>No se puede ingresar bebidas embriagantes y sustancias psicoactivas, así como portar cualquier tipo de arma.</li>
-<li>No afectar las señales, avisos y mobiliario existente.</li>
-<li>No escribir sobre la corteza de los árboles.</li>
-<li>Prohibido entrar o sumergirse en las fuentes de agua natural.</li>
-<li>No realizar pesca deportiva, ni recolección de cualquier producto de plantas, animales o tierra.</li>
-<li>Correr o practicar atletismo.</li>
-<li>Absténgase de ingresar al camino en bicicleta, patineta o patines.</li>
-<li>Las actividades de aventura no están permitidas en el área protegida.</li>
-<li>Utilice únicamente los baños que se encuentren fuera de la reserva.</li>
-</ul>
-</p>
-
-
-
-
-<p>
-Acepto cumplir las normas para la visita - <b>Normas para la Visita</b>
-<br>
-<ul>
-<li>Estar afiliado a un sistema de seguridad social.</li>
- <li>Llegar 10 minutos antes de la hora programada para la visita.</li>
- <li>Presentar el código QR para poder ingresar.</li>
-  <li>Si usted lleva algún animal de compañía, no puede ingresar al camino.</li>
-   <li>No llevar joyas, aparatos electrónicos de alta gama, cámaras fotográficas con trípode, ni equipos audiovisuales. El Jardín Botánico José Celestino Mutis, no se responsabiliza por su pérdida, robo o deterioro. Igual para el caso de las bicicletas. </li> 
-   	<li>Participar en la charla de inducción (20 minutos). </li>
-   	<li>Caminar, únicamente, por los caminos permitidos y demarcados.</li>
-<li>No haga parte del tráfico ilegal de fauna o flora silvestre.</li>
-<li>No se debe generar alteración, remoción o daño de señales, avisos, vallas, cercas, mojones y demás elementos de adecuación en los caminos.</li>
-<li>Si el propósito es hacer deporte, se recomienda tener precaución con los caminantes, disminuir la velocidad, no empujar y respetar el ritmo de los otros visitantes durante su permanencia en el camino.</li>
-<li>No utilizar envases desechables.</li>
-<li>Tomar las medidas de seguridad que sean necesarias.</li>
-<li>En caso de emergencia, conservar la calma, siga las instrucciones del personal responsable y manténgase en el punto de encuentro hasta que la situación sea controlada. </li>
-<li>Tener en cuenta que, en caso de lluvia, se evaluará la situación y se tomará la decisión de cancelar el recorrido.</li>
-<li>Facilitar el control de salida.</li>
-<li>No se puede esperar en la puerta de acceso al camino.</li>
-<li>Llegar 10 minutos antes de la hora programada para la visita.</li>
-<li>Inscribir a todos los participantes, incluidos los menores de edad.</li>
-<li>No se debe generar alteración, remoción o daño de señales, avisos, vallas, cercas, mojones y demás elementos de adecuación en los caminos.</li>
-</ul>
-</p>
-
-
-<p>
-Acepto cumplir las recomendaciones - <b>Recomendaciones</b>
-<br>
-<ul>
-<li>
- Los menores de edad son responsabilidad de los adultos que los inscriben. Se recomienda la participación de niños y niñas de 7 años en adelante.</li>
-<li>Llevar ropa de fácil secado y zapatos o botas de buen agarre.</li>
- <li>Utilizar protección solar (gafas, gorras y bloqueador) y llevar impermeable en caso de lluvia.</li>
- <li>Para mujeres en periodo de gestación, personas con problemas respiratorios o cardiovasculares y mayores de 65 años, se recomienda no realizar caminatas largas o de exigencia física.
-</li>
-<li>Si tiene alguna enfermedad o consume medicamentos, consulte a su médico, antes de programar la visita.</li>
-
-<li>Si presenta alguna condición física durante el recorrido contacte al apoyo médico.</li>
-<li>Realizar actividades de calentamiento y estiramiento para prevenir esguinces, luxaciones y desgarres musculares. 
-<li>No ingerir alimentos mientras camina, especialmente en ascensos, así evita la obstrucción de las vías aéreas. </li>
-<li> En caso de sentir mareo, agotamiento, dolor de cabeza, tos y congestión, realice paradas de descanso, tome agua y respire profundo y despacio 5 veces. </li>
-<li> Si los síntomas continúan consulte al personal del Jardín Botánico José Celestino Mutis.</li>
-<li> No hay área para parquear vehículos en el camino de San Francisco Vicachá. Consulte, antes de la visita, los parqueaderos cercanos y calcule el tiempo para llegar puntualmente.</li>
-<li>Si identifica situaciones inseguras u observa alguna posibilidad de accidente por favor haga la sugerencia.</li>
-<li>Respete los cultos, ritos o manifestaciones religiosas de los visitantes.</li>
-<li>Mantenga las condiciones ambientales del camino, disfrute y conserve.</li>
-</ul>
-</p>
-
-
-
-
-
-
-
+				  
+			    
+					</ul>
 
 					</small>
                 </div>
@@ -281,13 +63,13 @@ Acepto cumplir las recomendaciones - <b>Recomendaciones</b>
 	</div>
 
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
 
-			<div id='calendar'></div>
-			<br>
-			<!-- /.panel -->
+			<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modal" id="x">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Inscribirse
+			</button>
 		</div>
-		<!-- /.col-lg-12 -->
 	</div>
 	<!-- /.row -->
 </div>

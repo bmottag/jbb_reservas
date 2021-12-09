@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Visitas extends CI_Controller {
+class Ciudadano extends CI_Controller {
 	
     public function __construct() {
         parent::__construct();
-        $this->load->model("visitas_model");
+        $this->load->model("ciudadano_model");
         $this->load->model("general_model");
         $this->load->helper('captcha');
 		$this->load->helper('form');
@@ -16,7 +16,7 @@ class Visitas extends CI_Controller {
      * @since 6/1/2021
      * @author BMOTTAG
 	 */
-	public function cerros()
+	public function index()
 	{
 			//busco en la tabla parametros el valor para el popup
 			$arrParam = array(
@@ -27,7 +27,7 @@ class Visitas extends CI_Controller {
 			);
 			$data['infoPopup'] = $this->general_model->get_basic_search($arrParam);
 
-			$data["view"] = 'calendario_cerro';
+			$data["view"] = 'calendario_ciudadano';
 			$this->load->view("layout_calendar", $data);
 	}
 
@@ -67,7 +67,7 @@ class Visitas extends CI_Controller {
 								'estado' => $data['estado'],
 								'disponibilidad' => 1
 							);
-							$this->visitas_model->actualizarHorarios($arrParam);
+							$this->ciudadano_model->actualizarHorarios($arrParam);
 					}
 				endforeach;
 			}
@@ -130,7 +130,7 @@ class Visitas extends CI_Controller {
      * Cargo modal - formulario visitas a las cerros
      * @since 1/2/2021
      */
-    public function cargarModalVisitasCerro() 
+    public function cargarModalVisitas() 
 	{
 			header("Content-Type: text/plain; charset=utf-8"); //Para evitar problemas de acentos
 
@@ -160,7 +160,7 @@ class Visitas extends CI_Controller {
 			$arrParam = array(
 				"idHorario" => $data["idHorario"]
 			);
-			$data['information'] = $this->general_model->get_horario_info($arrParam);
+			$data['information'] = $this->general_model->get_horario_info_ciudadano($arrParam);
 
 			$fechaActual = strtotime(date('Y-m-d G:i:s'));
 			$fechaInicial = strtotime($data['information'][0]['hora_inicial']);
@@ -185,7 +185,7 @@ class Visitas extends CI_Controller {
 					'idHorario' => $data['idHorario'],
 					'disponibilidad' => 2
 				);
-				$this->visitas_model->habilitarHorario($arrParam);
+				$this->ciudadano_model->habilitarHorario($arrParam);
 
 				$this->load->view("reserva_modal", $data);
 			}
@@ -205,11 +205,11 @@ class Visitas extends CI_Controller {
 
 			//busco informacion de numero de cupos y numero de reseervas para saber numero de cupos restantes
 			$arrParam = array('idHorario' => $idHorario);
-			$infoHorario = $this->general_model->get_horario_info($arrParam);
+			$infoHorario = $this->general_model->get_horario_info_ciudadano($arrParam);
 			$numeroCuposPermitidos = $infoHorario[0]['numero_cupos'];
 
 			$arrParam['estadoReserva'] = 1;
-			$infoReserva = $this->general_model->get_reserva_info($arrParam);
+			$infoReserva = $this->general_model->get_reserva_info_ciudadano($arrParam);
 			$noVisitantes = $infoReserva?count($infoReserva):0;
 			$NumeroCuposRestantes = $numeroCuposPermitidos - $noVisitantes;
 			
@@ -219,7 +219,7 @@ class Visitas extends CI_Controller {
             $inputCaptcha = $email = trim($this->security->xss_clean($this->input->post('captcha')));
             $sessCaptcha = $this->session->userdata('captchaCode');
 
-            if($inputCaptcha !== $sessCaptcha)
+ 			if($inputCaptcha !== $sessCaptcha)
             {
 					$data["result"] = "error";					
 					$data["mensaje"] = " Error. El captcha no coincide.";
@@ -232,8 +232,24 @@ class Visitas extends CI_Controller {
 				}else{
 						$pass = $this->generaPass();//clave para colocarle al codigo QR
 
-						if ($idReserva = $this->visitas_model->guardarReserva($pass)) 
+						if ($idReserva = $this->ciudadano_model->guardarReserva($pass)) 
 						{
+							//actualizar el numero de cupos restantes en la tabla horarios
+							//si cumplio el numero maximo de cupos cambiar estado a cerrado
+							$NumeroCuposRestantes = $NumeroCuposRestantes - 1;
+							$estado = '2'; //En processo
+							$disponibilidad = 1;
+							if($NumeroCuposRestantes <= 0){
+								$estado = '3'; //cerrado
+							}
+							$arrParam = array(
+								'idHorario' => $idHorario,
+								'NumeroCuposRestantes' => $NumeroCuposRestantes,
+								'estado' => $estado,
+								'disponibilidad' => $disponibilidad
+							);
+							$this->ciudadano_model->actualizarHorarios($arrParam);
+
 							//genero el codigo QR y subo la imagen
 							//INCIO - genero imagen con la libreria y la subo 
 							$this->load->library('ciqrcode');
@@ -250,32 +266,6 @@ class Visitas extends CI_Controller {
 							$this->ciqrcode->generate($params);
 							//FIN - genero imagen con la libreria y la subo
 
-							$numeroCupos = $this->visitas_model->guardarUsuarios($idReserva);//guardo usuarios
-
-							//guardo numero de cupos
-							$arrParam = array(
-								'idReserva' => $idReserva,
-								'numeroCupos' => $numeroCupos
-							);
-							$this->visitas_model->actualizarReserva($arrParam);
-
-							//actualizar el numero de cupos restantes en la tabla horarios
-							//si cumplio el numero maximo de cupos cambiar estado a cerrado
-							$NumeroCuposRestantes = $NumeroCuposRestantes - $numeroCupos;
-							$estado = '2'; //En processo
-							$disponibilidad = 1;
-							if($NumeroCuposRestantes <= 0){
-								$estado = '3'; //cerrado
-							}
-							$arrParam = array(
-								'idHorario' => $idHorario,
-								'NumeroCuposRestantes' => $NumeroCuposRestantes,
-								'estado' => $estado,
-								'disponibilidad' => $disponibilidad
-							);
-							$this->visitas_model->actualizarHorarios($arrParam);
-
-							//$this->envioSMS($idReserva);
 							$this->email($idReserva);
 
 							$data["result"] = true;					
@@ -321,14 +311,11 @@ class Visitas extends CI_Controller {
 	public function registro($llave)
 	{
 			$arrParam = array("llave" => $this->security->xss_clean($llave));
-			$data['infoReserva'] = $this->general_model->get_reserva_info($arrParam);
+			$data['infoReserva'] = $this->general_model->get_reserva_info_ciudadano($arrParam);
 
 			$arrParam = array("idHorario" => $data['infoReserva'][0]['fk_id_horario']);
-			$data['infoHorario'] = $this->general_model->get_horario_info($arrParam);
-
-			//envio de correo
-			$idReserva = $data['infoReserva'][0]['id_reserva'];
-						
+			$data['infoHorario'] = $this->general_model->get_horario_info_ciudadano($arrParam);
+		
 			$data["view"] = 'info_reserva';
 			$this->load->view("layout_calendar", $data);
 	}
@@ -348,7 +335,7 @@ class Visitas extends CI_Controller {
 				'idHorario' => $idHorario,
 				'disponibilidad' => 1
 			);
-			$this->visitas_model->habilitarHorario($arrParam);
+			$this->ciudadano_model->habilitarHorario($arrParam);
 	}
 
     /**
@@ -394,7 +381,7 @@ class Visitas extends CI_Controller {
 					$arrParam = array(
 						'idReserva' => $infoReserva[0]['id_reserva']
 					);
-					if ($idReserva = $this->visitas_model->deshabilitarReserva($arrParam)) 
+					if ($idReserva = $this->ciudadano_model->deshabilitarReserva($arrParam)) 
 					{
 						$NumeroCuposRestantes = $infoReserva[0]['numero_cupos_restantes'];
 						$numeroCupos = $infoReserva[0]['numero_cupos_usados'];
@@ -419,7 +406,7 @@ class Visitas extends CI_Controller {
 							'estado' => $estado,
 							'disponibilidad' => $disponibilidad
 						);
-						$this->visitas_model->actualizarHorarios($arrParam);
+						$this->ciudadano_model->actualizarHorarios($arrParam);
 
 						$data["result"] = true;					
 						$this->session->set_flashdata('retornoExito', 'Se guardó la información');
@@ -440,10 +427,10 @@ class Visitas extends CI_Controller {
 	public function email($idReserva)
 	{
 			$arrParam = array("idReserva" => $idReserva);
-			$infoReserva = $this->general_model->get_reserva_info($arrParam);
+			$infoReserva = $this->general_model->get_reserva_info_ciudadano($arrParam);
 
 			$arrParam = array("idHorario" => $infoReserva[0]['fk_id_horario']);
-			$infoHorario = $this->general_model->get_horario_info($arrParam);
+			$infoHorario = $this->general_model->get_horario_info_ciudadano($arrParam);
 
 			//busco datos parametricos de configuracion para envio de correo
 			$arrParam = array(

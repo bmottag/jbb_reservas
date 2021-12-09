@@ -402,5 +402,77 @@ class General_model extends CI_Model {
 				}
 		}
 
+		/**
+		 * Consulta lista de horarios
+		 * @since 12/2/2021
+		 */
+		public function get_horario_info_ciudadano($arrData)
+		{
+				$this->db->select();
+				if (array_key_exists("idHorario", $arrData)) {
+					$this->db->where('H.id_horario_ciudadano', $arrData["idHorario"]);
+				}
+				if (array_key_exists("disponible", $arrData)) {
+					$this->db->where('H.disponible', $arrData["disponible"]);
+				}
+				if (array_key_exists("bloqueados", $arrData) && $arrData["bloqueados"] != '') {
+					$this->db->where('H.disponible !=', 3);
+				}
+				if (array_key_exists("from", $arrData) && $arrData["from"] != '') {
+					$this->db->where('H.hora_inicial >=', $arrData["from"]);
+				}				
+				if (array_key_exists("to", $arrData) && $arrData["to"] != '' && $arrData["from"] != '') {
+					$this->db->where('H.hora_inicial <', $arrData["to"]);
+				}
+				if (array_key_exists("fecha", $arrData) && $arrData["fecha"] != '') {
+					$this->db->like('H.hora_inicial', $arrData["fecha"]); 
+				}
+				if (array_key_exists("tipoVisita", $arrData) && $arrData["tipoVisita"] != '') {
+					$this->db->like('H.tipo_visita', $arrData["tipoVisita"]); 
+				}
+
+				$this->db->order_by('H.id_horario_ciudadano', 'asc');
+
+				$query = $this->db->get('horarios_ciudadano H');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
+		/**
+		 * Consultar registros de reservas
+		 * @since 15/2/2021
+		 */
+		public function get_reserva_info_ciudadano($arrData)
+		{
+				$this->db->select();
+
+				if (array_key_exists("idReserva", $arrData)) {
+					$this->db->where('R.id_reserva_ciudadanos ', $arrData["idReserva"]);
+				}
+				if (array_key_exists("idHorario", $arrData)) {
+					$this->db->where('R.fk_id_horario', $arrData["idHorario"]);
+				}
+				if (array_key_exists("estadoReserva", $arrData)) {
+					$this->db->where('R.estado_reserva', $arrData["estadoReserva"]);
+				}
+				if (array_key_exists("llave", $arrData)) {
+					$this->db->where('R.qr_code_llave', $arrData["llave"]);
+				}
+
+				$this->db->order_by('R.id_reserva_ciudadanos', 'asc');
+
+				$query = $this->db->get('reservas_ciudadanos R');
+
+				if ($query->num_rows() > 0) {
+					return $query->result_array();
+				} else {
+					return false;
+				}
+		}
+
 
 }

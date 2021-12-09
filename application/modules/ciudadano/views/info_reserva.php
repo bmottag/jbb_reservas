@@ -6,8 +6,8 @@
 		<div class="col-lg-12">
 			<div class="panel panel-success">
 				<div class="panel-heading">
-					<a class="btn btn-success btn-xs" href=" <?php echo base_url('visitas/cerros'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
-					<i class="fa fa-briefcase"></i> <strong>INFORMACIÓN VISITA CERROS</strong>
+					<a class="btn btn-success btn-xs" href=" <?php echo base_url('ciudadano'); ?> "><span class="glyphicon glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Regresar </a> 
+					<i class="fa fa-briefcase"></i> <strong>TERCER DIÁLOGO CIUDADANO, EXPEDICIÓN 2021, DIALOGA CONSCIENCIA.</strong>
 				</div>
 				<div class="panel-body">
 					<div class="row">
@@ -25,10 +25,7 @@
 						<div class="col-lg-3">
 							<div class="alert alert-success"> 
 								<small>
-								Se guardó la Reserva de visita para el día: <br><strong><?php echo ucfirst(strftime("%a, %b %d %G, %I:%M %p",strtotime($infoHorario[0]['hora_inicial']))); ?></strong>
-
-								<br><br>
-								<strong>No. de Visitantes: </strong> <?php echo $infoReserva[0]['numero_cupos_usados']; ?><br>
+								Se guardó la Reserva de visita: <br>
 								<strong>Correo Electrónico: </strong> <?php echo $infoReserva[0]['correo_electronico']; ?><br>
 
 							<?php
@@ -49,16 +46,7 @@
 							?>
 
 								<strong>Celular de Contaco: </strong> <?php echo $resultado; ?><br>
-								<strong>Nombres: </strong>
-								<ul>
-								<?php
-								foreach ($infoReserva as $data):
-								?>
-									<li><?php echo $data['nombre_completo'] . " - Contacto Emergencia: " . $data['emergencia']; ?></li>
-								<?php
-								endforeach;
-								?>
-								</ul>
+								<strong>Nombres: </strong><?php echo $infoReserva[0]['nombre_completo']; ?><br>
 								</small>
 							</div>
 						<?php
@@ -77,21 +65,8 @@
 						<div class="col-lg-3">
 							<div class="alert alert-success">
 								<small>
-								<strong>CAMINO SAN FRANCISCO VICACHÁ </strong>
 <p>
-El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urbano de la ciudad de Bogotá en la Reserva Forestal Protectora Bosque Oriental de Bogotá. En este lugar se localizan los predios Molino del Boquerón, Molino inglés y Cerezos Los Laureles, propiedades de la EAAB-ESP, en las localidades de Santa fe y La Candelaria y limita con el barrio Los Laches y la vereda Fátima. El recorrido inicia, aproximadamente a 200 metros después del acceso al funicular del cerro de Monserrate, por la avenida circunvalar hacia el sur (EAAB, 2021).
-<br>
-<b>Longitud Aproximada: </b>2.082 metros (Camino empinado y escalonado)
-<br>
-<b>Altura: </b>desde 2.718 m.s.n.m hasta 2.910 m.s.n.m
-<br>
-<b>Recorridos: </b>por el mes de diciembre (sábados y domingos). El 25 de diciembre no se hará apertura del camino.
-<br>
-<b>Recorrido guiados: </b>Salidas 7a.m, 8am y 9 a.m. (El visitante es atendido por un educador ambiental que orientarán el recorrido, siempre deberá estar acompañado del personal encargado). No se habilitarán recorridos libres o autoguiados. Después de 10 minutos de la hora de la reserva no se podrá ingresar al camino.
-<br>
-<b>Tiempo de recorrido: </b>1 hora y 30 minutos aproximadamente.
-<br>
-<b>Costo: El ingreso al camino es gratis</b>
+En el marco del proceso de Rendición de Cuentas del Jardín Botánico José Celestino Mutis 2021, abrimos la posibilidad a la ciudadanía a realizar la inscripción de manera voluntaria para asistir al Tercer Diálogo de Espacio Ciudadano con enfoque científico mediante un recorrido en el que se conocerán las líneas de investigación de uno de los proyectos misionales de la Entidad. 
 </p>
 								</small>
 							</div>
@@ -101,29 +76,24 @@ El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urb
 						<div class="col-lg-3">
 							<div class="alert alert-success">
 								<small>
-								<strong>Recomendaciones</strong>
-								<ol>
-<li>
- Los menores de edad son responsabilidad de los adultos que los inscriben. Se recomienda la participación de niños y niñas de 7 años en adelante. </li>
- <li>Llevar ropa de fácil secado y zapatos o botas de buen agarre.</li>
- <li>Utilizar protección solar (gafas, gorras y bloqueador) y llevar impermeable en caso de lluvia. </li>
- <li> Para mujeres en periodo de gestación, personas con problemas respiratorios o cardiovasculares y mayores de 65 años, se recomienda no realizar caminatas largas o de exigencia física.
-</li>
-<li>Si tiene alguna enfermedad o consume medicamentos, consulte a su médico, antes de programar la visita.</li>
+                    <p>A tener en cuenta: </p>
 
-<li>Si presenta alguna condición física durante el recorrido contacte al apoyo médico.</li>
-<li>Realizar actividades de calentamiento y estiramiento para prevenir esguinces, luxaciones y desgarres musculares.</li>
-<li>No ingerir alimentos mientras camina, especialmente en ascensos, así evita la obstrucción de las vías aéreas. </li>
-<li> En caso de sentir mareo, agotamiento, dolor de cabeza, tos y congestión, realice paradas de descanso, tome agua y respire profundo y despacio 5 veces. </li>
-<li> Si los síntomas continúan consulte al personal del Jardín Botánico José Celestino Mutis.</li>
-<li> No hay área para parquear vehículos en el camino de San Francisco Vicachá. Consulte, antes de la visita, los parqueaderos cercanos y calcule el tiempo para llegar puntualmente.</li>
+				    <ul>
+				    
+<li> La inscripción arrojará un Código el cual debe guardar y presentar al momento de ingresar a las instalaciones del Jardín Botánico.   </li>
+<li> Contar con kit de bioseguridad; gel antibacterial y tapabocas.  </li>
+<li> Esquema completo de vacunación para COVID-19.  </li>
+<li> Para un mejor disfrute de la actividad al aire libre, asistir con ropa cómoda, tenis o botas.   </li>
+<li> El ingreso de mascotas no está permitido.  </li>
+<li> Contar con cadena en caso de tener bicicleta como medio de transporte. Se dejará en el biciparqueadero del Jardín.  </li>
+<li> No se permite el ingreso de alimentos ni bebidas.  </li>
+<li> El Jardín Botánico está comprometido con la protección de sus datos personales. Por ello, la información y datos de contacto que Usted ha comparte aquí para el registro, se acogen a la Política de Seguridad de Privacidad y Seguridad de la Información, así como la de Protección de Datos Personales, tal como lo dispone la normatividad vigente.  </li>
+<li> La actividad está sujeta a cambios por situaciones climáticas o de otra índole que implique riesgo en general.  </li>
+<li> Después de la visita al Jardín Botánico se diagnostica con Covid-19, debe reportarlo de inmediato a las autoridades de salud y al teléfono 4377060. Por su salud y la de quienes asistieron #BogotáSeSabeMover.   </li>
 
-<li>Si identifica situaciones inseguras u observa alguna posibilidad de accidente por favor haga la sugerencia.</li>
-
-<li>Respete los cultos, ritos o manifestaciones religiosas de los visitantes.</li>
-
-<li>Mantenga las condiciones ambientales del camino, disfrute y conserve.</li>
-								</ol>
+				  
+			    
+					</ul>
 								</small>
 							</div>
 						</div>

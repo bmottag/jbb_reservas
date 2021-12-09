@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-	class Visitas_model extends CI_Model {
+	class Ciudadano_model extends CI_Model {
 		
 		/**
 		 * Guardar la informacion de la reserva
@@ -11,15 +11,22 @@
 				$email = trim($this->security->xss_clean($this->input->post('email')));
 				$fecha = trim($this->security->xss_clean($this->input->post('fecha')));
 				$celular = trim($this->security->xss_clean($this->input->post('celular')));
+				$nombreCompleto = trim($this->security->xss_clean($this->input->post('name')));
+				$numeroDocumento = trim($this->security->xss_clean($this->input->post('numeroDocumento')));
+				$localidad = trim($this->security->xss_clean($this->input->post('localidad')));
 
 
 				$data = array(
 					'fk_id_horario' => $this->input->post('hddIdHorario'),
 					'correo_electronico' => $email,
-					'numero_contacto' => $celular
+					'numero_contacto' => $celular,
+					'numero_cupos_usados' => 1,
+					'nombre_completo' => $nombreCompleto,
+					'numero_documento' => $numeroDocumento,
+					'localidad' => $localidad
 				);
 
-				$query = $this->db->insert('reservas', $data);
+				$query = $this->db->insert('reservas_ciudadanos', $data);
 				$idReserva = $this->db->insert_id();
 
 				//actualizo la url del codigo QR
@@ -27,67 +34,11 @@
 				$rutaQRcode = "images/reservas/QR/" . $path . "_qr_code.png";
 		
 				//actualizo campo con el path encriptado
-				$sql = "UPDATE reservas SET qr_code_llave = '$path', qr_code_img = '$rutaQRcode' WHERE id_reserva = $idReserva";
+				$sql = "UPDATE reservas_ciudadanos SET qr_code_llave = '$path', qr_code_img = '$rutaQRcode' WHERE id_reserva_ciudadanos = $idReserva";
 				$query = $this->db->query($sql);
 			
 				if ($query) {
 					return $idReserva;
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Guardar usuarios
-		 * @since 13/2/2021
-		 */
-		public function guardarUsuarios($idReserva) 
-		{
-				$usuarios = $this->input->post('name');
-				$eps = $this->input->post('eps');
-				$emergencia = $this->input->post('emergencia');
-
-				$numeroCupos=0;
-				for($i = 0; $i < count($usuarios); ++$i) {
-					$cleanName = trim($this->security->xss_clean($usuarios[$i]));
-					$cleaneps = trim($this->security->xss_clean($eps[$i]));
-					$cleanemergencia = trim($this->security->xss_clean($emergencia[$i]));					
-					if($cleanName!= '')
-					{
-							$data = array(
-								'fk_id_reserva' => $idReserva,
-								'nombre_completo' => $cleanName,
-								'eps' => $cleaneps,
-								'emergencia' => $cleanemergencia
-							);
-							$query = $this->db->insert('reservas_usuarios', $data);
-							$numeroCupos++;
-					}
-				}
-
-
-				if ($query) {
-					return $numeroCupos;
-				} else {
-					return false;
-				}
-		}
-
-		/**
-		 * Actualizar el numero de cupos de la reserva
-		 * @since 13/2/2021
-		 */
-		public function actualizarReserva($arrData) 
-		{				
-				$data = array(
-					'numero_cupos_usados' => $arrData['numeroCupos']
-				);
-				
-				$this->db->where('id_reserva',  $arrData['idReserva']);
-				$query = $this->db->update('reservas', $data);
-				
-				if ($query) {
-					return true;
 				} else {
 					return false;
 				}
@@ -105,8 +56,8 @@
 					'disponible' => $arrData['disponibilidad']
 				);
 				
-				$this->db->where('id_horario',  $arrData['idHorario']);
-				$query = $this->db->update('horarios', $data);
+				$this->db->where('id_horario_ciudadano',  $arrData['idHorario']);
+				$query = $this->db->update('horarios_ciudadano', $data);
 				
 				if ($query) {
 					return true;
