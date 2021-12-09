@@ -11,7 +11,7 @@ $(document).ready(function(){
 			CuposRestantes = 7;
 		} 
 		if(i<=CuposRestantes){
-			$('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="name[]" placeholder="Nombre Completo" class="form-control name_list" required /></td><td><input type="text" name="eps[]" placeholder="EPS" class="form-control name_list" required /></td><td><input type="number" name="emergencia[]" placeholder="Número Emergencia" class="form-control name_list" required /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-xs"><i class="fa fa-times"></i></button></td></tr>');
+			$('#dynamic_field').append('<tr id="row'+i+'">					<td>						<small><b>Nombre Completo</b></small>						<input type="text" name="name[]" placeholder="Nombre Completo" class="form-control input-sm" required />						<small><b>Tipo de documento</b></small>						<select name="tipoDocumento[]"  class="form-control input-sm" required >							<option value="">Seleccione...</option>							<option value=1 >CC (Cédula d ciudadanía)</option>							<option value=2 >TI (Tarjeta de identidad)</option>							<option value=3 >CE (Cédula de extranjería)</option>							<option value=4 >PA (Pasaporte)</option>						</select>						<small><b>EPS</b></small>						<select name="eps[]"  class="form-control input-sm" required >							<option value="">Seleccione...</option>							<option value=1 >Aliansalud</option>							<option value=2 >Capital salud</option>							<option value=3 >Compensar eps</option>							<option value=4 >Coomeva eps </option>							<option value=5 >Coosalud</option>							<option value=6 >Cruz Blanca</option>							<option value=7 >Famisanar</option>							<option value=8 >Mutual Ser</option>							<option value=9 >Nueva EPS</option>							<option value=10 >Salud Total</option>							<option value=11 >Salud Vida</option>							<option value=12 >Sanitas</option>							<option value=13 >Servicio Occidental de Salud</option>							<option value=14 >Sura</option>							<option value=15 >Otra</option>						</select>					</td>					<td>						<small><b>Género</b></small>						<select name="genero[]"  class="form-control input-sm" required >							<option value="">Seleccione...</option>							<option value=1 >Hombre</option>							<option value=2 >Mujer</option>							<option value=3 >Otro</option>						</select>						<small><b>Número de Documento </b></small>						<input type="text" name="numeroDocumento[]" placeholder="Número de Documento" class="form-control input-sm" required />					<small><b>Número Emergencia</b></small>						<input type="number" name="emergencia[]" placeholder="Número Emergencia" class="form-control input-sm" required />					</td>					<td>						<small><b>Grupo Étnico</b></small>						<select name="grupoEtnico[]"  class="form-control input-sm" required >							<option value="">Seleccione...</option>							<option value=1 >Afrodescendiente</option>							<option value=2 >Indígena</option>							<option value=3 >Rrom</option>							<option value=4 >Raizal</option>							<option value=5 >Indígena</option>							<option value=6 >Otro</option>						</select>						<small><b>Ciudad </b></small>						<input type="text" name="ciudad[]" placeholder="Ciudad" class="form-control input-sm" /><small><b>Objetivo de la Visita</b></small>						<select name="objetivoVisita[]"  class="form-control input-sm" required >							<option value="">Seleccione...</option>							<option value=1 >Recreación</option>							<option value=2 >Educación</option>							<option value=3 >Investigación</option>						</select>					</td>					<td>						<small><b>Rango Edad</b></small>						<select name="rangoEdad[]"  class="form-control input-sm" required >							<option value="">Seleccione...</option>							<option value=1 >6 a 12 años</option>							<option value=2 >13 a 17 años</option>							<option value=3 >18 a 26 años</option>							<option value=4 >27 a 59 años</option>							<option value=5 >Mayor de 60 años</option>						</select>						<small><b>Localidad</b></small>						<select name="nivelEducativo[]"  class="form-control input-sm" >							<option value="">Seleccione...</option>							<option value=1 >Usaquén</option>							<option value=2 >Chapinero</option>							<option value=3 >Santa Fe</option>							<option value=4 >San Cristóbal</option>							<option value=5 >Usme</option>							<option value=6 >Tunjuelito</option>							<option value=7 >Bosa</option>							<option value=8 >Kennedy</option>							<option value=9 >Fontibón</option>							<option value=10 >Engativá</option>							<option value=11 >Suba</option>							<option value=12 >Barrios unidos</option>							<option value=13 >Teusaquillo</option>							<option value=14 >Mártires</option>							<option value=15 >Antonio Nariño</option>							<option value=16 >Candelaria</option>							<option value=17 >Rafael Uribe Uribe</option>							<option value=18 >Ciudad Bolívar</option>							<option value=19 >Sumapaz</option>						</select>					</td>					<td>						<small><b>Nivel Educativo</b></small>						<select name="nivelEducativo[]"  class="form-control input-sm" required >							<option value="">Seleccione...</option>							<option value=1 >Primaria</option>							<option value=2 >Bachiller</option>							<option value=3 >Profesional</option>							<option value=4 >Posgrado</option>							<option value=5 >Ninguno</option>							<option value=6 >Otro</option>						</select>						<small><b>Teléfono</b></small>						<input type="number" name="telefono[]" placeholder="Teléfono" class="form-control input-sm" required />					</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-xs"><i class="fa fa-times"></i></button></td></tr>');
 		}else{
 			alert('Se completo el limite de cupos permidos');
 		}
@@ -159,21 +159,130 @@ $(document).ready(function(){
 			</div>
 		</div>
 
-
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dynamic_field" border="0">
+
 				<tr>
 					<td>
-						<input type="text" name="name[]" placeholder="Nombre Completo" class="form-control name_list" required />
+						<small><b>Nombre Completo</b></small>
+						<input type="text" name="name[]" placeholder="Nombre Completo" class="form-control input-sm" required />
+
+						<small><b>Tipo de documento</b></small>
+						<select name="tipoDocumento[]"  class="form-control input-sm" required >
+							<option value="">Seleccione...</option>
+							<option value=1 >CC (Cédula d ciudadanía)</option>
+							<option value=2 >TI (Tarjeta de identidad)</option>
+							<option value=3 >CE (Cédula de extranjería)</option>
+							<option value=4 >PA (Pasaporte)</option>
+						</select>
+
+						<small><b>EPS</b></small>
+						<select name="eps[]"  class="form-control input-sm" required >
+							<option value="">Seleccione...</option>
+							<option value=1 >Aliansalud</option>
+							<option value=2 >Capital salud</option>
+							<option value=3 >Compensar eps</option>
+							<option value=4 >Coomeva eps </option>
+							<option value=5 >Coosalud</option>
+							<option value=6 >Cruz Blanca</option>
+							<option value=7 >Famisanar</option>
+							<option value=8 >Mutual Ser</option>
+							<option value=9 >Nueva EPS</option>
+							<option value=10 >Salud Total</option>
+							<option value=11 >Salud Vida</option>
+							<option value=12 >Sanitas</option>
+							<option value=13 >Servicio Occidental de Salud</option>
+							<option value=14 >Sura</option>
+							<option value=15 >Otra</option>
+						</select>
 					</td>
 					<td>
-						<input type="text" name="eps[]" placeholder="EPS" class="form-control name_list" required />
+						<small><b>Género</b></small>
+						<select name="genero[]"  class="form-control input-sm" required >
+							<option value="">Seleccione...</option>
+							<option value=1 >Hombre</option>
+							<option value=2 >Mujer</option>
+							<option value=3 >Otro</option>
+						</select>
+						<small><b>Número de Documento </b></small>
+						<input type="text" name="numeroDocumento[]" placeholder="Número de Documento" class="form-control input-sm" required />
+
+						<small><b>Número Emergencia</b></small>
+						<input type="number" name="emergencia[]" placeholder="Número Emergencia" class="form-control input-sm" required />
 					</td>
 					<td>
-						<input type="number" name="emergencia[]" placeholder="Número Emergencia" class="form-control name_list" required />
+						<small><b>Grupo Étnico</b></small>
+						<select name="grupoEtnico[]"  class="form-control input-sm" required >
+							<option value="">Seleccione...</option>
+							<option value=1 >Afrodescendiente</option>
+							<option value=2 >Indígena</option>
+							<option value=3 >Rrom</option>
+							<option value=4 >Raizal</option>
+							<option value=5 >Indígena</option>
+							<option value=6 >Otro</option>
+						</select>
+						<small><b>Ciudad </b></small>
+						<input type="text" name="ciudad[]" placeholder="Ciudad" class="form-control input-sm" />
+
+						<small><b>Objetivo de la Visita</b></small>
+						<select name="objetivoVisita[]"  class="form-control input-sm" required >
+							<option value="">Seleccione...</option>
+							<option value=1 >Recreación</option>
+							<option value=2 >Educación</option>
+							<option value=3 >Investigación</option>
+						</select>
 					</td>
 					<td>
-						<button type="button" name="add" id="add" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Agregar </button>
+						<small><b>Rango Edad</b></small>
+						<select name="rangoEdad[]"  class="form-control input-sm" required >
+							<option value="">Seleccione...</option>
+							<option value=1 >6 a 12 años</option>
+							<option value=2 >13 a 17 años</option>
+							<option value=3 >18 a 26 años</option>
+							<option value=4 >27 a 59 años</option>
+							<option value=5 >Mayor de 60 años</option>
+						</select>
+						<small><b>Localidad</b></small>
+						<select name="nivelEducativo[]"  class="form-control input-sm" >
+							<option value="">Seleccione...</option>
+							<option value=1 >Usaquén</option>
+							<option value=2 >Chapinero</option>
+							<option value=3 >Santa Fe</option>
+							<option value=4 >San Cristóbal</option>
+							<option value=5 >Usme</option>
+							<option value=6 >Tunjuelito</option>
+							<option value=7 >Bosa</option>
+							<option value=8 >Kennedy</option>
+							<option value=9 >Fontibón</option>
+							<option value=10 >Engativá</option>
+							<option value=11 >Suba</option>
+							<option value=12 >Barrios unidos</option>
+							<option value=13 >Teusaquillo</option>
+							<option value=14 >Mártires</option>
+							<option value=15 >Antonio Nariño</option>
+							<option value=16 >Candelaria</option>
+							<option value=17 >Rafael Uribe Uribe</option>
+							<option value=18 >Ciudad Bolívar</option>
+							<option value=19 >Sumapaz</option>
+						</select>
+					</td>
+					<td>
+						<small><b>Nivel Educativo</b></small>
+						<select name="nivelEducativo[]"  class="form-control input-sm" required >
+							<option value="">Seleccione...</option>
+							<option value=1 >Primaria</option>
+							<option value=2 >Bachiller</option>
+							<option value=3 >Profesional</option>
+							<option value=4 >Posgrado</option>
+							<option value=5 >Ninguno</option>
+							<option value=6 >Otro</option>
+						</select>
+						<small><b>Teléfono</b></small>
+						<input type="number" name="telefono[]" placeholder="Teléfono" class="form-control input-sm" required />
+					</td>
+
+					<td>
+						<button type="button" name="add" id="add" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> </button>
 					</td>
 				</tr>
 				</table>

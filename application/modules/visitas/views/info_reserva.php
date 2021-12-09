@@ -54,7 +54,7 @@
 								<?php
 								foreach ($infoReserva as $data):
 								?>
-									<li><?php echo $data['nombre_completo'] . " - EPS: " . $data['eps'] . " - Contacto Emergencia: " . $data['emergencia']; ?></li>
+									<li><?php echo $data['nombre_completo'] . " - Contacto Emergencia: " . $data['emergencia']; ?></li>
 								<?php
 								endforeach;
 								?>

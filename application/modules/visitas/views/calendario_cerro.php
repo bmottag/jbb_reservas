@@ -74,7 +74,7 @@ $(function(){
 			editable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
 			allDaySlot: false,
-			slotMinTime: '6:00',
+			slotMinTime: '7:00',
 			slotMaxTime: '12:00',
 			slotDuration: '00:30:00',
 			slotLabelInterval: '00:60', 
@@ -140,42 +140,48 @@ El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urb
 <br>
 <b>Altura: </b>desde 2.718 m.s.n.m hasta 2.910 m.s.n.m
 <br>
-<b>Recorridos: </b>Sabados, domingos y lunes festivos.
+<b>Recorridos: </b>por el mes de diciembre (sábados y domingos). El 25 de diciembre no se hará apertura del camino.
 <br>
-<b>Recorrido guiado: </b>Salida 8am. (El visitante es atendido por un educador ambiental que orientarán el recorrido, siempre deberá estar acompañado del profesional encargado)
-<br>
-<b>Recorridos libres: </b>Salidas: 6am, 7am, 9am y 10am. (El recorrido lo realiza autónomamente el visitante en el horario de la reserva).
+<b>Recorrido guiados: </b>Salidas 7a.m, 8am y 9 a.m. (El visitante es atendido por un educador ambiental que orientarán el recorrido, siempre deberá estar acompañado del personal encargado). No se habilitarán recorridos libres o autoguiados. Después de 10 minutos de la hora de la reserva no se podrá ingresar al camino.
 <br>
 <b>Tiempo de recorrido: </b>1 hora y 30 minutos aproximadamente.
 <br>
-<b>Costo: </b>El ingreso al camino es gratis
+<b>Costo: El ingreso al camino es gratis</b>
 </p>
 
-                    <p>Registre su visita, tenga en cuenta los siguientes pasos:</p>
+                    <p>Registre su visita guiada en dos simples pasos:</p>
 
 				    <ol>
 				    <li> 
-				    	<strong>Seleccione la fecha y hora: </strong>
-				    	Verifique que la casilla seleccionada tenga cupo. Si está en verde es que aún no hay nadie inscrito y si está en amarillo (hay cupos). Los horarios que se ven en color rojo no tienen cupo.
+				    	<strong>Seleccione la fecha y hora para reservar:  </strong>
+Seleccione la fecha y hora para reservar: Verifique que la casilla seleccionada tenga cupo. Si está en verde es que aún no hay nadie inscrito y si está en amarillo (hay cupos). Los horarios que se ven en color rojo no tienen cupo.
+
+
 				    </li>
 				    <li>
 				    	<strong>Ingrese sus datos: </strong>
-				    	Registre los Nombres de cada uno de los asistentes (máximo 7 personas, incluyendo niños desde los 7 años), un número celular de contacto y el correo electrónico donde recibirá el código QR de verificación. No olvide llenar el campo de comprobación (captcha) que consiste en escribir la palabra que está en colores, en el campo dispuesto para ello.
+Registre los Nombres de cada uno de los asistentes (máximo 7 personas, incluyendo niños desde los 7 años), un número celular de contacto y el correo electrónico donde recibirá el código QR de verificación. No olvide llenar el campo de comprobación (captcha) que consiste en escribir la palabra que está en colores, en el campo dispuesto para ello.
 					</li>
+					</ol>
+					<p>Ten en cuenta:</p>
+					<ol>
 				    <li>
 				    	<strong>Los menores de edad: </strong>
 				    	(7 años en adelante) deben estar acompañados de un adulto responsable.
 				    </li>
 				    <li>
-				    	<strong>Responsabilidad con los residuos: </strong>
-				    	Cada senderista se compromete a “No dejar rastro”, es decir, que los residuos que genere debe llevarlos a casa o a un sitio para disposición final.
+Responsabilidad con los residuos: Cada senderista se compromete a “No dejar rastro”, es decir, que los residuos que genere debe llevarlos a casa o a un sitio para disposición final.
 				    </li>
 				    <li>
-						Al realizar la reseva, se aceptan las políticas, restricciones, normas y recomendaciones.
+No llevar joyas, aparatos electrónicos de alta gama, cámaras fotográficas con o sin trípode, ni equipos audiovisuales. El Jardín Botánico José Celestino Mutis, no se responsabiliza por su pérdida, robo o deterioro. Igual para el caso de las bicicletas.
+
 				    </li>
 				    <li>
-						Lea las recomendaciones del camino en el correo de confirmación.
+Acepte las políticas, restricciones, normas y recomendaciones antes de efectuar su reserva.
 				    </li>
+				    <li>
+Lea las recomendaciones del camino en el correo de confirmación.
+				    </li>				    
 					</ol>
 <p>
 Acepto los términos y condiciones - 
@@ -289,7 +295,7 @@ Acepto cumplir las recomendaciones - <b>Recomendaciones</b>
 
 <!--INICIO Modal para RESERVAS -->
 <div class="modal fade text-center" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content" id="tablaDatos">
 
 		</div>
