@@ -26,13 +26,15 @@ $(function(){
                 <div class="panel-body">
                 	<div class="row">
                 		<div class="col-lg-12">	
-                			<p class="lead">TERCER DIÁLOGO CIUDADANO, EXPEDICIÓN 2021, DIALOGA CONSCIENCIA. </p>
+                			<p class="lead">TERCER ESPACIO DE DIÁLOGO CIUDADANO, EXPEDICIÓN 2021, DIALOGA CONSCIENCIA. </p>
                 		</div>
                 	</div>
                 	<small>
                 	
 <p>
 En el marco del proceso de Rendición de Cuentas del Jardín Botánico José Celestino Mutis 2021, abrimos la posibilidad a la ciudadanía a realizar la inscripción de manera voluntaria para asistir al Tercer Diálogo de Espacio Ciudadano con enfoque científico mediante un recorrido en el que se conocerán las líneas de investigación de uno de los proyectos misionales de la Entidad.  
+
+<br><br>El Diálogo Ciudadano se realizará el <b>14 de diciembre a las 9:00 am.</b>
 </p>
 
                     <p>A tener en cuenta: </p>

@@ -171,14 +171,14 @@ class Ciudadano extends CI_Controller {
 			}elseif($data['information'][0]['estado'] == 3)
 			{
 				echo '<br><p><strong>Atención:</strong><br>';
-				echo 'Se completo el cupo máximo para este horario, por favor seleccione otro.</p>';
+				echo 'Se completo el cupo disponible.</p>';
 			}elseif($data['information'][0]['disponible'] == 2)
 			{
 				echo '<br><p><strong>Atención:</strong><br>';
-				echo 'Esta fecha esta siendo asignada, por favor seleccione otra.</p>';
+				echo 'Esta fecha esta siendo asignada, por favor espere unos minutos.</p>';
 			}elseif($data['information'][0]['numero_cupos_restantes'] <= 0){
 				echo '<br><p><strong>Atención:</strong><br>';
-				echo 'Se completo el cupo máximo para este horario, por favor seleccione otro.</p>';
+				echo 'Se completo el cupo disponible.</p>';
 			}else{
 				//bloquear sala por 5 minutos mientras se realiza la reserva
 				$arrParam = array(
@@ -255,7 +255,7 @@ class Ciudadano extends CI_Controller {
 							$this->load->library('ciqrcode');
 
 							$data['idRecord'] = $llave = $pass . $idReserva;
-							$valorQRcode = base_url("visitas/registro/" . $llave);
+							$valorQRcode = base_url("ciudadano/registro/" . $llave);
 							$rutaImagen = "images/reservas/QR/" . $llave . "_qr_code.png";
 							
 							$params['data'] = $valorQRcode;
@@ -451,35 +451,25 @@ class Ciudadano extends CI_Controller {
 			//mensaje del correo
 			$msj = '<p><strong>Gracias por reservar su visita, </strong></p>';
 
-			$msj .= '<p>El Jardín Botánico José Celestino Mutis confirma su visita al camino San Francisco Vicachá (aproximadamente 200 metros después del acceso al funicular del cerro de Monserrate, por la avenida circunvalar hacia el sur) el día ';
-			$msj .= "<strong>" . ucfirst(strftime("%d de %b, %G",strtotime($infoHorario[0]['hora_inicial']))) . "</strong>";
-			$msj .= ' a las ' . "<strong>" .ucfirst(strftime("%I:%M %p",strtotime($infoHorario[0]['hora_inicial'])))  . "</strong>";
-			
-			$msj .= '<p>Servicio al ciudadano: mlpalacios@jbb.gov.co</p>';
-			$msj .= "<strong>No. Visitantes: </strong>" . $infoReserva[0]['numero_cupos_usados'];
+			$msj .= '<p>El Jardín Botánico José Celestino Mutis confirma su reserva ';
+			$msj .= '<br><br>El Diálogo Ciudadano se realizará el <b>14 de diciembre a las 9:00 am.</b>';
 			$msj .= '<ul>';
 			foreach ($infoReserva as $data):
 				$msj .= '<li>' . $data['nombre_completo'] . '</li>';
 			endforeach;
 			$msj .= '</ul>';		
-			$msj .= '<p><strong>Recuerde:</strong></p>';
+			$msj .= '<p><strong>A tener en cuenta:</strong></p>';
 			$msj .= '<ol>';
-$msj .= '<li>Recuerde llevar el texto de autorización de la visita, con fecha, hora y sitio, así como el código QR. Este será la evidencia que le permitirá ingresar. </li>';
-$msj .= '<li>Llegar diez (10) minutos antes de la hora de la visita, para facilitar el registro.</li>';
-$msj .= '<li>Llevar documentos de identificación personal.</li>';
-$msj .= '<li>Cargar medicamentos de uso personal.</li>';
-$msj .= '<li>Ingresar sin haber consumido o para consumir, sustancias alucinógenas, alcohólicas o cigarrillos.</li>';
-$msj .= '<li>Acatar las indicaciones proporcionadas por el personal de la entidad.</li>';
-$msj .= '<li>Participar en la charla de ingreso al camino por parte del personal a cargo.</li>';
-$msj .= '<li>Acatar las medidas de bioseguridad: temperatura, uso de gel, información de síntomas, elementos de protección personal.</li>';
-$msj .= '<li>Caminar en fila y a una distancia mínima de 1 metro entre cada persona. Evitará aglomeraciones y caídas.</li>';
-$msj .= '<li>Si asiste en grupo, manténgase unido durante la permanencia en el camino.</li>';
-$msj .= '<li>Los animales de compañía no pueden ingresar al camino.</li>';
-$msj .= '<li>Cuando ingrese, mantenga moderado el tono de la voz, usted está ingresando a una zona de Reserva Forestal y el ruido afecta a las aves e interrumpe la tranquilidad de los vecinos.</li>';
-$msj .= '<li>No llevar elementos que generen basura al camino o de ser así por favor guarde los residuos hasta disponerlos fuera de la reserva.</li>';
-$msj .= '<li>No hay parqueadero para vehículos en los predios de la EAAB-ESP en donde se encuentra ubicada el camino San Francisco Vicachá, no obstante, en los alrededores al camino hay parqueaderos públicos.</li>';
-$msj .= '<li>Si no se asiste en la hora programada se perderá la reserva y se impedirá el acceso.</li>';
-$msj .= '<li>Se debe presentar el carnet de vacunación de forma virtual o física en la entrada al camino. Sin este documento no se permitirá el ingreso.</li>';
+$msj .= '<li> La inscripción arrojará un Código el cual debe guardar y presentar al momento de ingresar a las instalaciones del Jardín Botánico.   </li>
+<li> Contar con kit de bioseguridad; gel antibacterial y tapabocas.  </li>
+<li> Esquema completo de vacunación para COVID-19.  </li>
+<li> Para un mejor disfrute de la actividad al aire libre, asistir con ropa cómoda, tenis o botas.   </li>
+<li> El ingreso de mascotas no está permitido.  </li>
+<li> Contar con cadena en caso de tener bicicleta como medio de transporte. Se dejará en el biciparqueadero del Jardín.  </li>
+<li> No se permite el ingreso de alimentos ni bebidas.  </li>
+<li> El Jardín Botánico está comprometido con la protección de sus datos personales. Por ello, la información y datos de contacto que Usted ha comparte aquí para el registro, se acogen a la Política de Seguridad de Privacidad y Seguridad de la Información, así como la de Protección de Datos Personales, tal como lo dispone la normatividad vigente.  </li>
+<li> La actividad está sujeta a cambios por situaciones climáticas o de otra índole que implique riesgo en general.  </li>
+<li> Después de la visita al Jardín Botánico se diagnostica con Covid-19, debe reportarlo de inmediato a las autoridades de salud y al teléfono 4377060. Por su salud y la de quienes asistieron #BogotáSeSabeMover.   </li>';
 			$msj .= '</ol>';
 
 			$msj .= "<img src=" . base_url($infoReserva[0]['qr_code_img']) . " class='img-rounded' width='200' height='200' />";
@@ -507,7 +497,7 @@ $msj .= '<li>Se debe presentar el carnet de vacunación de forma virtual o físi
                     $mail->WordWrap = 50;
                     $mail->CharSet = 'UTF-8';
                     $mail->IsHTML(true); // set email format to HTML
-                    $mail->Subject = 'Reserva Jardín Botánico';
+                    $mail->Subject = 'TERCER ESPACIO DE DIÁLOGO CIUDADANO';
 
                     $mail->Body = nl2br ($mensaje,false);
 
