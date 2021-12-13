@@ -148,7 +148,7 @@ $(document).ready(function(){
 					<td>
 
 						<small><b>Número de identificación</b></small>
-						<input type="text" name="numeroDocumento" id="numeroDocumento" placeholder="Número de Documento" class="form-control input-sm" required />
+						<input type="number" name="numeroDocumento" id="numeroDocumento" placeholder="Número de Documento" class="form-control input-sm" required />
 					</td>
 					<td>
 						<small><b>Localidad</b></small>
