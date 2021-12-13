@@ -160,6 +160,20 @@ class Dashboard extends CI_Controller {
 			$data["view"] ='lista_reservas_fecha';
 			$this->load->view("layout_calendar", $data);
 	}
+
+	/**
+	 * Lista de dialogo ciudadno
+     * @since 17/2/2021
+     * @author BMOTTAG
+	 */
+	public function dialogo()
+	{		
+			$arrParam = array();
+			$data['infoReserva'] = $this->general_model->get_reserva_info_ciudadano($arrParam);
+
+			$data["view"] ='lista_dialogo';
+			$this->load->view("layout_calendar", $data);
+	}
 	
 	
 	

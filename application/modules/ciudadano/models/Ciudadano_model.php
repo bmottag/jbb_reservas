@@ -23,7 +23,7 @@
 					'numero_cupos_usados' => 1,
 					'nombre_completo' => $nombreCompleto,
 					'numero_documento' => $numeroDocumento,
-					'localidad' => $localidad
+					'fk_id_localidad' => $localidad
 				);
 
 				$query = $this->db->insert('reservas_ciudadanos', $data);

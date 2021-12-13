@@ -449,7 +449,7 @@ class General_model extends CI_Model {
 		public function get_reserva_info_ciudadano($arrData)
 		{
 				$this->db->select();
-
+				$this->db->join('param_localidades L', 'L.id_localidad = R.fk_id_localidad', 'INNER');
 				if (array_key_exists("idReserva", $arrData)) {
 					$this->db->where('R.id_reserva_ciudadanos ', $arrData["idReserva"]);
 				}

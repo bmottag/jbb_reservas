@@ -169,10 +169,11 @@ $(document).ready(function(){
 							<option value=13 >Teusaquillo</option>
 							<option value=14 >Mártires</option>
 							<option value=15 >Antonio Nariño</option>
-							<option value=16 >Candelaria</option>
-							<option value=17 >Rafael Uribe Uribe</option>
-							<option value=18 >Ciudad Bolívar</option>
-							<option value=19 >Sumapaz</option>
+							<option value=16 >Puente Aranda</option>
+							<option value=17 >Candelaria</option>
+							<option value=18 >Rafael Uribe Uribe</option>
+							<option value=19 >Ciudad Bolívar</option>
+							<option value=20 >Sumapaz</option>
 						</select>
 					</td>
 				</tr>
