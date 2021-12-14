@@ -10,7 +10,8 @@ $( document ).ready( function () {
 			celular: 			{ required: true, minlength: 10, maxlength:10 },
 			name: 				{ required: true, minlength: 3, maxlength:25 },
 			eps: 				{ required: true, minlength: 3, maxlength:25 },
-			emergencia: 		{ required: true, minlength: 3, maxlength:10 }
+			emergencia: 		{ required: true, minlength: 3, maxlength:10 },
+			numeroDocumento: 	{ required: true, minlength: 4, maxlength:15 }
 		},
 		errorElement: "em",
 		errorPlacement: function ( error, element ) {
