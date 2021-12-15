@@ -106,10 +106,11 @@ class Visitas extends CI_Controller {
 								break;
 						}
 					}
+					$numero_cupos_disponibles = $data['numero_cupos_restantes']<0?0:$data['numero_cupos_restantes'];
 
 					echo  '{
 							  "id": "' . $data['id_horario'] . '",
-						      "title": "Cupos disponibles: ' . $data['numero_cupos_restantes'] . '",
+						      "title": "Cupos disponibles: ' . $numero_cupos_disponibles . '",
 						      "start": "' . $data['hora_inicial'] . '",
 						      "end": "' . $data['hora_final'] . '",
 						      "color": "' . $color . '"
