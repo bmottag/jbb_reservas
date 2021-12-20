@@ -342,7 +342,7 @@ class Settings extends CI_Controller {
      * @since 3/3/2021
      * @author BMOTTAG
 	 */
-	public function bloquear_horarios()
+	public function bloquear_horarios($tipoVisita)
 	{	
 			if ($this->settings_model->actualizarDisponibilidadHorarios()) {
 				$data["result"] = true;
@@ -352,7 +352,7 @@ class Settings extends CI_Controller {
 				$this->session->set_flashdata('retornoError', '<strong>Error!!!</strong> Ask for help');
 			}
 
-			redirect(base_url('settings/horarios'), 'refresh');
+			redirect(base_url('settings/horarios/'. $tipoVisita), 'refresh');
 	}
 
 	/**

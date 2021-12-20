@@ -97,7 +97,7 @@ function deseleccionar_todo(){
 				<?php
 					if($infoHorarios){
 				?>				
-<form  name="form_disponibilidad" id="form_disponibilidad" method="post" action="<?php echo base_url("settings/bloquear_horarios"); ?>">
+<form  name="form_disponibilidad" id="form_disponibilidad" method="post" action="<?php echo base_url("settings/bloquear_horarios/" . $tipoVisita); ?>">
 				<p>
 				<a href="javascript:seleccionar_todo()">Marcar Todos</a> |
 				<a href="javascript:deseleccionar_todo()">Desmarcar Todos</a>
