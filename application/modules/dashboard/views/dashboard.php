@@ -43,7 +43,11 @@ $(function(){
 			<div class="panel panel-success">
 				<div class="panel-heading">
 					<h4 class="list-group-item-heading">
-						DASHBOARD
+						<?php
+                            $tituloVisitasJBB = 'TABLERO DE CONTROL VISITAS JBB';
+                            $tituloVisitasCerros = 'TABLERO DE CONTROL VISITAS CERROS';
+                            echo $tipoVisita==1?$tituloVisitasJBB:$tituloVisitasCerros;
+                        ?>
 					</h4>
 				</div>
 			</div>
