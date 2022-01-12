@@ -140,11 +140,12 @@ El camino San Francisco-Vicachá se encuentra en la parte oriental del casco urb
 <br>
 <b>Altura: </b>desde 2.718 m.s.n.m hasta 2.910 m.s.n.m
 <br>
-<b>Recorridos: </b>8, 9, 10, 15, 16, 22, 23, 29 y 30 de enero. 
+<b>Recorridos: </b>Sábados, domingos y lunes festivos.
 <br>
-<b>Recorrido Autoguiado: </b>Salidas 6a.m, 9a.m y 10 a.m  (El recorrido lo realiza autónomamente el visitante en el horario de la reserva). 
+<b>Recorridos Autoguiados: </b>Salidas 9a.m y 10 a.m  (El recorrido lo realiza autónomamente el visitante en el horario de la reserva). 
 <br>
-<b>Recorrido guiados: </b>Salidas 7a.m y 8am. (El visitante es atendido por un educador ambiental que orientarán el recorrido, siempre deberá estar acompañado del personal encargado). 
+<b>Recorridos guiados: </b>Salidas 7a.m y 8am. (El visitante es atendido por un educador ambiental que orientarán el recorrido, siempre deberá estar acompañado del personal encargado). 
+<br>
 Para cualquier tipo de recorrido después de 10 minutos de la hora de la reserva no se podrá ingresar al camino. 
 <br>
 <b>Tiempo de recorrido: </b>1 hora y 30 minutos aproximadamente.
