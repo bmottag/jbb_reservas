@@ -74,7 +74,7 @@ $(function(){
 			editable: true,
 			dayMaxEvents: true, // allow "more" link when too many events
 			allDaySlot: false,
-			slotMinTime: '6:00',
+			slotMinTime: '7:00',
 			slotMaxTime: '11:00',
 			slotDuration: '00:30:00',
 			slotLabelInterval: '00:60', 

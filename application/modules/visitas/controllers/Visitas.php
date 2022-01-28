@@ -469,7 +469,7 @@ class Visitas extends CI_Controller {
 			$msj .= "<strong>" . ucfirst(strftime("%d de %b, %G",strtotime($infoHorario[0]['hora_inicial']))) . "</strong>";
 			$msj .= ' a las ' . "<strong>" .ucfirst(strftime("%I:%M %p",strtotime($infoHorario[0]['hora_inicial'])))  . "</strong>";
 			
-			$msj .= '<p>Servicio al ciudadano: mlpalacios@jbb.gov.co</p>';
+			$msj .= '<p>Servicio al ciudadano: hgomezm@jbb.gov.co</p>';
 			$msj .= "<strong>No. Visitantes: </strong>" . $infoReserva[0]['numero_cupos_usados'];
 			$msj .= '<ul>';
 			foreach ($infoReserva as $data):
