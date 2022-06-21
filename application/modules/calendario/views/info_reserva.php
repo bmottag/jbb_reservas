@@ -78,6 +78,7 @@
 							<div class="alert alert-success">
 								<small>
 								<p>Le recomendamos llegar 20 minutos antes de su reserva para realizar el protocolo de bioseguridad.</p>
+<!--
 								<strong>Tarifas aplicadas: </strong>
 								<table class="table table-hover">
 									<thead>
@@ -108,6 +109,7 @@
 										<td class='text-center'>$10.000</td>
 									</tr>
 								</table>
+-->
 								</small>
 							</div>
 						</div>

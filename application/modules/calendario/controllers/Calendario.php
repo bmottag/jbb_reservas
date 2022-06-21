@@ -474,35 +474,7 @@ class Calendario extends CI_Controller {
 				$msj .= '<li>' . $data['nombre_completo'] . '</li>';
 			endforeach;
 			$msj .= '</ul>';		
-			$msj .= '<p><strong>* Tarifas aplicadas: </strong>';
-			$msj .= "<table>
-						<tr>
-							<th></th>
-							<th>GENERAL</th>
-							<th>TROPICARIO</th>
-						</tr>
-						<tr>					
-							<td>Mayores de 5 años en adelante</td>
-							<td>$5.000</td>
-							<td>$5.000</td>
-						</tr>
-						<tr>					
-							<td>Menores de 5 años y mayores de 62 años</td>
-							<td>Gratis</td>
-							<td>$5.000</td>
-						</tr>
-						<tr>					
-							<td>Nacionales</td>
-							<td>$5.000</td>
-							<td>$5.000</td>
-						</tr>
-						<tr>					
-							<td>Extranjeros</td>
-							<td>$5.000</td>
-							<td>$10.000</td>
-						</tr>
-					</table>
-					</p>";
+
 			$msj .= "<img src=" . base_url($infoReserva[0]['qr_code_img']) . " class='img-rounded' width='200' height='200' />";
 			$msj .= '<br>';
 			$msj .= '<strong>Código para el ingreso a las instalaciones</strong>';
