@@ -171,10 +171,11 @@ class Calendario extends CI_Controller {
 			{
 				echo '<br><p><strong>Atención:</strong><br>';
 				echo 'Se completo el cupo máximo para este horario, por favor seleccione otro.</p>';
-			}elseif($data['information'][0]['disponible'] == 2)
+/*			}elseif($data['information'][0]['disponible'] == 2)
 			{
 				echo '<br><p><strong>Atención:</strong><br>';
 				echo 'Esta fecha esta siendo asignada, por favor seleccione otra.</p>';
+*/
 			}elseif($data['information'][0]['numero_cupos_restantes'] <= 0){
 				echo '<br><p><strong>Atención:</strong><br>';
 				echo 'Se completo el cupo máximo para este horario, por favor seleccione otro.</p>';
